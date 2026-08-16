@@ -147,14 +147,17 @@
   .purpose-section .section-lead h2{color:#fff;}
   .purpose-section .section-lead p{color:rgba(255,255,255,0.88);}
   .calendly-wrap{
-    max-width:620px;
+    max-width:900px;
     margin:0 auto;
     background:#fff;
     border-radius:var(--radius);
     overflow:hidden;
     box-shadow:var(--shadow-hover);
   }
-  .calendly-inline-widget{min-width:280px;height:600px;}
+  .calendly-inline-widget{min-width:280px;height:430px;}
+  @media (max-width:640px){
+    .calendly-inline-widget{height:600px;}
+  }
 
   /* ---- Horizontal scroll rows (media wall + content) ---- */
   .scroll-row{
