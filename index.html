@@ -4,13 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&amp;sz=w256">
-<title>Bigger Than Sports and Ian Waite Media and Impact Package</title>
+<title>Ian Waite — Coach, Builder, Mentor-in-Chief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600..900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --bts-green:#1f4d2c;
     --bts-green-light:#2f6e40;
     --bts-tan:#e9e1cf;
     --bts-tan-dark:#d8cbaa;
+    --gold:#b8863c;
+    --gold-light:#d4a75c;
     --ink:#1c1c1c;
     --muted:#5b5f57;
     --card-bg:#ffffff;
@@ -18,77 +23,147 @@
     --radius:14px;
     --shadow:0 2px 10px rgba(31,77,44,0.10);
     --shadow-hover:0 10px 26px rgba(31,77,44,0.20);
+    --display-font:"Fraunces","Georgia",serif;
   }
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{
     margin:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     background:var(--page-bg);
     color:var(--ink);
   }
-  header{
+  a{color:inherit;}
+
+  /* ---- Sticky nav ---- */
+  .site-nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:12px 32px;
+    background:rgba(31,77,44,0.97);
+    backdrop-filter:blur(6px);
+  }
+  .nav-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;}
+  .nav-logo img{height:36px;width:auto;display:block;}
+  .nav-links{display:flex;align-items:center;gap:22px;}
+  .nav-links a{
+    color:#fff;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    opacity:0.9;
+  }
+  .nav-links a:hover{opacity:1;}
+  .btn-nav{
+    background:var(--gold);
+    color:#1c1c1c !important;
+    padding:9px 18px;
+    border-radius:999px;
+    font-weight:700 !important;
+    opacity:1 !important;
+    white-space:nowrap;
+  }
+  .btn-nav:hover{background:var(--gold-light);}
+
+  /* ---- Hero ---- */
+  .hero{
+    position:relative;
+    min-height:88vh;
+    display:flex;
+    align-items:flex-end;
+    overflow:hidden;
+  }
+  .hero-media{position:absolute;inset:0;}
+  .hero-media img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;}
+  .hero-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(20,38,26,0.35) 0%, rgba(16,32,22,0.55) 55%, rgba(12,26,17,0.92) 100%);
+  }
+  .hero-content{
+    position:relative;
+    color:#fff;
+    padding:0 40px 64px;
+    max-width:900px;
+  }
+  .hero-kicker{
+    display:inline-block;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--gold-light);
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-family:var(--display-font);
+    font-weight:800;
+    font-size:clamp(44px,7vw,84px);
+    line-height:1.02;
+    margin:0 0 18px;
+  }
+  .hero-sub{
+    font-size:clamp(16px,1.6vw,19px);
+    line-height:1.5;
+    color:rgba(255,255,255,0.88);
+    max-width:640px;
+    margin:0 0 30px;
+  }
+  .btn-primary{
+    display:inline-block;
+    background:var(--gold);
+    color:#1c1c1c;
+    text-decoration:none;
+    font-weight:700;
+    font-size:15px;
+    padding:15px 30px;
+    border-radius:999px;
+    transition:background .15s, transform .15s;
+  }
+  .btn-primary:hover{background:var(--gold-light);transform:translateY(-1px);}
+
+  /* ---- Section shared ---- */
+  section{padding:72px 32px;}
+  .section-inner{max-width:1320px;margin:0 auto;}
+  .section-lead{max-width:760px;margin-bottom:32px;}
+  .section-lead h2{
+    font-family:var(--display-font);
+    font-size:clamp(28px,3.4vw,42px);
+    font-weight:700;
+    color:var(--bts-green);
+    margin:0 0 14px;
+  }
+  .section-lead p{
+    font-size:16px;
+    line-height:1.6;
+    color:var(--muted);
+    margin:0;
+  }
+  .section-lead a{color:var(--bts-green);font-weight:700;text-decoration:underline;}
+
+  /* ---- Purpose / Schedule section ---- */
+  .purpose-section{
     background:linear-gradient(135deg,var(--bts-green) 0%,var(--bts-green-light) 100%);
     color:#fff;
-    padding:40px 32px 28px;
   }
-  header h1{
-    margin:0 0 10px;
-    font-size:clamp(20px,2.4vw,30px);
-    font-weight:800;
+  .purpose-section .section-lead h2{color:#fff;}
+  .purpose-section .section-lead p{color:rgba(255,255,255,0.88);}
+  .calendly-wrap{
+    background:#fff;
+    border-radius:var(--radius);
+    overflow:hidden;
+    max-width:900px;
+    box-shadow:var(--shadow-hover);
   }
-  header p{
-    margin:0;
-    color:rgba(255,255,255,0.85);
-    font-size:13.5px;
-    max-width:none;
-  }
-  .header-inner{
-    display:flex;
-    align-items:center;
-    gap:36px;
-  }
-  .home-logo{
-    display:flex;
-    align-items:center;
-    flex-shrink:0;
-    text-decoration:none;
-  }
-  .home-logo img{
-    height:150px;
-    width:auto;
-    display:block;
-  }
-  .header-text{
-    flex:1;
-    min-width:0;
-  }
-  header .tagline{
-    margin:0 0 12px;
-    font-size:18px;
-    font-weight:600;
-    color:var(--bts-tan);
-  }
-  .stats{
-    display:flex;
-    gap:28px;
-    margin-top:22px;
-    flex-wrap:wrap;
-  }
-  .stat{
-    background:rgba(255,255,255,0.12);
-    border:1px solid rgba(255,255,255,0.25);
-    border-radius:10px;
-    padding:10px 18px;
-    min-width:120px;
-  }
-  .stat .num{font-size:22px;font-weight:800;display:block;}
-  .stat .label{font-size:12px;color:rgba(255,255,255,0.8);text-transform:uppercase;letter-spacing:0.06em;}
+  .calendly-inline-widget{min-width:280px;height:700px;}
 
-  main{
-    padding:32px;
-    max-width:1320px;
-    margin:0 auto;
-  }
+  /* ---- Media wall / press ---- */
+  .press-section{background:var(--page-bg);}
   .toolbar{
     display:flex;
     gap:10px;
@@ -146,13 +221,8 @@
     object-position:center center;
     display:block;
   }
-  .thumb-wrap.logo-card{
-    background:#ffffff;
-  }
-  .thumb-wrap.logo-card img{
-    padding:22px;
-    box-sizing:border-box;
-  }
+  .thumb-wrap.logo-card{background:#ffffff;}
+  .thumb-wrap.logo-card img{padding:22px;box-sizing:border-box;}
   .thumb-fallback{
     display:none;
     position:absolute;
@@ -246,63 +316,194 @@
   .cta svg{width:14px;height:14px;transition:transform .15s;}
   .card:hover .cta svg{transform:translateX(3px);}
 
+  /* ---- Content section ---- */
+  .content-section{background:var(--bts-tan);}
+  .content-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:22px;
+  }
+  .content-card{
+    background:var(--card-bg);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    text-decoration:none;
+    color:var(--ink);
+    display:flex;
+    flex-direction:column;
+    border:1px solid rgba(31,77,44,0.06);
+    transition:transform .18s ease,box-shadow .18s ease;
+  }
+  .content-card:not(.content-placeholder):hover{
+    transform:translateY(-4px);
+    box-shadow:var(--shadow-hover);
+  }
+  .content-thumb{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--bts-green);}
+  .content-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .content-badge{
+    position:absolute;top:10px;left:10px;
+    background:rgba(0,0,0,0.55);color:#fff;
+    font-size:11px;font-weight:700;padding:4px 9px;border-radius:999px;
+    text-transform:uppercase;letter-spacing:.04em;
+  }
+  .content-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1;}
+  .content-source{font-size:12px;font-weight:700;color:var(--bts-green);text-transform:uppercase;letter-spacing:.03em;}
+  .content-title{font-size:15.5px;font-weight:700;line-height:1.35;margin:0;}
+  .content-cta{margin-top:auto;font-size:13px;font-weight:700;color:var(--bts-green);}
+  .content-placeholder{
+    border:1.5px dashed var(--bts-green-light);
+    background:rgba(255,255,255,0.5);
+    justify-content:center;
+    align-items:flex-start;
+    min-height:220px;
+  }
+  .content-badge-inline{
+    display:inline-block;
+    font-size:11px;
+    font-weight:700;
+    color:var(--bts-green);
+    background:rgba(31,77,44,0.1);
+    padding:4px 10px;
+    border-radius:999px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    margin-bottom:4px;
+  }
+
+  /* ---- Footer ---- */
+  .site-footer{
+    background:#12261a;
+    color:rgba(255,255,255,0.85);
+    padding:48px 32px 28px;
+  }
+  .footer-inner{
+    max-width:1320px;
+    margin:0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    border-bottom:1px solid rgba(255,255,255,0.15);
+    padding-bottom:28px;
+  }
+  .footer-links{display:flex;gap:20px;flex-wrap:wrap;}
+  .footer-links a{color:#fff;text-decoration:none;font-size:14px;font-weight:600;opacity:0.85;}
+  .footer-links a:hover{opacity:1;}
+  .footer-copy{
+    max-width:1320px;
+    margin:20px auto 0;
+    font-size:12.5px;
+    color:rgba(255,255,255,0.55);
+  }
+
   @media (max-width:640px){
-    header{
-      padding:24px 20px 22px;
-    }
-    .header-inner{
-      flex-direction:column;
-      align-items:flex-start;
-      gap:14px;
-    }
-    .home-logo img{
-      height:64px;
-    }
-    header h1{
-      font-size:22px;
-    }
-    header .tagline{
-      font-size:15px;
-    }
-    header p{
-      font-size:13px;
-    }
-    .desc-full{
-      display:none;
-    }
-    main{
-      padding:20px;
-    }
-    .toolbar{
-      gap:8px;
-    }
+    .site-nav{padding:10px 18px;}
+    .nav-links{gap:12px;}
+    .nav-links a:not(.btn-nav){display:none;}
+    .hero{min-height:78vh;}
+    .hero-content{padding:0 20px 40px;}
+    section{padding:48px 20px;}
+    .calendly-inline-widget{height:620px;}
+    .footer-inner{flex-direction:column;align-items:flex-start;}
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <a class="home-logo" href="https://www.biggerthansportsco.org/" target="_blank" rel="noopener noreferrer">
-      <img src="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&amp;sz=w400" alt="Bigger Than Sports home">
-    </a>
-    <div class="header-text">
-      <h1>Bigger Than Sports and Ian Waite Media and Impact Package</h1>
-      <p class="tagline">Transforming Communities Through the Power of Sports</p>
-      <p class="desc-full">Bigger Than Sports started with a simple idea in a dorm room, that student athletes need support building a plan for life after the game. Today we place Gen Z mentors inside Title I high schools across the nation, working directly with student athletes from underserved communities. Together they build a real plan for what comes next, whether that is college, a trade, or a career, so no one loses themselves when they lose the game. What started as one idea has grown into a program that has reached hundreds of students and earned some recognition we're genuinely grateful for. This page is a small window into that journey, the news coverage, the honors, and the moments in between. Thanks for taking a look.</p>
+<nav class="site-nav">
+  <a class="nav-logo" href="https://www.biggerthansportsco.org/" target="_blank" rel="noopener noreferrer">
+    <img src="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&amp;sz=w200" alt="Bigger Than Sports">
+  </a>
+  <div class="nav-links">
+    <a href="#press">Media Wall</a>
+    <a href="#content">Content</a>
+    <a class="btn-nav" href="#schedule">Schedule a Call</a>
+  </div>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-media">
+    <img src="https://drive.google.com/thumbnail?id=1ZO3jlVSBCc2Sbg69jjyYHFYi05VtT93c&amp;sz=w1600" alt="Ian Waite mentoring a student athlete">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-kicker">Coach &middot; Builder &middot; Mentor-in-Chief &middot; Gen Z Leader</span>
+    <h1>Ian Waite</h1>
+    <p class="hero-sub">Founder of Bigger Than Sports. I help organizations build what's next, whether that's their people, their strategy, or how they use AI.</p>
+    <a class="btn-primary" href="#schedule">Schedule a Call</a>
+  </div>
+</section>
+
+<section class="purpose-section" id="schedule">
+  <div class="section-inner">
+    <div class="section-lead">
+      <h2>Let's Talk</h2>
+      <p>This site exists for one reason: to start a conversation. Whether you're exploring a mentorship-style consulting partnership, need a speaker who understands how Gen Z actually thinks, or want help figuring out AI for your organization, one call is where we start. I'll help you figure out if I'm the right fit, and if I'm not, I'll do my best to point you somewhere that is.</p>
+    </div>
+    <div class="calendly-wrap">
+      <div class="calendly-inline-widget" data-url="https://calendly.com/iwaite-biggerthansportsco/30min" style="min-width:280px;height:700px;"></div>
     </div>
   </div>
-</header>
+</section>
 
-<main>
-  <div class="toolbar">
-    <button class="chip active" data-filter="all">Everything</button>
-    <button class="chip" data-filter="news">News Coverage</button>
-    <button class="chip" data-filter="photo">Photos &amp; Assets</button>
-    <button class="chip" data-filter="report">Reports</button>
+<section class="press-section" id="press">
+  <div class="section-inner">
+    <div class="section-lead">
+      <h2>Media Wall</h2>
+      <p>Press coverage, photos, and reports from the Bigger Than Sports journey. If you're a partner, sponsor, or donor exploring how to support this work, I'd love to hear from you, <a href="#schedule">schedule a call</a>.</p>
+    </div>
+    <div class="toolbar">
+      <button class="chip active" data-filter="all">Everything</button>
+      <button class="chip" data-filter="news">News Coverage</button>
+      <button class="chip" data-filter="photo">Photos &amp; Assets</button>
+      <button class="chip" data-filter="report">Reports</button>
+    </div>
+    <div class="grid" id="grid"></div>
   </div>
-  <div class="grid" id="grid"></div>
-</main>
+</section>
+
+<section class="content-section" id="content">
+  <div class="section-inner">
+    <div class="section-lead">
+      <h2>Content</h2>
+      <p>Blog posts, podcast appearances, and speaking highlights, all in one place. More is on the way.</p>
+    </div>
+    <div class="content-grid">
+      <a class="content-card" href="https://www.youtube.com/watch?v=tKWMCHaft_4" target="_blank" rel="noopener noreferrer">
+        <div class="content-thumb">
+          <img src="https://img.youtube.com/vi/tKWMCHaft_4/hqdefault.jpg" alt="Modern Creator Podcast episode with Ian Waite">
+          <span class="content-badge">Podcast</span>
+        </div>
+        <div class="content-body">
+          <span class="content-source">Modern Creator Podcast &middot; Dec 8, 2024</span>
+          <p class="content-title">Transitioning Into Your Career Path w/ Ian Waite (Ep. 2)</p>
+          <span class="content-cta">Listen / Watch &rarr;</span>
+        </div>
+      </a>
+      <div class="content-card content-placeholder">
+        <div class="content-body">
+          <span class="content-badge-inline">Coming Soon</span>
+          <p class="content-title">New blog posts, podcast features, and speaking highlights are on the way. Check back soon.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a class="btn-primary" href="#schedule">Schedule a Call</a>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/iwaite/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://www.biggerthansportsco.org/" target="_blank" rel="noopener noreferrer">Bigger Than Sports</a>
+    </div>
+  </div>
+  <div class="footer-copy">&copy; 2026 Ian Waite. All rights reserved.</div>
+</footer>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
 <script>
 const ARTICLE_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
@@ -387,7 +588,7 @@ const items = [
     type:"article",
     source:"Daily Hampshire Gazette",
     date:"Jul 14, 2025",
-    headline:"Bigger Than Sports: How Amherst's Ian Waite turned a dream into an ESPY Award",
+    headline:"“Bigger Than Sports”: How Amherst's Ian Waite turned a dream into an ESPY Award",
     url:"https://gazettenet.com/2025/07/14/amherst-regional-graduate-ian-waite-wins-billie-jean-king-youth-leadership-award-at-2025-espys-62293663/",
     img:"https://i0.wp.com/gazettenet.com/wp-content/uploads/2025/07/51172220.jpg?fit=300%2C300&ssl=1"
   },
