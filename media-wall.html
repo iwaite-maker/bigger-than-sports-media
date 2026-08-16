@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&amp;sz=w256">
+<title>Media Wall — Ian Waite &amp; Bigger Than Sports</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600..900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bts-green:#1f4d2c;
+    --bts-green-light:#2f6e40;
+    --bts-tan:#e9e1cf;
+    --bts-tan-dark:#d8cbaa;
+    --gold:#b8863c;
+    --gold-light:#d4a75c;
+    --ink:#1c1c1c;
+    --muted:#5b5f57;
+    --card-bg:#ffffff;
+    --page-bg:#f6f4ee;
+    --radius:14px;
+    --shadow:0 2px 10px rgba(31,77,44,0.10);
+    --shadow-hover:0 10px 26px rgba(31,77,44,0.20);
+    --display-font:"Fraunces","Georgia",serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--page-bg);
+    color:var(--ink);
+  }
+  a{color:inherit;}
+  .page-header{
+    background:linear-gradient(135deg,var(--bts-green) 0%,var(--bts-green-light) 100%);
+    color:#fff;
+    padding:28px 32px;
+  }
+  .page-header-inner{max-width:1320px;margin:0 auto;}
+  .back-link{
+    display:inline-block;
+    color:var(--gold-light);
+    text-decoration:none;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:12px;
+  }
+  .page-header h1{
+    font-family:var(--display-font);
+    font-size:clamp(28px,4vw,44px);
+    font-weight:800;
+    margin:0 0 8px;
+  }
+  .page-header p{margin:0;color:rgba(255,255,255,0.85);font-size:15px;max-width:640px;}
+
+  main{padding:32px;max-width:1320px;margin:0 auto;}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;}
+  .chip{
+    border:1px solid var(--bts-tan-dark);
+    background:var(--card-bg);
+    color:var(--bts-green);
+    font-size:13px;
+    font-weight:600;
+    padding:7px 14px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:background .15s,color .15s;
+  }
+  .chip.active{background:var(--bts-green);color:#fff;border-color:var(--bts-green);}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;}
+  .card{
+    background:var(--card-bg);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    text-decoration:none;
+    color:var(--ink);
+    display:flex;
+    flex-direction:column;
+    transition:transform .18s ease,box-shadow .18s ease;
+    border:1px solid rgba(31,77,44,0.06);
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);}
+  .thumb-wrap{position:relative;width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,var(--bts-green) 0%,var(--bts-green-light) 100%);overflow:hidden;}
+  .thumb-wrap img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block;}
+  .thumb-wrap.logo-card{background:#ffffff;}
+  .thumb-wrap.logo-card img{padding:22px;box-sizing:border-box;}
+  .thumb-fallback{
+    display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;
+    color:#fff;text-align:center;padding:14px;
+    background:linear-gradient(135deg,var(--bts-green) 0%,var(--bts-green-light) 100%);
+  }
+  .thumb-fallback .initials{
+    font-size:26px;font-weight:800;background:rgba(255,255,255,0.15);border-radius:50%;
+    width:56px;height:56px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;
+    border:1.5px solid rgba(255,255,255,0.4);
+  }
+  .thumb-fallback .src-name{font-size:12px;font-weight:700;opacity:0.9;text-transform:uppercase;letter-spacing:.05em;}
+  .type-badge{
+    position:absolute;top:10px;left:10px;background:rgba(0,0,0,0.55);color:#fff;
+    font-size:11px;font-weight:700;padding:4px 9px;border-radius:999px;
+    text-transform:uppercase;letter-spacing:.04em;backdrop-filter:blur(2px);
+  }
+  .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;}
+  .play-overlay svg{width:46px;height:46px;opacity:0.92;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4));}
+  .card-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1;}
+  .source-row{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;}
+  .source{font-weight:700;color:var(--bts-green);text-transform:uppercase;letter-spacing:.03em;}
+  .date{color:var(--muted);}
+  .headline{font-size:15.5px;font-weight:700;line-height:1.35;margin:0;color:var(--ink);}
+  .cta{margin-top:auto;font-size:13px;font-weight:700;color:var(--bts-green);display:flex;align-items:center;gap:6px;}
+  .cta svg{width:14px;height:14px;transition:transform .15s;}
+  .card:hover .cta svg{transform:translateX(3px);}
+
+  @media (max-width:640px){
+    .page-header{padding:22px 20px;}
+    main{padding:20px;}
+    .toolbar{gap:8px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="page-header-inner">
+    <a class="back-link" href="index.html">&larr; Back to Home</a>
+    <h1>Media Wall</h1>
+    <p>The full archive of press coverage, photos, and reports from the Bigger Than Sports journey.</p>
+  </div>
+</header>
+
+<main>
+  <div class="toolbar">
+    <button class="chip active" data-filter="all">Everything</button>
+    <button class="chip" data-filter="news">News Coverage</button>
+    <button class="chip" data-filter="photo">Photos &amp; Assets</button>
+    <button class="chip" data-filter="report">Reports</button>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<script>
+const ARTICLE_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+const PLAY_ICON = `<svg viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="11" fill="rgba(0,0,0,0.45)"/><path d="M10 8.5l6 3.5-6 3.5z" fill="white"/></svg>`;
+
+const items = [
+  {
+    type:"photo",
+    source:"Official Headshot",
+    date:"Headshot",
+    headline:"Ian Waite, Founder and Executive Director of Bigger Than Sports",
+    url:"https://drive.google.com/file/d/1TcjgqYtHnYD5f9oxDa_3SH686vrDZdEx/view",
+    img:"https://drive.google.com/thumbnail?id=1TcjgqYtHnYD5f9oxDa_3SH686vrDZdEx&sz=w800",
+    pos:"top"
+  },
+  {
+    type:"report",
+    source:"Bigger Than Sports",
+    date:"Jan-Dec 2025",
+    headline:"2025 Bigger Than Sports Annual Report",
+    url:"https://drive.google.com/file/d/19vMTHUvUIiqpqBJD-V357y3D_Y3AaxPj/view",
+    img:"https://drive.google.com/thumbnail?id=19vMTHUvUIiqpqBJD-V357y3D_Y3AaxPj&sz=w800"
+  },
+  {
+    type:"photo",
+    source:"Getty Images / ESPYs",
+    date:"Jul 16, 2025",
+    headline:"Damar Hamlin, Billie Jean King, and Ian onstage at the 2025 ESPYs",
+    url:"https://drive.google.com/file/d/1uJAspDTHf0Qklst6I3bQeqlczqoCqego/view",
+    img:"https://drive.google.com/thumbnail?id=1uJAspDTHf0Qklst6I3bQeqlczqoCqego&sz=w800",
+    pos:"top"
+  },
+  {
+    type:"photo",
+    source:"BTS Media Package",
+    date:"Panel Event",
+    headline:"Pittsburgh Steelers QB Panel Hosted by Bigger Than Sports",
+    url:"https://drive.google.com/file/d/17D0gVvKXt9-zhpSjHrvgQo2prcItoABe/view",
+    img:"https://drive.google.com/thumbnail?id=17D0gVvKXt9-zhpSjHrvgQo2prcItoABe&sz=w800"
+  },
+  {
+    type:"article",
+    source:"The New York Times Upfront (Scholastic)",
+    date:"Fall 2025",
+    headline:"New York Times Scholastic feature on Ian Waite",
+    url:"https://drive.google.com/file/d/19Ia0qN9GyslB25x5cMDPoswgfjY2dbUa/view",
+    img:"https://commons.wikimedia.org/wiki/Special:FilePath/The_New_York_Times_Logo.svg",
+    logo:true,
+    fit:"contain"
+  },
+  {
+    type:"video",
+    source:"ESPN West Palm",
+    date:"Jul 3, 2025",
+    headline:"Ian Waite's Live ESPN Interview",
+    url:"https://www.youtube.com/watch?v=BieUS5FCSCY",
+    img:"https://commons.wikimedia.org/wiki/Special:FilePath/ESPN_wordmark.svg",
+    logo:true,
+    fit:"contain"
+  },
+  {
+    type:"article",
+    source:"ABC (WPBF 25)",
+    date:"Jul 15, 2025",
+    headline:"ABC's WPBF 25 coverage of Lynn University student Ian Waite honored with the ESPY Award",
+    url:"https://www.wpbf.com/article/ian-waite-espy-awards-bigger-than-sports/65400581",
+    img:"https://commons.wikimedia.org/wiki/Special:FilePath/American_Broadcasting_Company_Logo.svg",
+    logo:true,
+    fit:"contain"
+  },
+  {
+    type:"article",
+    source:"NBC (WPTV)",
+    date:"Jul 8, 2025",
+    headline:"NBC's coverage of Lynn University student Ian Waite honored with the Billie Jean King Youth Leadership Award",
+    url:"https://www.wptv.com/sports/college-sports/lynn-university-student-to-be-honored-with-billie-jean-king-youth-leadership-award-at-the-espys",
+    img:"https://commons.wikimedia.org/wiki/Special:FilePath/NBC_logo_2022.svg",
+    logo:true,
+    fit:"contain"
+  },
+  {
+    type:"article",
+    source:"Daily Hampshire Gazette",
+    date:"Jul 14, 2025",
+    headline:"“Bigger Than Sports”: How Amherst's Ian Waite turned a dream into an ESPY Award",
+    url:"https://gazettenet.com/2025/07/14/amherst-regional-graduate-ian-waite-wins-billie-jean-king-youth-leadership-award-at-2025-espys-62293663/",
+    img:"https://i0.wp.com/gazettenet.com/wp-content/uploads/2025/07/51172220.jpg?fit=300%2C300&ssl=1"
+  },
+  {
+    type:"photo",
+    source:"ESPN Sports Humanitarian Awards",
+    date:"Jul 16, 2025",
+    headline:"Ian Waite accepting the Billie Jean King Youth Leadership Award",
+    url:"https://drive.google.com/file/d/1cYXGuIPoo789Dkg4-B9Rux4i-MgpYYqi/view",
+    img:"data:image/png;base64,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",
+    logo:true,
+    fit:"contain"
+  },
+  {
+    type:"article",
+    source:"TAPinto Boca Raton",
+    date:"Oct 23, 2025",
+    headline:"Lynn University Student Ian Waite in Boca Raton Earns National Honor for Youth Mentorship Work",
+    url:"https://www.tapinto.net/towns/boca-raton/sections/education/articles/lynn-university-student-in-boca-raton-earns-national-honor-for-youth-mentorship-work",
+    img:"https://assets.tapinto.net/uploads/articles/im/facebook_92d2dc5df412d7b78465_Image_10-21-25_at_2.32_PM.png"
+  },
+  {
+    type:"article",
+    source:"Lynn University News",
+    date:"Oct 6, 2025",
+    headline:"Leading with purpose: Lynn student Ian Waite honored for nonprofit initiative",
+    url:"https://www.lynn.edu/news/2025/leading-with-purpose-lynn-student-honored-for-nonprofit-initiative",
+    img:"https://commons.wikimedia.org/wiki/Special:FilePath/Lynn_university_logo.png",
+    logo:true,
+    fit:"contain"
+  },
+  {
+    type:"article",
+    source:"The Graphic (ARHS)",
+    date:"Jul 23, 2024",
+    headline:"Bigger Than Sports: ARHS grad Ian Waite starts non-profit to help high school athletes move to the next phase of their lives",
+    url:"http://thegraphic.arps.org/2024/07/bigger-than-sports-arhs-grad-ian-waite-starts-non-profit-to-help-high-school-athletes-move-to-the-next-phase-of-their-lives/",
+    img:"https://drive.google.com/thumbnail?id=1l3D08Vq0r6Bk1qyAGpwQ2TwI6MDvlW64&sz=w800"
+  },
+  {
+    type:"article",
+    source:"Daily Hampshire Gazette",
+    date:"Jul 11, 2024",
+    headline:"“Bigger Than Sports” non-profit hosting 3-on-3 basketball tournament Saturday in Amherst",
+    url:"https://www.gazettenet.com/Ian-Waite-hosts-first-Bigger-Than-Sports-3-on-3-basketball-tournament-event-this-weekend-55968953",
+    img:"https://drive.google.com/thumbnail?id=1-qTr6IKdNZ5vjo27BHhPtFwyokTIoGLH&sz=w800"
+  },
+  {
+    type:"article",
+    source:"iPulse News",
+    date:"Nov 6, 2024",
+    headline:"More Than Just a Game: Bigger Than Sports Hosts 3 vs. 3 Basketball Tournament in Boca Raton",
+    url:"https://ipulsenews.com/more-than-just-a-game/",
+    img:"https://ipulsenews.com/wp-content/uploads/2024/11/game-3-scaled.jpg"
+  },
+  {
+    type:"article",
+    source:"iPulse News",
+    date:"Nov 5, 2024",
+    headline:"From Field to Future: How Bigger Than Sports Is Guiding Student Athletes Toward Success",
+    url:"https://ipulsenews.com/from-field-to-future-a-path-beyond-sports/",
+    img:"https://ipulsenews.com/wp-content/uploads/2024/11/field-2-scaled.jpg"
+  },
+
+  /* ---- Photos & Media Assets (from Drive) ---- */
+  {
+    type:"photo",
+    source:"BTS Media Package",
+    date:"Community Event",
+    headline:"Bigger Than Sports community event with student athletes and mentors",
+    url:"https://drive.google.com/file/d/1QSjlHkEJ-Dy3WowiyFzLD87ELuvEWGu3/view",
+    img:"https://drive.google.com/thumbnail?id=1QSjlHkEJ-Dy3WowiyFzLD87ELuvEWGu3&sz=w800"
+  },
+  {
+    type:"photo",
+    source:"BTS Media Package",
+    date:"Panel Event",
+    headline:"Bigger Than Sports mentor panel discussion",
+    url:"https://drive.google.com/file/d/1AMkeRIpNPLh64qDfhtOedBkNuw1X5W-Y/view",
+    img:"https://drive.google.com/thumbnail?id=1AMkeRIpNPLh64qDfhtOedBkNuw1X5W-Y&sz=w800"
+  },
+  {
+    type:"photo",
+    source:"BTS Media Package",
+    date:"Panel Event",
+    headline:"Student athletes attending a Bigger Than Sports panel discussion",
+    url:"https://drive.google.com/file/d/198g7k_ByST5ps0MgH_S2OwG2BWJIZmYT/view",
+    img:"https://drive.google.com/thumbnail?id=198g7k_ByST5ps0MgH_S2OwG2BWJIZmYT&sz=w800"
+  },
+  {
+    type:"photo",
+    source:"BTS Media Package",
+    date:"Program",
+    headline:"Ian Waite in a one-on-one mentorship session with a student athlete",
+    url:"https://drive.google.com/file/d/1ZO3jlVSBCc2Sbg69jjyYHFYi05VtT93c/view",
+    img:"https://drive.google.com/thumbnail?id=1ZO3jlVSBCc2Sbg69jjyYHFYi05VtT93c&sz=w800"
+  },
+  {
+    type:"photo",
+    source:"BTS Media Package",
+    date:"Celebration",
+    headline:"Ian Waite celebrating with the Bigger Than Sports community",
+    url:"https://drive.google.com/file/d/1cZ1F57MXHTnqHVmdq3nbufhkwiiYdmrI/view",
+    img:"https://drive.google.com/thumbnail?id=1cZ1F57MXHTnqHVmdq3nbufhkwiiYdmrI&sz=w800"
+  },
+  {
+    type:"photo",
+    source:"BTS Media Package",
+    date:"Year 1",
+    headline:"Ian Waite mentoring students during Bigger Than Sports' first year",
+    url:"https://drive.google.com/file/d/1jokP7CM69vhsmRYcTzMNOf7UovSjMjrp/view",
+    img:"https://drive.google.com/thumbnail?id=1jokP7CM69vhsmRYcTzMNOf7UovSjMjrp&sz=w800"
+  },
+  {
+    type:"photo",
+    source:"BTS Media Package",
+    date:"Family",
+    headline:"The Waite Family",
+    url:"https://drive.google.com/file/d/1cweUxYKWTf03cJccUav4zKqB22FVJ5fv/view",
+    img:"https://drive.google.com/thumbnail?id=1cweUxYKWTf03cJccUav4zKqB22FVJ5fv&sz=w800"
+  },
+  {
+    type:"photo",
+    source:"BTS Media Package",
+    date:"ESPYs 2025",
+    headline:"Ian Waite backstage at the 2025 ESPYs",
+    url:"https://drive.google.com/file/d/1_TnTdSHKgTSHdISJ_X5Rc55AAFDHNrHf/view",
+    img:"https://drive.google.com/thumbnail?id=1_TnTdSHKgTSHdISJ_X5Rc55AAFDHNrHf&sz=w800"
+  },
+  {
+    type:"photo",
+    source:"BTS Brand Assets",
+    date:"Logo",
+    headline:"Bigger Than Sports' Official Logo",
+    url:"https://drive.google.com/file/d/1-qTr6IKdNZ5vjo27BHhPtFwyokTIoGLH/view",
+    img:"https://drive.google.com/thumbnail?id=1-qTr6IKdNZ5vjo27BHhPtFwyokTIoGLH&sz=w800"
+  },
+
+  /* ---- Videos ---- */
+  {
+    type:"video",
+    source:"Lynn I Pulse",
+    date:"Apr 11, 2025",
+    headline:"Lynn University's award-winning, student-led newspaper's coverage on flag football tournament",
+    url:"https://youtu.be/-wtKs-_CVJQ?feature=shared&t=931s",
+    img:"https://img.youtube.com/vi/-wtKs-_CVJQ/hqdefault.jpg"
+  },
+  {
+    type:"video",
+    source:"Lynn I Pulse",
+    date:"Jan 24, 2025",
+    headline:"Lynn University's award-winning, student-led newspaper's coverage on pickleball tournament",
+    url:"https://youtu.be/SLWnCOVn-r4?feature=shared&t=455s",
+    img:"https://img.youtube.com/vi/SLWnCOVn-r4/hqdefault.jpg"
+  },
+  {
+    type:"video",
+    source:"Modern Creator Podcast",
+    date:"Dec 8, 2024",
+    headline:"Transitioning Into Your Career Path w/ Ian Waite (Ep. 2)",
+    url:"https://www.youtube.com/watch?v=tKWMCHaft_4",
+    img:"https://img.youtube.com/vi/tKWMCHaft_4/hqdefault.jpg"
+  },
+  {
+    type:"video",
+    source:"Lynn I Pulse",
+    date:"Nov 6, 2024",
+    headline:"Lynn University's award-winning, student-led newspaper's coverage on basketball tournament",
+    url:"https://youtu.be/qJVIK6V5FFE?feature=shared",
+    img:"https://img.youtube.com/vi/qJVIK6V5FFE/hqdefault.jpg"
+  }
+];
+
+function initials(source){
+  return source.split(/\s+/).map(w=>w[0]).join("").slice(0,3).toUpperCase();
+}
+
+const BADGE_LABEL = {article:"Article",video:"Video",award:"Award / Nomination",photo:"Photo",report:"Report"};
+const CTA_LABEL = {article:"Read Article",video:"Watch Video",award:"View Document",photo:"View Photo",report:"View Report"};
+
+function matchesFilter(it, filter){
+  if(filter === "all") return true;
+  if(filter === "news") return it.type === "article" || it.type === "video";
+  return it.type === filter;
+}
+
+function render(filter){
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+  const filtered = items.filter(it => matchesFilter(it, filter));
+  filtered.forEach(it=>{
+    const a = document.createElement("a");
+    a.className = "card";
+    a.href = it.url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+
+    const thumbWrap = document.createElement("div");
+    thumbWrap.className = "thumb-wrap" + (it.logo ? " logo-card" : "");
+
+    const badge = document.createElement("span");
+    badge.className = "type-badge";
+    badge.textContent = BADGE_LABEL[it.type] || "Item";
+    thumbWrap.appendChild(badge);
+
+    if(it.img){
+      const img = document.createElement("img");
+      img.src = it.img;
+      img.alt = it.headline;
+      img.loading = "lazy";
+      img.style.objectPosition = it.pos || "center";
+      img.style.objectFit = it.fit || "cover";
+      img.onerror = function(){
+        this.style.display = "none";
+        this.nextElementSibling.style.display = "flex";
+      };
+      thumbWrap.appendChild(img);
+    }
+
+    const fallback = document.createElement("div");
+    fallback.className = "thumb-fallback";
+    if(!it.img) fallback.style.display = "flex";
+    fallback.innerHTML = `<div class="initials">${initials(it.source)}</div><div class="src-name">${it.source}</div>`;
+    thumbWrap.appendChild(fallback);
+
+    if(it.type === "video"){
+      const overlay = document.createElement("div");
+      overlay.className = "play-overlay";
+      overlay.innerHTML = PLAY_ICON;
+      thumbWrap.appendChild(overlay);
+    }
+
+    const body = document.createElement("div");
+    body.className = "card-body";
+    body.innerHTML = `
+      <div class="source-row">
+        <span class="source">${it.source}</span>
+        <span class="date">${it.date}</span>
+      </div>
+      <p class="headline">${it.headline}</p>
+      <span class="cta">${CTA_LABEL[it.type] || "Open"} ${ARTICLE_ICON}</span>
+    `;
+
+    a.appendChild(thumbWrap);
+    a.appendChild(body);
+    grid.appendChild(a);
+  });
+}
+
+document.querySelectorAll(".chip").forEach(chip=>{
+  chip.addEventListener("click", ()=>{
+    document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
+    chip.classList.add("active");
+    render(chip.dataset.filter);
+  });
+});
+
+render("all");
+</script>
+
+</body>
+</html>
