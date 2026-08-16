@@ -146,6 +146,15 @@
   .purpose-section .section-lead{margin:0 auto 26px;}
   .purpose-section .section-lead h2{color:#fff;}
   .purpose-section .section-lead p{color:rgba(255,255,255,0.88);}
+  .calendly-wrap{
+    max-width:620px;
+    margin:0 auto;
+    background:#fff;
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:var(--shadow-hover);
+  }
+  .calendly-inline-widget{min-width:280px;height:600px;}
 
   /* ---- Horizontal scroll rows (media wall + content) ---- */
   .scroll-row{
@@ -327,7 +336,9 @@
       <h2>Let's Talk</h2>
       <p>This site exists for one reason: to start a conversation. Whether you're exploring a mentorship-style consulting partnership, need a speaker who understands how Gen Z actually thinks, or want help figuring out AI for your organization, one call is where we start. I'll help you figure out if I'm the right fit, and if I'm not, I'll do my best to point you somewhere that is.</p>
     </div>
-    <a class="btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
+    <div class="calendly-wrap">
+      <div class="calendly-inline-widget" data-url="https://calendly.com/iwaite-biggerthansportsco/30min"></div>
+    </div>
   </div>
 </section>
 
