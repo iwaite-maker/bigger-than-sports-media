@@ -68,7 +68,7 @@
   /* ---- Hero (full-bleed impact photo with left-fade overlay) ---- */
   .hero{
     position:relative;
-    min-height:640px;
+    min-height:440px;
     display:flex;
     align-items:center;
     padding:0 40px;
@@ -82,7 +82,7 @@
     z-index:1;
     background:linear-gradient(100deg, rgba(15,26,10,0.92) 0%, rgba(15,26,10,0.82) 32%, rgba(15,26,10,0.45) 62%, rgba(15,26,10,0.15) 100%);
   }
-  .hero-content{position:relative;z-index:2;color:#fff;max-width:640px;padding:96px 0;}
+  .hero-content{position:relative;z-index:2;color:#fff;max-width:640px;padding:64px 0;}
   .hero-role{
     font-size:15px;
     font-weight:700;
@@ -94,7 +94,7 @@
   .hero h1{
     font-family:var(--display-font);
     font-weight:700;
-    font-size:clamp(56px,9vw,104px);
+    font-size:clamp(42px,6.5vw,76px);
     line-height:0.98;
     letter-spacing:-0.01em;
     margin:0 0 14px;
@@ -293,8 +293,8 @@
     .site-nav{padding:10px 18px;}
     .nav-links{gap:12px;}
     .nav-links a:not(.btn-nav){display:none;}
-    .hero{min-height:520px;padding:0 20px;}
-    .hero-content{padding:64px 0;max-width:100%;}
+    .hero{min-height:400px;padding:0 20px;}
+    .hero-content{padding:48px 0;max-width:100%;}
     .hero-overlay{background:linear-gradient(180deg, rgba(15,26,10,0.55) 0%, rgba(15,26,10,0.88) 55%, rgba(15,26,10,0.92) 100%);}
     section{padding:44px 20px;}
     .footer-inner{flex-direction:column;align-items:flex-start;}
@@ -453,6 +453,42 @@ const items = [
   {
     type:"photo",
     source:"BTS Media Package",
+    date:"Celebration",
+    headline:"Ian Waite celebrating with the Bigger Than Sports community",
+    url:"https://drive.google.com/file/d/1cZ1F57MXHTnqHVmdq3nbufhkwiiYdmrI/view",
+    img:"https://drive.google.com/thumbnail?id=1cZ1F57MXHTnqHVmdq3nbufhkwiiYdmrI&sz=w800"
+  },
+  {
+    type:"video",
+    source:"ESPN West Palm",
+    date:"Jul 3, 2025",
+    headline:"Ian Waite's Live ESPN Interview",
+    url:"https://www.youtube.com/watch?v=BieUS5FCSCY",
+    img:"https://commons.wikimedia.org/wiki/Special:FilePath/ESPN_wordmark.svg",
+    logo:true,
+    fit:"contain"
+  },
+  {
+    type:"article",
+    source:"The New York Times Upfront (Scholastic)",
+    date:"Fall 2025",
+    headline:"New York Times Scholastic feature on Ian Waite",
+    url:"https://drive.google.com/file/d/19Ia0qN9GyslB25x5cMDPoswgfjY2dbUa/view",
+    img:"https://commons.wikimedia.org/wiki/Special:FilePath/The_New_York_Times_Logo.svg",
+    logo:true,
+    fit:"contain"
+  },
+  {
+    type:"report",
+    source:"Bigger Than Sports",
+    date:"Jan-Dec 2025",
+    headline:"2025 Bigger Than Sports Annual Report",
+    url:"https://drive.google.com/file/d/19vMTHUvUIiqpqBJD-V357y3D_Y3AaxPj/view",
+    img:"https://drive.google.com/thumbnail?id=19vMTHUvUIiqpqBJD-V357y3D_Y3AaxPj&sz=w800"
+  },
+  {
+    type:"photo",
+    source:"BTS Media Package",
     date:"Program",
     headline:"Ian Waite in a one-on-one mentorship session with a student athlete",
     url:"https://drive.google.com/file/d/1ZO3jlVSBCc2Sbg69jjyYHFYi05VtT93c/view",
@@ -465,24 +501,6 @@ const items = [
     headline:"Bigger Than Sports community event with student athletes and mentors",
     url:"https://drive.google.com/file/d/1QSjlHkEJ-Dy3WowiyFzLD87ELuvEWGu3/view",
     img:"https://drive.google.com/thumbnail?id=1QSjlHkEJ-Dy3WowiyFzLD87ELuvEWGu3&sz=w800"
-  },
-  {
-    type:"photo",
-    source:"BTS Media Package",
-    date:"Celebration",
-    headline:"Ian Waite celebrating with the Bigger Than Sports community",
-    url:"https://drive.google.com/file/d/1cZ1F57MXHTnqHVmdq3nbufhkwiiYdmrI/view",
-    img:"https://drive.google.com/thumbnail?id=1cZ1F57MXHTnqHVmdq3nbufhkwiiYdmrI&sz=w800"
-  },
-  {
-    type:"article",
-    source:"The New York Times Upfront (Scholastic)",
-    date:"Fall 2025",
-    headline:"New York Times Scholastic feature on Ian Waite",
-    url:"https://drive.google.com/file/d/19Ia0qN9GyslB25x5cMDPoswgfjY2dbUa/view",
-    img:"https://commons.wikimedia.org/wiki/Special:FilePath/The_New_York_Times_Logo.svg",
-    logo:true,
-    fit:"contain"
   },
   {
     type:"article",
@@ -503,24 +521,6 @@ const items = [
     img:"https://commons.wikimedia.org/wiki/Special:FilePath/NBC_logo_2022.svg",
     logo:true,
     fit:"contain"
-  },
-  {
-    type:"video",
-    source:"ESPN West Palm",
-    date:"Jul 3, 2025",
-    headline:"Ian Waite's Live ESPN Interview",
-    url:"https://www.youtube.com/watch?v=BieUS5FCSCY",
-    img:"https://commons.wikimedia.org/wiki/Special:FilePath/ESPN_wordmark.svg",
-    logo:true,
-    fit:"contain"
-  },
-  {
-    type:"report",
-    source:"Bigger Than Sports",
-    date:"Jan-Dec 2025",
-    headline:"2025 Bigger Than Sports Annual Report",
-    url:"https://drive.google.com/file/d/19vMTHUvUIiqpqBJD-V357y3D_Y3AaxPj/view",
-    img:"https://drive.google.com/thumbnail?id=19vMTHUvUIiqpqBJD-V357y3D_Y3AaxPj&sz=w800"
   },
   {
     type:"article",
