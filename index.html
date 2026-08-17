@@ -113,6 +113,23 @@
     font-weight:600;
     color:var(--gold-light);
   }
+  .hero-services{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px 12px;
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:var(--gold-light);
+    margin:0 0 30px;
+  }
+  .hero-services .dot{
+    color:rgba(255,255,255,0.4);
+    font-weight:400;
+    text-transform:none;
+  }
   .btn-primary{
     display:inline-block;
     background:var(--gold);
@@ -323,6 +340,7 @@
     <h1>Ian Waite</h1>
     <p class="hero-role">Founder of Bigger Than Sports</p>
     <p class="hero-sub">Helping organizations turn potential into real <em>impact</em>.</p>
+    <p class="hero-services">Consulting<span class="dot">&middot;</span>Speaking &amp; Keynotes<span class="dot">&middot;</span>Workshops<span class="dot">&middot;</span>Coaching</p>
     <a class="btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
   </div>
 </section>
