@@ -70,6 +70,34 @@
   }
   .chip.active{background:var(--bts-green);color:#fff;border-color:var(--bts-green);}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;}
+  .scroll-row{
+    display:flex;
+    gap:20px;
+    overflow-x:auto;
+    padding-bottom:12px;
+    scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;
+  }
+  .scroll-row::-webkit-scrollbar{height:8px;}
+  .scroll-row::-webkit-scrollbar-thumb{background:var(--bts-tan-dark);border-radius:999px;}
+  .scroll-row .content-card{
+    flex:0 0 280px;
+    scroll-snap-align:start;
+  }
+  .view-more-row{margin-top:26px;text-align:center;}
+  .btn-secondary{
+    display:inline-block;
+    background:transparent;
+    color:var(--bts-green);
+    border:2px solid var(--bts-green);
+    text-decoration:none;
+    font-weight:700;
+    font-size:14px;
+    padding:11px 26px;
+    border-radius:999px;
+    transition:background .15s,color .15s;
+  }
+  .btn-secondary:hover{background:var(--bts-green);color:#fff;}
   .card{
     background:var(--card-bg);
     border-radius:var(--radius);
@@ -193,7 +221,7 @@
   <div class="content-section">
     <h2>Content</h2>
     <p class="section-sub">Blog posts, podcast appearances, and speaking highlights, all in one place. More is on the way.</p>
-    <div class="grid">
+    <div class="scroll-row">
       <a class="content-card" href="https://www.youtube.com/watch?v=tKWMCHaft_4" target="_blank" rel="noopener noreferrer">
         <div class="content-thumb">
           <img src="https://img.youtube.com/vi/tKWMCHaft_4/hqdefault.jpg" alt="Modern Creator Podcast episode with Ian Waite">
@@ -241,6 +269,9 @@
           <p class="content-title">More content is on the way. Check back soon.</p>
         </div>
       </div>
+    </div>
+    <div class="view-more-row">
+      <a class="btn-secondary" href="content.html">View More</a>
     </div>
   </div>
 </main>
