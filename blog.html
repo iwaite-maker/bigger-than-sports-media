@@ -103,6 +103,76 @@
   .btn-secondary:hover{background:var(--gold);color:#fff;}
   .view-more-row{margin-top:26px;text-align:center;}
 
+  /* ---- Horizontal scroll row (News & Stories / Content previews) ---- */
+  .scroll-row{
+    display:flex;
+    gap:20px;
+    overflow-x:auto;
+    padding-bottom:12px;
+    scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;
+  }
+  .scroll-row::-webkit-scrollbar{height:8px;}
+  .scroll-row::-webkit-scrollbar-thumb{background:var(--bts-tan-dark);border-radius:999px;}
+  .scroll-row .card,
+  .scroll-row .content-card{
+    flex:0 0 280px;
+    scroll-snap-align:start;
+  }
+
+  .press-preview-section{margin-top:48px;padding-top:40px;border-top:1px solid rgba(59,42,29,0.12);}
+  .press-preview-section h2{
+    font-family:var(--display-font);
+    font-style:italic;
+    font-size:clamp(30px,3.8vw,44px);
+    font-weight:800;
+    margin:0 0 8px;
+  }
+  .press-preview-section .section-sub{color:var(--muted);font-size:15px;margin:0 0 22px;max-width:640px;}
+  .card{
+    background:var(--card-bg);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    text-decoration:none;
+    color:var(--ink);
+    display:flex;
+    flex-direction:column;
+    transition:transform .18s ease,box-shadow .18s ease;
+    border:1px solid rgba(59,42,29,0.06);
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);}
+  .thumb-wrap{position:relative;width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 100%);overflow:hidden;}
+  .thumb-wrap img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block;}
+  .thumb-wrap.logo-card{background:#ffffff;}
+  .thumb-wrap.logo-card img{padding:22px;box-sizing:border-box;}
+  .thumb-fallback{
+    display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;
+    color:#fff;text-align:center;padding:14px;
+    background:linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 100%);
+  }
+  .thumb-fallback .initials{
+    font-size:26px;font-weight:800;background:rgba(255,255,255,0.15);border-radius:50%;
+    width:56px;height:56px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;
+    border:1.5px solid rgba(255,255,255,0.4);
+  }
+  .thumb-fallback .src-name{font-size:12px;font-weight:700;opacity:0.9;text-transform:uppercase;letter-spacing:.05em;}
+  .type-badge{
+    position:absolute;top:10px;left:10px;background:rgba(0,0,0,0.55);color:#fff;
+    font-size:11px;font-weight:700;padding:4px 9px;border-radius:999px;
+    text-transform:uppercase;letter-spacing:.04em;backdrop-filter:blur(2px);
+  }
+  .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;}
+  .play-overlay svg{width:46px;height:46px;opacity:0.92;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4));}
+  .card-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1;}
+  .source-row{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;}
+  .source{font-weight:700;color:var(--bts-green);text-transform:uppercase;letter-spacing:.03em;}
+  .date{color:var(--muted);}
+  .headline{font-size:15.5px;font-weight:700;line-height:1.35;margin:0;color:var(--ink);}
+  .cta{margin-top:auto;font-size:13px;font-weight:700;color:var(--bts-green);display:flex;align-items:center;gap:6px;}
+  .cta svg{width:14px;height:14px;transition:transform .15s;}
+  .card:hover .cta svg{transform:translateX(3px);}
+
   /* ---- Footer ---- */
   .site-footer{background:var(--bts-tan);color:rgba(28,23,18,0.85);padding:40px 32px 24px;margin-top:8px;border-top:1px solid var(--bts-tan-dark);}
   .footer-inner{
@@ -180,6 +250,60 @@
       </div>
     </div>
   </div>
+
+  <div class="press-preview-section">
+    <h2>News &amp; Stories</h2>
+    <p class="section-sub">The journey so far, told through articles and awards, a story that's reached further than expected and is only just getting started.</p>
+    <div class="scroll-row" id="press-grid"></div>
+    <div class="view-more-row">
+      <a class="btn-secondary" href="media-wall.html">View More</a>
+    </div>
+  </div>
+
+  <div class="press-preview-section">
+    <h2>Content</h2>
+    <p class="section-sub">This is where the story gets deeper, podcasts and short form content, a creative outlet growing with hopes to inspire and transform.</p>
+    <div class="scroll-row">
+      <a class="content-card" href="https://www.youtube.com/watch?v=tKWMCHaft_4" target="_blank" rel="noopener noreferrer">
+        <div class="content-thumb">
+          <img src="https://img.youtube.com/vi/tKWMCHaft_4/hqdefault.jpg" alt="Modern Creator Podcast episode with Ian Waite">
+          <span class="content-badge">Podcast</span>
+        </div>
+        <div class="content-body">
+          <span class="content-source">Modern Creator Podcast &middot; Dec 8, 2024</span>
+          <p class="content-title">Transitioning Into Your Career Path w/ Ian Waite (Ep. 2)</p>
+          <span class="content-cta">Listen / Watch &rarr;</span>
+        </div>
+      </a>
+      <div class="content-card content-placeholder">
+        <div class="content-body">
+          <span class="content-badge-inline">Coming Soon</span>
+          <p class="content-title">Podcast: Building a Nonprofit From a Dorm Room</p>
+        </div>
+      </div>
+      <div class="content-card content-placeholder">
+        <div class="content-body">
+          <span class="content-badge-inline">Coming Soon</span>
+          <p class="content-title">Speaking Highlight: AI and the Future of Youth Mentorship</p>
+        </div>
+      </div>
+      <div class="content-card content-placeholder">
+        <div class="content-body">
+          <span class="content-badge-inline">Coming Soon</span>
+          <p class="content-title">Podcast Appearance: Coaching Leaders Through Change</p>
+        </div>
+      </div>
+      <div class="content-card content-placeholder">
+        <div class="content-body">
+          <span class="content-badge-inline">Coming Soon</span>
+          <p class="content-title">More content is on the way. Check back soon.</p>
+        </div>
+      </div>
+    </div>
+    <div class="view-more-row">
+      <a class="btn-secondary" href="content.html">View More</a>
+    </div>
+  </div>
 </main>
 
 <footer class="site-footer">
@@ -196,6 +320,138 @@
   </div>
   <div class="footer-copy">&copy; 2026 Ian Waite, A Steward of Love&trade; LLC Consultant. All rights reserved.</div>
 </footer>
+
+<script>
+const ARTICLE_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+const PLAY_ICON = `<svg viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="11" fill="rgba(0,0,0,0.45)"/><path d="M10 8.5l6 3.5-6 3.5z" fill="white"/></svg>`;
+
+/* Curated preview items for the Blogs page. Full archive lives on media-wall.html */
+const pressItems = [
+  {
+    type:"photo",
+    source:"Getty Images / ESPYs",
+    date:"Jul 16, 2025",
+    headline:"Damar Hamlin, Billie Jean King, and Ian onstage at the 2025 ESPYs",
+    url:"https://drive.google.com/file/d/1uJAspDTHf0Qklst6I3bQeqlczqoCqego/view",
+    img:"https://drive.google.com/thumbnail?id=1uJAspDTHf0Qklst6I3bQeqlczqoCqego&sz=w800",
+    pos:"top"
+  },
+  {
+    type:"report",
+    source:"Bigger Than Sports",
+    date:"Jan-Dec 2025",
+    headline:"2025 Bigger Than Sports Annual Report",
+    url:"https://drive.google.com/file/d/19vMTHUvUIiqpqBJD-V357y3D_Y3AaxPj/view",
+    img:"https://drive.google.com/thumbnail?id=19vMTHUvUIiqpqBJD-V357y3D_Y3AaxPj&sz=w800"
+  },
+  {
+    type:"article",
+    source:"The New York Times Upfront (Scholastic)",
+    date:"Fall 2025",
+    headline:"New York Times Scholastic feature on Ian Waite",
+    url:"https://drive.google.com/file/d/19Ia0qN9GyslB25x5cMDPoswgfjY2dbUa/view",
+    img:"https://commons.wikimedia.org/wiki/Special:FilePath/The_New_York_Times_Logo.svg",
+    logo:true,
+    fit:"contain"
+  },
+  {
+    type:"video",
+    source:"ESPN West Palm",
+    date:"Jul 3, 2025",
+    headline:"Ian Waite's Live ESPN Interview",
+    url:"https://www.youtube.com/watch?v=BieUS5FCSCY",
+    img:"https://commons.wikimedia.org/wiki/Special:FilePath/ESPN_wordmark.svg",
+    logo:true,
+    fit:"contain"
+  },
+  {
+    type:"article",
+    source:"TAPinto Boca Raton",
+    date:"Oct 23, 2025",
+    headline:"Lynn University Student Ian Waite in Boca Raton Earns National Honor for Youth Mentorship Work",
+    url:"https://www.tapinto.net/towns/boca-raton/sections/education/articles/lynn-university-student-in-boca-raton-earns-national-honor-for-youth-mentorship-work",
+    img:"https://assets.tapinto.net/uploads/articles/im/facebook_92d2dc5df412d7b78465_Image_10-21-25_at_2.32_PM.png"
+  },
+  {
+    type:"photo",
+    source:"BTS Media Package",
+    date:"Panel Event",
+    headline:"Bigger Than Sports mentor panel discussion",
+    url:"https://drive.google.com/file/d/1AMkeRIpNPLh64qDfhtOedBkNuw1X5W-Y/view",
+    img:"https://drive.google.com/thumbnail?id=1AMkeRIpNPLh64qDfhtOedBkNuw1X5W-Y&sz=w800"
+  }
+];
+
+function initials(source){
+  return source.split(/\s+/).map(w=>w[0]).join("").slice(0,3).toUpperCase();
+}
+
+const BADGE_LABEL = {article:"Article",video:"Video",award:"Award / Nomination",photo:"Photo",report:"Report"};
+const CTA_LABEL = {article:"Read Article",video:"Watch Video",award:"View Document",photo:"View Photo",report:"View Report"};
+
+function renderPress(){
+  const grid = document.getElementById("press-grid");
+  grid.innerHTML = "";
+  pressItems.forEach(it=>{
+    const a = document.createElement("a");
+    a.className = "card";
+    a.href = it.url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+
+    const thumbWrap = document.createElement("div");
+    thumbWrap.className = "thumb-wrap" + (it.logo ? " logo-card" : "");
+
+    const img = document.createElement("img");
+    img.src = it.img;
+    img.alt = it.headline;
+    if(it.pos) img.style.objectPosition = it.pos === "top" ? "center top" : it.pos;
+    if(it.fit) img.style.objectFit = it.fit;
+    img.onerror = function(){
+      thumbWrap.classList.add("thumb-fallback-active");
+      thumbWrap.style.background = "linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 100%)";
+      img.style.display = "none";
+      fallback.style.display = "flex";
+    };
+    thumbWrap.appendChild(img);
+
+    const badge = document.createElement("span");
+    badge.className = "type-badge";
+    badge.textContent = BADGE_LABEL[it.type] || "Item";
+    thumbWrap.appendChild(badge);
+
+    if(it.type === "video"){
+      const overlay = document.createElement("div");
+      overlay.className = "play-overlay";
+      overlay.innerHTML = PLAY_ICON;
+      thumbWrap.appendChild(overlay);
+    }
+
+    const fallback = document.createElement("div");
+    fallback.className = "thumb-fallback";
+    fallback.innerHTML = `<div class="initials">${initials(it.source)}</div><div class="src-name">${it.source}</div>`;
+    thumbWrap.appendChild(fallback);
+
+    a.appendChild(thumbWrap);
+
+    const body = document.createElement("div");
+    body.className = "card-body";
+    body.innerHTML = `
+      <div class="source-row">
+        <span class="source">${it.source}</span>
+        <span class="date">${it.date}</span>
+      </div>
+      <p class="headline">${it.headline}</p>
+      <span class="cta">${CTA_LABEL[it.type] || "View"} ${ARTICLE_ICON}</span>
+    `;
+    a.appendChild(body);
+
+    grid.appendChild(a);
+  });
+}
+
+renderPress();
+</script>
 
 </body>
 </html>
