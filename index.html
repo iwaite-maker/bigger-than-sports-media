@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&amp;sz=w256">
-<title>Ian Waite — Coach, Builder, Mentor-in-Chief</title>
+<title>Ian Waite - Consultant, Entrepreneur</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600..900;1,9..144,600..900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -160,17 +160,35 @@
   .section-lead p{font-size:16px;line-height:1.6;color:var(--muted);margin:0;}
   .section-lead a{color:var(--bts-green);font-weight:700;text-decoration:underline;cursor:pointer;}
 
-  /* ---- Intro / About section (full-bleed, photo right) ---- */
-  .intro-section{background:var(--bts-green);padding:0;}
+  /* ---- Intro / About section (transparent cutout, text overlaps photo, header-tan bg) ---- */
+  .intro-section{background:var(--bts-tan);padding:0;}
   .intro-inner{
     max-width:1600px;margin:0 auto;
     display:flex;align-items:stretch;
-    min-height:680px;
+    min-height:620px;
+  }
+  .intro-photo{
+    flex:0 0 44%;
+    position:relative;
+    display:flex;
+    align-items:flex-end;
+    justify-content:flex-end;
+    z-index:1;
+    padding:40px 0 0;
+  }
+  .intro-photo img{
+    width:auto;height:100%;
+    max-width:100%;
+    object-fit:contain;
+    display:block;
   }
   .intro-text{
-    flex:1 1 54%;min-width:0;
+    flex:1 1 56%;min-width:0;
     display:flex;flex-direction:column;justify-content:center;
-    padding:70px 64px;
+    position:relative;
+    z-index:2;
+    margin-left:-100px;
+    padding:70px 64px 70px 40px;
     box-sizing:border-box;
   }
   .intro-text h2{
@@ -178,26 +196,31 @@
     font-style:italic;
     font-size:clamp(38px,5.5vw,64px);
     font-weight:800;
-    color:#fff;
+    color:var(--bts-green);
     line-height:1.05;
     margin:0 0 22px;
   }
-  .intro-text p{font-size:19px;line-height:1.65;color:rgba(255,255,255,0.88);margin:0 0 30px;max-width:600px;}
-  .intro-text p .hl{color:var(--gold-light);font-weight:700;}
-  .intro-photo{
-    flex:0 0 46%;
-    position:relative;
-    overflow:hidden;
+  .intro-text p{font-size:19px;line-height:1.65;color:var(--ink);margin:0 0 34px;max-width:600px;}
+  .intro-text p .hl{color:var(--gold);font-weight:700;}
+  .intro-cta{
+    display:inline-block;
+    background:var(--gold);
+    color:#1c1c1c;
+    text-decoration:none;
+    font-weight:800;
+    font-size:20px;
+    padding:22px 48px;
+    border-radius:999px;
+    transition:background .15s, transform .15s;
+    cursor:pointer;
+    border:none;
   }
-  .intro-photo img{
-    width:100%;height:100%;
-    object-fit:cover;object-position:center 75%;
-    display:block;position:absolute;inset:0;
-  }
+  .intro-cta:hover{background:var(--gold-light);transform:translateY(-1px);}
   @media (max-width:900px){
     .intro-inner{flex-direction:column;min-height:auto;}
-    .intro-photo{flex:0 0 420px;width:100%;position:relative;}
-    .intro-text{padding:48px 28px;}
+    .intro-photo{flex:0 0 auto;width:100%;height:380px;justify-content:center;margin-left:0;padding-top:0;}
+    .intro-text{margin-left:0;padding:40px 24px;max-width:100%;}
+    .intro-cta{font-size:17px;padding:18px 36px;}
   }
 
   /* ---- Purpose / Schedule section (compact, popup CTA) ---- */
@@ -368,7 +391,6 @@
   <div class="nav-links">
     <a href="#press">News &amp; Stories</a>
     <a href="#content">Content</a>
-    <a href="#blog">Blogs</a>
     <a class="btn-nav" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
   </div>
 </nav>
@@ -390,12 +412,12 @@
 <section class="intro-section">
   <div class="intro-inner">
     <div class="intro-photo">
-      <img src="ian-bio-photo.jpg" alt="Ian Waite speaking with a microphone outdoors">
+      <img src="ian-bio-cutout.png" alt="Ian Waite holding a microphone">
     </div>
     <div class="intro-text">
       <h2>Hey there, I'm Ian</h2>
-      <p>I founded an <span class="hl">ESPY award winning nonprofit</span>, have been covered by major outlets like <span class="hl">NBC, ESPN, and The New York Times</span>, and have already consulted for foundations that have given away <span class="hl">millions</span>, and I'm barely old enough to legally buy a beer. My purpose is simple, help people build a real plan for what's next, so they never lose themselves when they lose the game. That's the exact framework I now bring to the organizations and leaders I consult for, and it's exactly what I want to help you do too.</p>
-      <a class="btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
+      <p>I founded an <span class="hl">ESPY award winning nonprofit</span>, have been covered by major outlets like <span class="hl">NBC, ESPN, and The New York Times</span>, and have already consulted for foundations that have given away <span class="hl">millions</span>, and I'm barely old enough to legally buy a beer. My purpose is simple, serve people selflessly, give generously, care unconditionally, and help everyone I work with move toward a better version of themselves. That's the exact framework I bring to the organizations and leaders I consult for, and it's exactly what I want to help you do too.</p>
+      <a class="intro-cta" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Let's Set Up a Call</a>
     </div>
   </div>
 </section>
@@ -427,7 +449,7 @@
   <div class="section-inner">
     <div class="section-lead">
       <h2>Content</h2>
-      <p>This is where the story gets deeper, podcasts and short form content, a creative outlet growing with hopes to inspire and transform.</p>
+      <p>This is where the story gets deeper, podcasts, blog posts, and short form content, a creative outlet growing with hopes to inspire and transform.</p>
     </div>
     <div class="scroll-row">
       <a class="content-card" href="https://www.youtube.com/watch?v=tKWMCHaft_4" target="_blank" rel="noopener noreferrer">
@@ -477,62 +499,18 @@
       <div class="content-card content-placeholder">
         <div class="content-body">
           <span class="content-badge-inline">Coming Soon</span>
+          <p class="content-title">Blog: Why I Started Bigger Than Sports</p>
+        </div>
+      </div>
+      <div class="content-card content-placeholder">
+        <div class="content-body">
+          <span class="content-badge-inline">Coming Soon</span>
           <p class="content-title">More content is on the way. Check back soon.</p>
         </div>
       </div>
     </div>
     <div class="view-more-row">
       <a class="btn-secondary" href="content.html">View More</a>
-    </div>
-  </div>
-</section>
-
-<section class="press-section" id="blog">
-  <div class="section-inner">
-    <div class="section-lead">
-      <h2>Blogs</h2>
-      <p>Long-form writing and reflections on leadership, mentorship, and building something bigger than sports.</p>
-    </div>
-    <div class="scroll-row">
-      <div class="content-card content-placeholder">
-        <div class="content-body">
-          <span class="content-badge-inline">Coming Soon</span>
-          <p class="content-title">What Gen Z Actually Wants From Leadership</p>
-        </div>
-      </div>
-      <div class="content-card content-placeholder">
-        <div class="content-body">
-          <span class="content-badge-inline">Coming Soon</span>
-          <p class="content-title">Lessons From the ESPY Stage</p>
-        </div>
-      </div>
-      <div class="content-card content-placeholder">
-        <div class="content-body">
-          <span class="content-badge-inline">Coming Soon</span>
-          <p class="content-title">Building Bigger Than Sports: From Idea to Nonprofit</p>
-        </div>
-      </div>
-      <div class="content-card content-placeholder">
-        <div class="content-body">
-          <span class="content-badge-inline">Coming Soon</span>
-          <p class="content-title">What 500+ Conversations With Student-Athletes Taught Me</p>
-        </div>
-      </div>
-      <div class="content-card content-placeholder">
-        <div class="content-body">
-          <span class="content-badge-inline">Coming Soon</span>
-          <p class="content-title">Why Mentorship Matters More Than Motivation</p>
-        </div>
-      </div>
-      <div class="content-card content-placeholder">
-        <div class="content-body">
-          <span class="content-badge-inline">Coming Soon</span>
-          <p class="content-title">More blog posts are on the way. Check back soon.</p>
-        </div>
-      </div>
-    </div>
-    <div class="view-more-row">
-      <a class="btn-secondary" href="blog.html">View More</a>
     </div>
   </div>
 </section>
