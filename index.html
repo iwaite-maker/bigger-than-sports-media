@@ -186,6 +186,22 @@
     .hero-finale-layer{transition:opacity 0.4s ease;}
     .hero-video-row{transition:opacity 0.4s ease;}
   }
+  /* ---- Transition veil: a brief dip-to-black that hides the triptych/finale swap,
+     so the cut from three clips to one wide clip reads as a soft fade rather than a
+     hard jump cut between two very differently-framed shots ---- */
+  .hero-transition-veil{
+    position:absolute;
+    inset:0;
+    z-index:3;
+    background:#0a0704;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.7s ease;
+  }
+  .hero.hero-veil-active .hero-transition-veil{opacity:1;}
+  @media (prefers-reduced-motion: reduce){
+    .hero-transition-veil{transition:opacity 0.35s ease;}
+  }
   .name-intro-word{
     position:absolute;
     top:50%;
@@ -615,6 +631,7 @@
       <source src="videos/ian-hero-finale.mp4" type="video/mp4">
     </video>
   </div>
+  <div class="hero-transition-veil"></div>
   <div class="hero-scrim"></div>
   <span class="name-intro-word" id="nameWordIan">Ian</span>
   <span class="name-intro-word" id="nameWordWaite">Waite</span>
@@ -1050,29 +1067,45 @@ render();
 (function(){
   // Once every hero tile has played all the way through once (its 'ended' event fires -
   // the tile videos no longer have the `loop` attribute, so ended fires normally),
-  // crossfade from the three-video triptych to a single full-width finale clip, which
-  // then loops forever as the new steady-state hero background.
+  // swap from the three-video triptych to a single full-width finale clip, which then
+  // loops forever as the new steady-state hero background.
+  //
+  // The triptych and the finale clip are framed completely differently (three cropped
+  // verticals vs. one wide shot), so a straight opacity crossfade between them reads as
+  // a hard jump even though it's technically animated. Instead we dip to black first
+  // (.hero-transition-veil fades in over the veil's CSS transition duration), swap the
+  // layers while hidden behind that black veil, then fade the veil back out to reveal
+  // the finale clip already playing from frame 0. That reads as a soft fade rather than
+  // a cut. Keep VEIL_MS in sync with the .hero-transition-veil transition-duration in CSS.
   var hero = document.querySelector('.hero');
   var tileVideos = Array.prototype.slice.call(document.querySelectorAll('.hero-video-tile video'));
   var finale = document.querySelector('.hero-finale-layer video');
   if(!hero || !finale || tileVideos.length === 0) return;
 
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var VEIL_MS = reduced ? 350 : 700;
+  var HOLD_MS = reduced ? 40 : 80; // brief hold at full black before lifting the veil
+
   var finished = new Set();
   function onTileEnded(e){
     finished.add(e.target);
     if(finished.size >= tileVideos.length){
-      // Reset to frame 0 the instant the crossfade triggers, BEFORE the transition
-      // plays out - otherwise the finale video (autoplaying invisibly since page
-      // load) is already several seconds into its own runtime by the time it's
-      // revealed, so viewers see the wrong "beginning" and it feels like it starts
-      // late. This mirrors the round-14 tile fix: reset at the start of visibility,
-      // never after.
-      try{
-        finale.currentTime = 0;
-        var p = finale.play();
-        if(p && p.catch) p.catch(function(){});
-      }catch(err){}
-      hero.classList.add('hero-finale-active');
+      hero.classList.add('hero-veil-active');
+      setTimeout(function(){
+        // Reset to frame 0 while fully hidden behind the black veil - otherwise the
+        // finale video (autoplaying invisibly since page load) is already several
+        // seconds into its own runtime by the time it's revealed, so viewers see the
+        // wrong "beginning" and it feels like it starts late.
+        try{
+          finale.currentTime = 0;
+          var p = finale.play();
+          if(p && p.catch) p.catch(function(){});
+        }catch(err){}
+        hero.classList.add('hero-finale-active');
+        setTimeout(function(){
+          hero.classList.remove('hero-veil-active');
+        }, HOLD_MS);
+      }, VEIL_MS);
     }
   }
   tileVideos.forEach(function(v){
