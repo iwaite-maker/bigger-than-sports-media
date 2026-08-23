@@ -996,5 +996,28 @@ render();
 })();
 </script>
 
+<script>
+(function(){
+  // Each hero video tile fades in on a stagger (see .hero-video-tile animation-delay),
+  // but the <video autoplay loop> behind it keeps playing the whole time it's invisible.
+  // For a short clip, by the time the tile actually fades into view it can already be
+  // near the end of its loop. Resync each video to frame 0 the instant its tile finishes
+  // revealing, so viewers always see it start clean, not mid-loop.
+  var tiles = document.querySelectorAll('.hero-video-tile');
+  tiles.forEach(function(tile){
+    var video = tile.querySelector('video');
+    if(!video) return;
+    tile.addEventListener('animationend', function(e){
+      if(e.target !== tile) return;
+      try{
+        video.currentTime = 0;
+        var p = video.play();
+        if(p && p.catch) p.catch(function(){});
+      }catch(err){}
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
