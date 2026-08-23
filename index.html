@@ -234,21 +234,24 @@
 
   /* ---- My Services section (2x2 interactive grid) ---- */
   .services-section{
-    background:var(--page-bg);
+    background:transparent;
     text-align:center;
+    padding:48px 0 0;
   }
-  .services-section .section-lead{margin:0 auto 40px;}
+  .services-section .section-lead{margin:0 auto 32px;padding:0 32px;}
   .services-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:16px;
+    gap:0;
     text-align:left;
+    width:100%;
+    margin:0;
   }
   .service-card{
     position:relative;
     overflow:hidden;
-    border-radius:16px;
-    height:380px;
+    border-radius:0;
+    height:420px;
     isolation:isolate;
   }
   .service-media{position:absolute;inset:0;}
@@ -486,7 +489,6 @@
 </section>
 
 <section class="services-section" id="services">
-  <div class="section-inner">
     <div class="section-lead" style="margin-left:auto;margin-right:auto;">
       <h2>My Services</h2>
       <p>Four ways I partner with organizations and leaders to turn potential into real, lasting impact.</p>
@@ -533,10 +535,9 @@
         </div>
       </div>
     </div>
-    <div class="view-more-row">
+    <div class="view-more-row" style="padding:32px 32px 48px;">
       <a class="btn-primary" href="media-wall.html">View My Work</a>
     </div>
-  </div>
 </section>
 
 <section class="press-section" id="press">
