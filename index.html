@@ -596,12 +596,12 @@
   <div class="hero-video-row">
     <div class="hero-video-tile">
       <video autoplay muted playsinline preload="metadata">
-        <source src="videos/ian-clip-1.mp4" type="video/mp4">
+        <source src="videos/ian-clip-5.mp4" type="video/mp4">
       </video>
     </div>
     <div class="hero-video-tile">
       <video autoplay muted playsinline preload="metadata">
-        <source src="videos/ian-clip-5.mp4" type="video/mp4">
+        <source src="videos/ian-clip-1.mp4" type="video/mp4">
       </video>
     </div>
     <div class="hero-video-tile">
@@ -1061,11 +1061,18 @@ render();
   function onTileEnded(e){
     finished.add(e.target);
     if(finished.size >= tileVideos.length){
-      hero.classList.add('hero-finale-active');
+      // Reset to frame 0 the instant the crossfade triggers, BEFORE the transition
+      // plays out - otherwise the finale video (autoplaying invisibly since page
+      // load) is already several seconds into its own runtime by the time it's
+      // revealed, so viewers see the wrong "beginning" and it feels like it starts
+      // late. This mirrors the round-14 tile fix: reset at the start of visibility,
+      // never after.
       try{
+        finale.currentTime = 0;
         var p = finale.play();
         if(p && p.catch) p.catch(function(){});
       }catch(err){}
+      hero.classList.add('hero-finale-active');
     }
   }
   tileVideos.forEach(function(v){
