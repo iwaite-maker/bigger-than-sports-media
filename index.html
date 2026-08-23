@@ -160,6 +160,35 @@
   .section-lead p{font-size:16px;line-height:1.6;color:var(--muted);margin:0;}
   .section-lead a{color:var(--bts-green);font-weight:700;text-decoration:underline;cursor:pointer;}
 
+  /* ---- Intro / About section (photo left, bio right) ---- */
+  .intro-section{background:var(--card-bg);}
+  .intro-inner{
+    max-width:1320px;margin:0 auto;
+    display:flex;align-items:center;gap:56px;
+  }
+  .intro-photo{
+    flex:0 0 320px;
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:var(--shadow-hover);
+  }
+  .intro-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .intro-text{flex:1;min-width:0;}
+  .intro-text h2{
+    font-family:var(--display-font);
+    font-style:italic;
+    font-size:clamp(30px,4vw,46px);
+    font-weight:800;
+    color:var(--bts-green);
+    margin:0 0 16px;
+  }
+  .intro-text p{font-size:16.5px;line-height:1.7;color:var(--muted);margin:0 0 24px;max-width:640px;}
+  @media (max-width:820px){
+    .intro-inner{flex-direction:column;gap:32px;text-align:center;}
+    .intro-photo{flex:0 0 auto;width:220px;}
+    .intro-text p{margin-left:auto;margin-right:auto;}
+  }
+
   /* ---- Purpose / Schedule section (compact, popup CTA) ---- */
   .purpose-section{
     background:linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 100%);
@@ -344,6 +373,19 @@
     <p class="hero-sub">Helping organizations turn potential into real <em>impact</em>.</p>
     <p class="hero-services">Business Consulting<span class="dot">&middot;</span>Public Speaking &amp; Keynotes<span class="dot">&middot;</span>Team / Corporate Workshops<span class="dot">&middot;</span>Executive Coaching</p>
     <a class="btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
+  </div>
+</section>
+
+<section class="intro-section">
+  <div class="intro-inner">
+    <div class="intro-photo">
+      <img src="ian-bio-photo.jpg" alt="Ian Waite speaking with a microphone outdoors">
+    </div>
+    <div class="intro-text">
+      <h2>Hey there, I'm Ian</h2>
+      <p>I founded an ESPY award winning nonprofit, have been covered by major outlets like NBC, ESPN, and The New York Times, and have already consulted for foundations that have given away millions, all before I'm even old enough to legally buy a beer. My purpose is simple, help people build a real plan for what's next, so they never lose themselves when they lose the game. That's the exact framework I now bring to the organizations and leaders I consult for, and it's exactly what I want to help you do too.</p>
+      <a class="btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
+    </div>
   </div>
 </section>
 
