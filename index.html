@@ -823,7 +823,13 @@
   if(!wrapper || !section) return;
 
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var MAX_SHIFT = reduced ? 10 : 36; // total px of travel across the full scroll-through of the section
+  // Round 21: the round-20 range (36px, only 10px under reduced-motion) was too subtle to
+  // actually notice - Ian reported "it's not moving as I scroll." This is scroll-POSITION-
+  // linked motion, not autoplay, so it doesn't carry the same motion-sickness risk the
+  // reduced-motion convention elsewhere on this site guards against (a viewer only sees
+  // movement if they themselves are actively scrolling) - keep it clearly visible in both
+  // cases rather than shrinking it down near zero.
+  var MAX_SHIFT = reduced ? 46 : 64; // total px of travel across the full scroll-through of the section
 
   var ticking = false;
   function update(){
