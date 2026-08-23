@@ -95,15 +95,43 @@
   .nav-dropdown-menu a{display:block;padding:10px 12px;border-radius:8px;font-size:14px;font-weight:600;color:var(--bts-tan);opacity:0.88;white-space:nowrap;}
   .nav-dropdown-menu a:hover{background:rgba(244,231,220,0.08);opacity:1;}
 
-  /* ---- Name intro (black screen, name pops in and cycles continuously, scroll cue) ---- */
-  .name-intro{
+  /* ---- Hero: black-to-video reveal (right, then middle, then left tile) with a
+     continuously cycling name overlay in front of the videos, and a scroll cue ---- */
+  .hero{
     position:relative;
-    min-height:100vh;
-    background:#0a0704;
+    min-height:94vh;
     display:flex;
     align-items:center;
     justify-content:center;
+    padding:0 40px;
     overflow:hidden;
+    background:#0a0704;
+  }
+  .hero-video-row{position:absolute;inset:0;z-index:0;display:flex;gap:0;margin:0;padding:0;}
+  .hero-video-tile{
+    position:relative;flex:1 1 33.333%;height:100%;overflow:hidden;background:#000;
+    opacity:0;
+    animation:tileReveal 0.9s ease-out forwards;
+  }
+  .hero-video-tile video{width:100%;height:100%;object-fit:cover;display:block;}
+  .hero-video-tile .placeholder-tag{
+    position:absolute;bottom:14px;left:14px;
+    background:rgba(0,0,0,0.6);color:#fff;font-size:9.5px;font-weight:700;
+    padding:4px 9px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em;z-index:1;
+  }
+  /* reveal order: rightmost tile first, then middle, then left */
+  .hero-video-tile:nth-child(3){animation-delay:1s;}
+  .hero-video-tile:nth-child(2){animation-delay:1.25s;}
+  .hero-video-tile:nth-child(1){animation-delay:1.5s;}
+  @keyframes tileReveal{
+    from{opacity:0; transform:scale(1.04);}
+    to{opacity:1; transform:scale(1);}
+  }
+  .hero-scrim{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    background:linear-gradient(180deg, rgba(10,7,4,0.35) 0%, rgba(10,7,4,0) 20%, rgba(10,7,4,0) 80%, rgba(10,7,4,0.45) 100%);
   }
   .name-intro-word{
     position:absolute;
@@ -118,9 +146,10 @@
     color:var(--gold-light);
     opacity:0;
     white-space:nowrap;
+    z-index:2;
     animation:nameCycle 6s ease-in-out infinite;
   }
-  .name-intro-word:nth-child(2){animation-delay:3s;}
+  .name-intro-word:nth-of-type(2){animation-delay:3s;}
   @keyframes nameCycle{
     0%{opacity:0; transform:translate(-50%,-50%) translateY(20px) scale(0.92);}
     8%{opacity:1; transform:translate(-50%,-50%) translateY(0) scale(1);}
@@ -130,7 +159,7 @@
   }
   .name-intro-scroll{
     position:absolute;
-    bottom:36px;
+    bottom:56px;
     left:50%;
     transform:translateX(-50%);
     z-index:2;
@@ -150,34 +179,15 @@
     50%{transform:translateY(6px);}
   }
   @media (prefers-reduced-motion: reduce){
-    .name-intro-word{animation:none; opacity:0;}
-    .name-intro-word:first-child{opacity:1; transform:translate(-50%,-50%);}
+    .name-intro-word{animation:nameCycleReduced 6s ease-in-out infinite;}
     .name-intro-scroll svg{animation:none;}
   }
-
-  /* ---- Hero (full-bleed PLACEHOLDER video trio, swap for real vertical clips) ---- */
-  .hero{
-    position:relative;
-    min-height:clamp(460px,84vh,760px);
-    display:flex;
-    align-items:center;
-    padding:0 40px;
-    overflow:hidden;
-    background:#0a0704;
-  }
-  .hero-video-row{position:absolute;inset:0;z-index:0;display:flex;gap:0;margin:0;padding:0;}
-  .hero-video-tile{position:relative;flex:1 1 33.333%;height:100%;overflow:hidden;background:#000;}
-  .hero-video-tile video{width:100%;height:100%;object-fit:cover;display:block;}
-  .hero-video-tile .placeholder-tag{
-    position:absolute;bottom:14px;left:14px;
-    background:rgba(0,0,0,0.6);color:#fff;font-size:9.5px;font-weight:700;
-    padding:4px 9px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em;z-index:1;
-  }
-  .hero-scrim{
-    position:absolute;
-    inset:0;
-    z-index:1;
-    background:linear-gradient(180deg, rgba(10,7,4,0.35) 0%, rgba(10,7,4,0) 20%, rgba(10,7,4,0) 80%, rgba(10,7,4,0.45) 100%);
+  @keyframes nameCycleReduced{
+    0%{opacity:0;}
+    8%{opacity:1;}
+    42%{opacity:1;}
+    50%{opacity:0;}
+    100%{opacity:0;}
   }
   .btn-primary{
     display:inline-block;
@@ -529,17 +539,7 @@
   </div>
 </nav>
 
-<section class="name-intro" id="top">
-  <span class="name-intro-word">Ian</span>
-  <span class="name-intro-word">Waite</span>
-  <div class="name-intro-scroll">
-    <span>Scroll</span>
-    <svg width="14" height="20" viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M7 1V19M7 19L1 13M7 19L13 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </div>
-</section>
-<section class="hero">
+<section class="hero" id="top">
   <div class="hero-video-row">
     <div class="hero-video-tile">
       <video autoplay muted loop playsinline preload="metadata">
@@ -561,6 +561,14 @@
     </div>
   </div>
   <div class="hero-scrim"></div>
+  <span class="name-intro-word">Ian</span>
+  <span class="name-intro-word">Waite</span>
+  <div class="name-intro-scroll">
+    <span>Scroll</span>
+    <svg width="14" height="20" viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M7 1V19M7 19L1 13M7 19L13 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
 </section>
 
 <section class="intro-section">
