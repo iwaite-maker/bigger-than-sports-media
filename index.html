@@ -51,49 +51,84 @@
 
   /* ---- Sticky nav ---- */
   .site-nav{
-    position:sticky;
-    top:0;
-    z-index:50;
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:16px;
-    padding:12px 32px;
-    background:var(--dark-bg);
-    border-bottom:1px solid rgba(244,231,220,0.14);
+    padding:26px 32px;
+    background:transparent;
+    pointer-events:none;
   }
+  .site-nav > *{pointer-events:auto;}
   .nav-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;}
-  .nav-logo img{height:36px;width:auto;display:block;}
-  .nav-links{display:flex;align-items:center;gap:22px;}
-  .nav-links a{color:var(--bts-tan);text-decoration:none;font-size:14px;font-weight:600;opacity:0.85;cursor:pointer;}
-  .nav-links a:hover{opacity:1;}
-  .btn-nav{
-    background:var(--gold);
-    color:#1c1c1c !important;
-    padding:9px 18px;
+  .nav-logo img{height:42px;width:auto;display:block;filter:drop-shadow(0 3px 14px rgba(0,0,0,0.55));}
+  .nav-menu-btn{
+    width:46px;height:46px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+    background:rgba(10,7,4,0.4);
+    border:1px solid rgba(244,231,220,0.28);
     border-radius:999px;
-    font-weight:700 !important;
-    opacity:1 !important;
-    white-space:nowrap;
+    cursor:pointer;
   }
-  .btn-nav:hover{background:var(--gold-light);}
-  .nav-dropdown{position:relative;}
-  .nav-dropdown > a{display:inline-flex;align-items:center;gap:5px;}
-  .nav-dropdown > a::after{content:"";width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin-top:-2px;opacity:0.8;}
-  .nav-dropdown-menu{
-    position:absolute;top:100%;left:0;margin-top:10px;
-    background:#171009;border:1px solid rgba(244,231,220,0.14);border-radius:12px;
-    padding:8px;min-width:230px;box-shadow:0 16px 34px rgba(0,0,0,0.45);
-    opacity:0;visibility:hidden;transform:translateY(-6px);
-    transition:opacity .16s ease, transform .16s ease, visibility .16s;
-    z-index:60;
+  .nav-menu-btn span{width:18px;height:2px;background:#fff;border-radius:2px;transition:transform .2s ease, opacity .2s ease;}
+  body.nav-open .nav-menu-btn span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  body.nav-open .nav-menu-btn span:nth-child(2){opacity:0;}
+  body.nav-open .nav-menu-btn span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  .nav-overlay{
+    position:fixed;inset:0;
+    background:rgba(10,7,4,0.55);
+    z-index:98;
+    opacity:0;visibility:hidden;
+    transition:opacity .3s ease, visibility .3s;
   }
-  .nav-dropdown:hover .nav-dropdown-menu,
-  .nav-dropdown:focus-within .nav-dropdown-menu{
-    opacity:1;visibility:visible;transform:translateY(0);
+  body.nav-open .nav-overlay{opacity:1;visibility:visible;}
+  .nav-panel{
+    position:fixed;
+    top:0;right:0;bottom:0;
+    width:min(420px,86vw);
+    background:var(--gold-light);
+    z-index:99;
+    display:flex;
+    flex-direction:column;
+    padding:32px;
+    transform:translateX(100%);
+    transition:transform .35s cubic-bezier(.16,.8,.24,1);
+    overflow-y:auto;
   }
-  .nav-dropdown-menu a{display:block;padding:10px 12px;border-radius:8px;font-size:14px;font-weight:600;color:var(--bts-tan);opacity:0.88;white-space:nowrap;}
-  .nav-dropdown-menu a:hover{background:rgba(244,231,220,0.08);opacity:1;}
+  body.nav-open .nav-panel{transform:translateX(0);}
+  .nav-panel-close{
+    align-self:flex-end;
+    background:none;border:none;
+    font-size:34px;line-height:1;
+    color:#1c1712;
+    cursor:pointer;
+    margin-bottom:20px;
+  }
+  .nav-panel-links{display:flex;flex-direction:column;gap:2px;}
+  .nav-panel-links a{
+    color:#1c1712;
+    text-decoration:none;
+    font-family:var(--display-font);
+    font-weight:700;
+    font-size:clamp(21px,3.2vw,28px);
+    padding:11px 0;
+    border-bottom:1px solid rgba(28,23,18,0.12);
+  }
+  .nav-panel-links a:hover{opacity:0.6;}
+  .nav-panel-cta{
+    margin-top:20px;
+    display:inline-block;
+    background:#1c1712;
+    color:#fff !important;
+    text-align:center;
+    padding:15px 20px;
+    border-radius:999px;
+    font-size:16px !important;
+    border-bottom:none !important;
+  }
 
   /* ---- Hero: black-to-video reveal (right, then middle, then left tile) with a
      continuously cycling name overlay in front of the videos, and a scroll cue ---- */
@@ -121,8 +156,8 @@
   }
   /* reveal order: rightmost tile first, then middle, then left */
   .hero-video-tile:nth-child(3){animation-delay:1s;}
-  .hero-video-tile:nth-child(2){animation-delay:1.25s;}
-  .hero-video-tile:nth-child(1){animation-delay:1.5s;}
+  .hero-video-tile:nth-child(2){animation-delay:2.1s;}
+  .hero-video-tile:nth-child(1){animation-delay:3.2s;}
   @keyframes tileReveal{
     from{opacity:0; transform:scale(1.04);}
     to{opacity:1; transform:scale(1);}
@@ -137,24 +172,26 @@
     position:absolute;
     top:50%;
     left:50%;
-    transform:translate(-50%,-50%) translateY(20px) scale(0.92);
+    transform:translate(-50%,-50%) scale(1.4);
     font-family:var(--display-font);
     font-weight:900;
     text-transform:uppercase;
-    font-size:clamp(64px,15vw,220px);
+    font-size:clamp(96px,23vw,360px);
     letter-spacing:-0.02em;
     color:var(--gold-light);
+    text-shadow:0 0 60px rgba(198,138,83,0.5);
     opacity:0;
+    filter:blur(18px);
     white-space:nowrap;
     z-index:2;
-    animation:nameCycle 6s ease-in-out infinite;
+    animation:nameCycle 7s cubic-bezier(.34,1.56,.64,1) infinite;
   }
-  .name-intro-word:nth-of-type(2){animation-delay:3s;}
+  .name-intro-word:nth-of-type(2){animation-delay:3.5s;}
   @keyframes nameCycle{
-    0%{opacity:0; transform:translate(-50%,-50%) translateY(20px) scale(0.92);}
-    8%{opacity:1; transform:translate(-50%,-50%) translateY(0) scale(1);}
-    42%{opacity:1; transform:translate(-50%,-50%) translateY(0) scale(1);}
-    50%{opacity:0; transform:translate(-50%,-50%) translateY(-14px) scale(0.96);}
+    0%{opacity:0; transform:translate(-50%,-50%) scale(1.4); filter:blur(18px);}
+    7%{opacity:1; transform:translate(-50%,-50%) scale(1); filter:blur(0);}
+    58%{opacity:1; transform:translate(-50%,-50%) scale(1); filter:blur(0);}
+    66%{opacity:0; transform:translate(-50%,-50%) scale(0.88); filter:blur(10px);}
     100%{opacity:0;}
   }
   .name-intro-scroll{
@@ -184,9 +221,9 @@
   }
   @keyframes nameCycleReduced{
     0%{opacity:0;}
-    8%{opacity:1;}
-    42%{opacity:1;}
-    50%{opacity:0;}
+    7%{opacity:1;}
+    58%{opacity:1;}
+    66%{opacity:0;}
     100%{opacity:0;}
   }
   .btn-primary{
@@ -506,9 +543,9 @@
   .footer-copy{max-width:1320px;margin:20px auto 0;font-size:12.5px;color:rgba(244,231,220,0.45);}
 
   @media (max-width:640px){
-    .site-nav{padding:10px 18px;}
-    .nav-links{gap:12px;}
-    .nav-links a:not(.btn-nav){display:none;}
+    .site-nav{padding:18px 18px;}
+    .nav-logo img{height:34px;}
+    .nav-panel{width:100%;}
     .hero{min-height:clamp(420px,72vh,600px);padding:0 20px;}
     .hero-content{padding:48px 0;max-width:100%;}
     .hero-overlay{background:linear-gradient(180deg, rgba(26,18,12,0.55) 0%, rgba(26,18,12,0.88) 55%, rgba(26,18,12,0.92) 100%);}
@@ -523,21 +560,24 @@
   <a class="nav-logo" href="https://www.biggerthansportsco.org/" target="_blank" rel="noopener noreferrer">
     <img src="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&amp;sz=w200" alt="Bigger Than Sports">
   </a>
-  <div class="nav-links">
-    <a href="#press">News &amp; Stories</a>
-    <a href="#content">Content</a>
-    <div class="nav-dropdown">
-      <a href="index.html#services">Services</a>
-      <div class="nav-dropdown-menu">
-        <a href="business-consulting.html">Business Consulting</a>
-        <a href="public-speaking.html">Public Speaking &amp; Keynotes</a>
-        <a href="team-workshops.html">Team &amp; Corporate Workshops</a>
-        <a href="executive-coaching.html">Executive Coaching</a>
-      </div>
-    </div>
-    <a class="btn-nav" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
-  </div>
+  <button class="nav-menu-btn" type="button" aria-label="Open menu" onclick="document.body.classList.toggle('nav-open')">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-overlay" onclick="document.body.classList.remove('nav-open')"></div>
+<div class="nav-panel">
+  <button class="nav-panel-close" type="button" aria-label="Close menu" onclick="document.body.classList.remove('nav-open')">&times;</button>
+  <div class="nav-panel-links">
+    <a href="index.html#top" onclick="document.body.classList.remove('nav-open')">Home</a>
+    <a href="index.html#press" onclick="document.body.classList.remove('nav-open')">News &amp; Stories</a>
+    <a href="index.html#content" onclick="document.body.classList.remove('nav-open')">Content</a>
+    <a href="business-consulting.html">Business Consulting</a>
+    <a href="public-speaking.html">Public Speaking &amp; Keynotes</a>
+    <a href="team-workshops.html">Team &amp; Corporate Workshops</a>
+    <a href="executive-coaching.html">Executive Coaching</a>
+    <a class="nav-panel-cta" href="#" onclick="document.body.classList.remove('nav-open');Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
+  </div>
+</div>
 
 <section class="hero" id="top">
   <div class="hero-video-row">
