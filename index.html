@@ -313,13 +313,21 @@
     opacity:0;
     transform:translateX(-70px);
     transition:opacity 0.9s cubic-bezier(.16,.8,.24,1), transform 0.9s cubic-bezier(.16,.8,.24,1);
+    /* Very faint tan halo hugging the cutout's own silhouette (drop-shadow follows
+       alpha, not a rectangular box), meant to be barely-there polish, not a glow effect */
+    filter:drop-shadow(0 0 26px rgba(244,231,220,0.16));
   }
   .intro-photo img.in-view{
     opacity:1;
     transform:translateX(0);
   }
   @media (prefers-reduced-motion: reduce){
-    .intro-photo img{opacity:1;transform:none;transition:none;}
+    /* Still slides left-to-right on scroll-into-view, just a shorter distance and
+       duration - never animation:none, per the standing reduced-motion rule (this is
+       the same root cause as the earlier frozen name-cycle and frozen scroll cue bugs:
+       Ian's device runs with reduced motion on, so a fully static fallback here is why
+       the photo "doesn't move" for him at all) */
+    .intro-photo img{transform:translateX(-24px);transition:opacity 0.5s ease-out, transform 0.5s ease-out;}
   }
   .intro-text{
     flex:1 1 68%;min-width:0;
