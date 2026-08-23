@@ -206,15 +206,20 @@
   }
   .name-intro-scroll svg{animation:scrollPop 2.2s ease-in-out infinite;}
   @keyframes scrollPop{
-    0%,40%{transform:translateY(0) scale(1);}
-    48%{transform:translateY(-3px) scale(1.25);}
-    56%{transform:translateY(8px) scale(0.95);}
-    66%{transform:translateY(0) scale(1.08);}
-    76%,100%{transform:translateY(0) scale(1);}
+    0%,35%{transform:translateY(0) scale(1);}
+    45%{transform:translateY(-5px) scale(1.4);}
+    55%{transform:translateY(11px) scale(0.9);}
+    65%{transform:translateY(0) scale(1.12);}
+    75%,100%{transform:translateY(0) scale(1);}
   }
   @media (prefers-reduced-motion: reduce){
     .name-intro-word{transition:opacity 0.4s ease;}
-    .name-intro-scroll svg{animation:none;}
+    .name-intro-scroll svg{animation:scrollPopReduced 2.2s ease-in-out infinite;}
+  }
+  @keyframes scrollPopReduced{
+    0%,40%{opacity:0.6;}
+    50%{opacity:1;}
+    76%,100%{opacity:0.6;}
   }
   .btn-primary{
     display:inline-block;
