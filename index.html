@@ -165,12 +165,23 @@
     justify-content:flex-end;
     z-index:1;
     padding:24px 0 0;
+    overflow:hidden;
   }
   .intro-photo img{
     width:auto;height:100%;
     max-width:100%;
     object-fit:contain;
     display:block;
+    opacity:0;
+    transform:translateX(-70px);
+    transition:opacity 0.9s cubic-bezier(.16,.8,.24,1), transform 0.9s cubic-bezier(.16,.8,.24,1);
+  }
+  .intro-photo img.in-view{
+    opacity:1;
+    transform:translateX(0);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .intro-photo img{opacity:1;transform:none;transition:none;}
   }
   .intro-text{
     flex:1 1 68%;min-width:0;
@@ -520,6 +531,27 @@
 </footer>
 
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+<script>
+/* Slide the bio photo in the first time it scrolls into view */
+(function(){
+  const photo = document.querySelector('.intro-photo img');
+  if(!photo) return;
+  if(!('IntersectionObserver' in window)){
+    photo.classList.add('in-view');
+    return;
+  }
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach((entry)=>{
+      if(entry.isIntersecting){
+        photo.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.35});
+  observer.observe(photo);
+})();
+</script>
 
 <script>
 const ARTICLE_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
