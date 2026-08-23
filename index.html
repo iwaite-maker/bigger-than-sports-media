@@ -305,6 +305,17 @@
     padding:24px 0 0;
     overflow:hidden;
   }
+  /* Continuous scroll-linked parallax wrapper (round 20): separate from the one-time
+     "pop in" reveal on the <img> below. This has NO transition - its transform is set
+     directly from the current scroll position every frame, so the photo keeps drifting
+     further right as you scroll down through the section and drifts back left as you
+     scroll back up, with zero lag/catch-up easing. The <img>'s own opacity/translateX
+     transition still handles the initial pop-in the first time it scrolls into view. */
+  .intro-photo-parallax{
+    width:100%;height:100%;
+    display:flex;align-items:flex-end;justify-content:flex-end;
+    will-change:transform;
+  }
   .intro-photo img{
     width:auto;height:100%;
     max-width:100%;
@@ -366,6 +377,7 @@
   @media (max-width:900px){
     .intro-inner{flex-direction:column;min-height:auto;}
     .intro-photo{flex:0 0 auto;width:100%;height:280px;justify-content:center;margin-left:0;padding-top:0;}
+    .intro-photo-parallax{justify-content:center;}
     .intro-text{margin-left:0;padding:32px 24px;max-width:100%;}
     .intro-cta{font-size:15px;padding:14px 30px;}
   }
@@ -654,7 +666,9 @@
 <section class="intro-section">
   <div class="intro-inner">
     <div class="intro-photo">
-      <img src="ian-bio-cutout.png" alt="Ian Waite holding a microphone">
+      <div class="intro-photo-parallax" id="introPhotoParallax">
+        <img src="ian-bio-cutout.png" alt="Ian Waite holding a microphone">
+      </div>
     </div>
     <div class="intro-text reveal">
       <h2>Hi there, I'm Ian Waite.</h2>
@@ -793,6 +807,45 @@
     });
   }, {threshold:0.35});
   observer.observe(photo);
+})();
+</script>
+
+<script>
+/* Continuous scroll-linked parallax for the bio photo (round 20). Separate from the
+   one-time pop-in reveal above: as the intro section moves through the viewport, the
+   wrapper's translateX is recalculated on every scroll frame directly from the current
+   scroll position (no CSS transition on this element), so the photo keeps drifting
+   further right the further down you scroll through the section, and drifts back left
+   as soon as you scroll back up - continuous and reversible, never a one-shot animation. */
+(function(){
+  var wrapper = document.getElementById('introPhotoParallax');
+  var section = document.querySelector('.intro-section');
+  if(!wrapper || !section) return;
+
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var MAX_SHIFT = reduced ? 10 : 36; // total px of travel across the full scroll-through of the section
+
+  var ticking = false;
+  function update(){
+    ticking = false;
+    var rect = section.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var total = rect.height + vh;
+    if(total <= 0) return;
+    var progressed = vh - rect.top; // 0 when section is just entering from the bottom, grows as it scrolls up
+    var progress = Math.max(0, Math.min(1, progressed / total));
+    var shift = (progress - 0.5) * 2 * MAX_SHIFT; // -MAX_SHIFT..+MAX_SHIFT across the scroll-through
+    wrapper.style.transform = 'translateX(' + shift.toFixed(2) + 'px)';
+  }
+  function onScroll(){
+    if(!ticking){
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  update();
 })();
 </script>
 
