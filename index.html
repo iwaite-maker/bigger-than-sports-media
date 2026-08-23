@@ -172,21 +172,21 @@
     position:absolute;
     top:50%;
     left:50%;
-    transform:translate(-50%,-50%) scale(1.1);
-    font-family:'DM Sans', sans-serif;
-    font-weight:800;
-    text-transform:uppercase;
+    transform:translate(-50%,-50%);
+    font-family:var(--display-font);
+    font-style:italic;
+    font-weight:600;
+    text-transform:none;
     font-size:clamp(60px,14vw,220px);
     letter-spacing:-0.01em;
     color:var(--gold-light);
     opacity:0;
     white-space:nowrap;
     z-index:2;
-    transition:opacity 0.6s cubic-bezier(.34,1.12,.64,1), transform 0.6s cubic-bezier(.34,1.12,.64,1);
+    transition:opacity 0.9s ease;
   }
   .name-intro-word.is-active{
     opacity:1;
-    transform:translate(-50%,-50%) scale(1);
   }
   .name-intro-scroll{
     position:absolute;
@@ -969,8 +969,8 @@ render();
 
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var active = null;
-  var HOLD_FIRST = reduced ? 1200 : 1500;   // fast first hold: Ian shown briefly, then flips to Waite quickly
-  var HOLD_LATER = reduced ? 2600 : 4200;   // every hold after that is much slower
+  var HOLD_FIRST = reduced ? 2000 : 2800;   // first hold: Ian shown a beat, then flips to Waite
+  var HOLD_LATER = reduced ? 3200 : 5000;   // every hold after that is much slower
 
   function activate(word){
     wordIan.classList.remove('is-active');
