@@ -152,7 +152,14 @@
   .section-lead a{color:var(--bts-green);font-weight:700;text-decoration:underline;cursor:pointer;}
 
   /* ---- Intro / About section (transparent cutout, text overlaps photo, header-tan bg) ---- */
-  .intro-section{background:var(--bts-green);padding:0;}
+  .intro-section{
+    background:
+      radial-gradient(60% 80% at 8% 15%, rgba(244,231,220,0.14) 0%, rgba(244,231,220,0) 60%),
+      radial-gradient(55% 75% at 95% 85%, rgba(244,231,220,0.10) 0%, rgba(244,231,220,0) 60%),
+      linear-gradient(135deg, rgba(244,231,220,0.05) 0%, rgba(244,231,220,0) 35%, rgba(244,231,220,0) 65%, rgba(244,231,220,0.05) 100%),
+      #0d0a07;
+    padding:0;
+  }
   .intro-inner{
     max-width:1320px;margin:0 auto;
     display:flex;align-items:stretch;
