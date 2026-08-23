@@ -172,26 +172,24 @@
     position:absolute;
     top:50%;
     left:50%;
-    transform:translate(-50%,-50%) scale(1.4);
+    transform:translate(-50%,-50%) scale(1.15);
     font-family:var(--display-font);
     font-weight:900;
     text-transform:uppercase;
-    font-size:clamp(96px,23vw,360px);
+    font-size:clamp(60px,14vw,220px);
     letter-spacing:-0.02em;
     color:var(--gold-light);
-    text-shadow:0 0 60px rgba(198,138,83,0.5);
     opacity:0;
-    filter:blur(18px);
     white-space:nowrap;
     z-index:2;
     animation:nameCycle 7s cubic-bezier(.34,1.56,.64,1) infinite;
   }
   .name-intro-word:nth-of-type(2){animation-delay:3.5s;}
   @keyframes nameCycle{
-    0%{opacity:0; transform:translate(-50%,-50%) scale(1.4); filter:blur(18px);}
-    7%{opacity:1; transform:translate(-50%,-50%) scale(1); filter:blur(0);}
-    58%{opacity:1; transform:translate(-50%,-50%) scale(1); filter:blur(0);}
-    66%{opacity:0; transform:translate(-50%,-50%) scale(0.88); filter:blur(10px);}
+    0%{opacity:0; transform:translate(-50%,-50%) scale(1.15);}
+    7%{opacity:1; transform:translate(-50%,-50%) scale(1);}
+    58%{opacity:1; transform:translate(-50%,-50%) scale(1);}
+    66%{opacity:0; transform:translate(-50%,-50%) scale(0.92);}
     100%{opacity:0;}
   }
   .name-intro-scroll{
