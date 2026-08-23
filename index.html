@@ -1000,14 +1000,18 @@ render();
 (function(){
   // Each hero video tile fades in on a stagger (see .hero-video-tile animation-delay),
   // but the <video autoplay loop> behind it keeps playing the whole time it's invisible.
-  // For a short clip, by the time the tile actually fades into view it can already be
-  // near the end of its loop. Resync each video to frame 0 the instant its tile finishes
-  // revealing, so viewers always see it start clean, not mid-loop.
+  // For a short clip, by the time the tile becomes visible it can already be near the
+  // end of its loop. Resync each video to frame 0 right when its tile's reveal animation
+  // STARTS (opacity is still 0 at that instant, per @keyframes tileReveal), not when it
+  // ENDS - resetting at animationend happens while the tile is fully visible and causes
+  // a jarring visible jump/restart. Resetting at animationstart is invisible (opacity~0)
+  // and means the fade-in itself plays frames 0 onward, so viewers never see a mid-loop
+  // start and never see a visible restart cut.
   var tiles = document.querySelectorAll('.hero-video-tile');
   tiles.forEach(function(tile){
     var video = tile.querySelector('video');
     if(!video) return;
-    tile.addEventListener('animationend', function(e){
+    tile.addEventListener('animationstart', function(e){
       if(e.target !== tile) return;
       try{
         video.currentTime = 0;
