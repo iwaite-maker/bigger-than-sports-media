@@ -422,6 +422,16 @@
   .service-img-hover{opacity:0;transform:scale(1.06);}
   .service-card:hover .service-img-default{opacity:0;}
   .service-card:hover .service-img-hover{opacity:1;transform:scale(1);}
+  .service-video-hover{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;
+    display:block;
+    opacity:0;
+    transform:scale(1.06);
+    transition:opacity .6s ease, transform .8s ease;
+  }
+  .service-card:hover .service-video-hover{opacity:1;transform:scale(1);}
   .service-card:hover .service-overlay{background:linear-gradient(180deg, rgba(13,10,7,0) 0%, rgba(13,10,7,0.3) 42%, rgba(13,10,7,0.94) 100%);}
   .service-overlay{
     position:absolute;inset:0;
@@ -692,10 +702,12 @@
           <h3>Business Consulting</h3>
         </div>
       </a>
-      <a class="service-card reveal" href="public-speaking.html">
+      <a class="service-card service-card-video reveal" href="public-speaking.html">
         <div class="service-media">
-          <img class="service-img service-img-default" src="public-speaking-1.jpg" alt="Public Speaking & Keynotes">
-          <img class="service-img service-img-hover" src="public-speaking-2.jpg" alt="">
+          <img class="service-img service-img-default" src="public-speaking-espys.jpg" alt="Public Speaking & Keynotes">
+          <video class="service-video-hover" muted playsinline loop preload="metadata">
+            <source src="videos/ian-clip-2.mp4" type="video/mp4">
+          </video>
         </div>
         <div class="service-overlay">
           <h3>Public Speaking &amp; Keynotes</h3>
@@ -1177,6 +1189,44 @@ render();
   }
   tileVideos.forEach(function(v){
     v.addEventListener('ended', onTileEnded);
+  });
+})();
+</script>
+
+<script>
+(function(){
+  // Service cards can carry a <video class="service-video-hover"> instead of a second
+  // static "hover" image. CSS alone can fade its opacity in/out, but only JS can actually
+  // start/stop playback, so we drive .play()/.pause() off the same hover state the CSS
+  // opacity transition already keys off of (mouseenter/mouseleave), plus focus for
+  // keyboard users tabbing onto the card link. Each play resets currentTime to 0 first,
+  // matching the "always start from frame 0" convention used for the hero finale video,
+  // so a quick in-and-out hover never leaves the clip stuck mid-scene for the next hover.
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.service-card-video'));
+  if(!cards.length) return;
+
+  cards.forEach(function(card){
+    var video = card.querySelector('.service-video-hover');
+    if(!video) return;
+
+    function playFromStart(){
+      try{
+        video.currentTime = 0;
+        var p = video.play();
+        if(p && p.catch) p.catch(function(){});
+      }catch(err){}
+    }
+    function stopAndReset(){
+      try{
+        video.pause();
+        video.currentTime = 0;
+      }catch(err){}
+    }
+
+    card.addEventListener('mouseenter', playFromStart);
+    card.addEventListener('mouseleave', stopAndReset);
+    card.addEventListener('focus', playFromStart);
+    card.addEventListener('blur', stopAndReset);
   });
 })();
 </script>
