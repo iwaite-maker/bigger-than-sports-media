@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&amp;sz=w256">
+<title>Executive Coaching - Ian Waite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600..900;1,9..144,600..900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<style>
+
+  :root{
+    --bts-green:#3b2a1d;
+    --bts-green-light:#5c4331;
+    --bts-tan:#f4e7dc;
+    --bts-tan-dark:#e3d0ba;
+    --gold:#aa6f39;
+    --gold-light:#c68a53;
+    --ink:#1c1712;
+    --muted:#6b6259;
+    --card-bg:#ffffff;
+    --page-bg:#f8f1e6;
+    --dark-bg:#0d0a07;
+    --radius:14px;
+    --shadow:0 2px 10px rgba(59,42,29,0.10);
+    --shadow-hover:0 10px 26px rgba(59,42,29,0.20);
+    --display-font:"Fraunces","Georgia",serif;
+    --dark-gradient:
+      radial-gradient(60% 80% at 8% 15%, rgba(244,231,220,0.14) 0%, rgba(244,231,220,0) 60%),
+      radial-gradient(55% 75% at 95% 85%, rgba(244,231,220,0.10) 0%, rgba(244,231,220,0) 60%),
+      linear-gradient(135deg, rgba(244,231,220,0.05) 0%, rgba(244,231,220,0) 35%, rgba(244,231,220,0) 65%, rgba(244,231,220,0.05) 100%),
+      #0d0a07;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--dark-bg);
+    color:var(--ink);
+  }
+  a{color:inherit;}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,.8,.24,1), transform .7s cubic-bezier(.16,.8,.24,1);}
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+
+  .site-nav{
+    position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    gap:16px;padding:12px 32px;background:var(--dark-bg);border-bottom:1px solid rgba(244,231,220,0.14);
+  }
+  .nav-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;}
+  .nav-logo img{height:36px;width:auto;display:block;}
+  .nav-links{display:flex;align-items:center;gap:22px;}
+  .nav-links a{color:var(--bts-tan);text-decoration:none;font-size:14px;font-weight:600;opacity:0.85;cursor:pointer;}
+  .nav-links a:hover{opacity:1;}
+  .nav-links a.current{opacity:1;color:var(--gold-light);}
+  .btn-nav{background:var(--gold);color:#1c1c1c !important;padding:9px 18px;border-radius:999px;font-weight:700 !important;opacity:1 !important;white-space:nowrap;}
+  .btn-nav:hover{background:var(--gold-light);}
+  .nav-dropdown{position:relative;}
+  .nav-dropdown > a{display:inline-flex;align-items:center;gap:5px;}
+  .nav-dropdown > a::after{content:"";width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin-top:-2px;opacity:0.8;}
+  .nav-dropdown-menu{
+    position:absolute;top:100%;left:0;margin-top:10px;background:#171009;border:1px solid rgba(244,231,220,0.14);
+    border-radius:12px;padding:8px;min-width:230px;box-shadow:0 16px 34px rgba(0,0,0,0.45);
+    opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .16s ease, transform .16s ease, visibility .16s;z-index:60;
+  }
+  .nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown:focus-within .nav-dropdown-menu{opacity:1;visibility:visible;transform:translateY(0);}
+  .nav-dropdown-menu a{display:block;padding:10px 12px;border-radius:8px;font-size:14px;font-weight:600;color:var(--bts-tan);opacity:0.88;white-space:nowrap;}
+  .nav-dropdown-menu a:hover{background:rgba(244,231,220,0.08);opacity:1;}
+  .nav-dropdown-menu a.current{opacity:1;color:var(--gold-light);}
+
+  section{padding:64px 32px;}
+  .section-inner{max-width:1150px;margin:0 auto;}
+  .section-lead{max-width:760px;margin-bottom:28px;}
+  .section-lead h2{font-family:var(--display-font);font-style:italic;font-size:clamp(32px,4.6vw,54px);font-weight:700;color:var(--bts-tan);margin:0 0 14px;}
+  .section-lead p{font-size:16px;line-height:1.6;color:rgba(244,231,220,0.72);margin:0;}
+
+  .svc-hero{background:var(--dark-gradient);padding:0;}
+  .svc-hero-inner{max-width:1150px;margin:0 auto;display:grid;grid-template-columns:1.1fr 0.9fr;align-items:center;gap:48px;padding:70px 32px;}
+  .svc-eyebrow{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-light);margin:0 0 16px;}
+  .svc-hero h1{font-family:var(--display-font);font-style:italic;font-weight:800;font-size:clamp(36px,5.2vw,60px);color:var(--bts-tan);line-height:1.05;margin:0 0 18px;}
+  .svc-hero p{font-size:18px;line-height:1.65;color:rgba(255,255,255,0.86);margin:0 0 28px;max-width:520px;}
+  .svc-hero-photo{border-radius:18px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.5);}
+  .svc-hero-photo img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:3/4;}
+  @media (max-width:860px){
+    .svc-hero-inner{grid-template-columns:1fr;padding:44px 24px;gap:28px;}
+    .svc-hero-photo{max-width:340px;margin:0 auto;}
+  }
+
+  .btn-primary{display:inline-block;background:var(--bts-tan);color:#1c1c1c;text-decoration:none;font-weight:700;font-size:15px;padding:15px 30px;border-radius:999px;transition:background .15s, transform .15s;cursor:pointer;border:none;}
+  .btn-primary:hover{background:var(--bts-tan-dark);transform:translateY(-1px);}
+
+  .svc-about{background:var(--dark-gradient);}
+  .svc-points{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:8px;}
+  .svc-point{background:rgba(244,231,220,0.05);border:1px solid rgba(244,231,220,0.12);border-radius:14px;padding:24px;}
+  .svc-point h3{font-family:var(--display-font);font-style:italic;font-size:20px;color:var(--gold-light);margin:0 0 10px;}
+  .svc-point p{font-size:14.5px;line-height:1.6;color:rgba(244,231,220,0.72);margin:0;}
+  @media (max-width:860px){.svc-points{grid-template-columns:1fr;}}
+
+  .svc-testimonials{background:var(--dark-gradient);}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .testi-card{background:rgba(244,231,220,0.05);border:1px solid rgba(244,231,220,0.12);border-radius:16px;padding:26px;display:flex;flex-direction:column;gap:16px;}
+  .testi-quote{font-size:15.5px;line-height:1.65;color:rgba(255,255,255,0.9);margin:0;font-style:italic;}
+  .testi-quote::before{content:"\201C";}
+  .testi-quote::after{content:"\201D";}
+  .testi-attr{font-size:13px;font-weight:700;color:var(--gold-light);margin:0;text-transform:uppercase;letter-spacing:.03em;}
+  @media (max-width:860px){.testi-grid{grid-template-columns:1fr;}}
+
+  .svc-cta{background:var(--dark-gradient);text-align:center;}
+  .svc-cta .section-inner{max-width:720px;}
+  .svc-cta h2{font-family:var(--display-font);font-style:italic;font-weight:700;font-size:clamp(30px,4vw,44px);color:var(--bts-tan);margin:0 0 16px;}
+  .svc-cta p{font-size:16px;line-height:1.6;color:rgba(244,231,220,0.72);margin:0 0 28px;}
+  .svc-cta a.secondary{color:var(--gold-light);font-weight:700;}
+
+  .placeholder-note{font-size:12.5px;color:rgba(244,231,220,0.4);text-align:center;margin:-6px 0 0;}
+
+  .site-footer{background:var(--dark-gradient);color:rgba(244,231,220,0.85);padding:48px 32px 28px;}
+  .footer-inner{max-width:1320px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:32px;border-bottom:1px solid rgba(244,231,220,0.14);padding-bottom:28px;}
+  .footer-follow h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold-light);margin:0 0 12px;font-weight:700;}
+  .footer-links{display:flex;gap:20px;flex-wrap:wrap;}
+  .footer-links a{color:var(--bts-tan);text-decoration:none;font-size:14px;font-weight:600;opacity:0.8;}
+  .footer-links a:hover{opacity:1;color:var(--gold-light);}
+  .footer-copy{max-width:1320px;margin:20px auto 0;font-size:12.5px;color:rgba(244,231,220,0.45);}
+
+  @media (max-width:640px){
+    .site-nav{padding:10px 18px;}
+    .nav-links{gap:12px;}
+    .nav-links a:not(.btn-nav){display:none;}
+    section{padding:44px 20px;}
+    .footer-inner{flex-direction:column;align-items:flex-start;}
+  }
+
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a class="nav-logo" href="https://www.biggerthansportsco.org/" target="_blank" rel="noopener noreferrer">
+    <img src="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&amp;sz=w200" alt="Bigger Than Sports">
+  </a>
+  <div class="nav-links">
+    <a href="index.html#press">News &amp; Stories</a>
+    <a href="index.html#content">Content</a>
+    <div class="nav-dropdown">
+      <a href="index.html#services">Services</a>
+      <div class="nav-dropdown-menu">
+        <a href="business-consulting.html">Business Consulting</a>
+        <a href="public-speaking.html">Public Speaking &amp; Keynotes</a>
+        <a href="team-workshops.html">Team &amp; Corporate Workshops</a>
+        <a href="executive-coaching.html" class="current">Executive Coaching</a>
+      </div>
+    </div>
+    <a class="btn-nav" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
+  </div>
+</nav>
+
+<section class="svc-hero">
+  <div class="svc-hero-inner">
+    <div class="svc-hero-text reveal">
+      <p class="svc-eyebrow">Executive Coaching</p>
+      <h1>One-on-one coaching for leaders in transition</h1>
+      <p>Whether you're stepping into a new role, scaling an organization, or trying to figure out who you are outside of the job title, I offer focused one-on-one coaching built around clear goals, honest accountability, and a framework for growth that holds up under real pressure.</p>
+      <a class="btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Feel free to schedule time on my calendar here</a>
+    </div>
+    <div class="svc-hero-photo reveal">
+      <img src="executive-coaching-1.jpg" alt="Ian Waite - Executive Coaching">
+    </div>
+  </div>
+</section>
+
+<section class="svc-about">
+  <div class="section-inner">
+    <div class="section-lead reveal">
+      <h2>What This Looks Like</h2>
+    </div>
+    <div class="svc-points">
+      <div class="svc-point reveal">
+        <h3>Goal-Setting & Accountability</h3>
+        <p>Turning vague ambition into a concrete plan, with regular check-ins that keep momentum from stalling out.</p>
+      </div>
+      <div class="svc-point reveal">
+        <h3>Leadership Transition Support</h3>
+        <p>Practical support for stepping into new responsibility, new titles, or new expectations without losing your footing.</p>
+      </div>
+      <div class="svc-point reveal">
+        <h3>Purpose-Driven Growth</h3>
+        <p>Coaching rooted in identity and values first, so the professional growth that follows actually feels sustainable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="svc-testimonials">
+  <div class="section-inner">
+    <div class="section-lead reveal">
+      <h2>What People Are Saying</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <p class="testi-quote">These sessions gave me a level of clarity about my next career move that I hadn't been able to find on my own after months of trying.</p>
+        <p class="testi-attr">Rising Executive, Nonprofit Sector</p>
+      </div>
+      <div class="testi-card reveal">
+        <p class="testi-quote">He holds you accountable without making you feel judged, which is a harder balance to strike than people realize.</p>
+        <p class="testi-attr">Founder, Early-Stage Organization</p>
+      </div>
+      <div class="testi-card reveal">
+        <p class="testi-quote">I came in looking for career advice and left with a much clearer sense of who I actually want to be as a leader.</p>
+        <p class="testi-attr">Program Manager, Community Organization</p>
+      </div>
+    </div>
+    <p class="placeholder-note">Sample testimonials shown for now, real client stories coming soon.</p>
+  </div>
+</section>
+
+<section class="svc-cta">
+  <div class="section-inner reveal">
+    <h2>Let's See How We Can Work Together</h2>
+    <p>If executive coaching sounds like what your organization or team needs right now, feel free to schedule time on my calendar here, or I'm happy to work around your schedule.</p>
+    <a class="btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner reveal">
+    <a class="btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
+    <div class="footer-follow">
+      <h3>Follow Me</h3>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/iwaite/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://www.instagram.com/ian_waite/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.biggerthansportsco.org/" target="_blank" rel="noopener noreferrer">Bigger Than Sports</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copy">&copy; 2026 Ian Waite, A Steward of Love&trade; LLC Consultant. All rights reserved.</div>
+</footer>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script>
+(function(){
+  function reveal(root){
+    const els = (root||document).querySelectorAll('.reveal:not(.in-view)');
+    if(!('IntersectionObserver' in window)){
+      els.forEach(el=>el.classList.add('in-view'));
+      return;
+    }
+    if(!window.__revealObserver){
+      window.__revealObserver = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            entry.target.classList.add('in-view');
+            window.__revealObserver.unobserve(entry.target);
+          }
+        });
+      }, {threshold:0.12});
+    }
+    els.forEach(el=>window.__revealObserver.observe(el));
+  }
+  window.__reveal = reveal;
+  document.addEventListener('DOMContentLoaded', ()=>reveal());
+})();
+</script>
+
+</body>
+</html>

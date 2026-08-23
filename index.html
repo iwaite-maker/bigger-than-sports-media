@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&sz=w256">
+<link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&amp;sz=w256">
 <title>Ian Waite - Consultant, Entrepreneur</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,20 +21,33 @@
     --muted:#6b6259;
     --card-bg:#ffffff;
     --page-bg:#f8f1e6;
+    --dark-bg:#0d0a07;
     --radius:14px;
     --shadow:0 2px 10px rgba(59,42,29,0.10);
     --shadow-hover:0 10px 26px rgba(59,42,29,0.20);
     --display-font:"Fraunces","Georgia",serif;
+    --dark-gradient:
+      radial-gradient(60% 80% at 8% 15%, rgba(244,231,220,0.14) 0%, rgba(244,231,220,0) 60%),
+      radial-gradient(55% 75% at 95% 85%, rgba(244,231,220,0.10) 0%, rgba(244,231,220,0) 60%),
+      linear-gradient(135deg, rgba(244,231,220,0.05) 0%, rgba(244,231,220,0) 35%, rgba(244,231,220,0) 65%, rgba(244,231,220,0.05) 100%),
+      #0d0a07;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
     margin:0;
     font-family:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background:var(--page-bg);
+    background:var(--dark-bg);
     color:var(--ink);
   }
   a{color:inherit;}
+
+  /* ---- Scroll reveal ---- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,.8,.24,1), transform .7s cubic-bezier(.16,.8,.24,1);}
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
 
   /* ---- Sticky nav ---- */
   .site-nav{
@@ -46,13 +59,13 @@
     justify-content:space-between;
     gap:16px;
     padding:12px 32px;
-    background:var(--bts-tan);
-    border-bottom:1px solid var(--bts-tan-dark);
+    background:var(--dark-bg);
+    border-bottom:1px solid rgba(244,231,220,0.14);
   }
   .nav-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;}
   .nav-logo img{height:36px;width:auto;display:block;}
   .nav-links{display:flex;align-items:center;gap:22px;}
-  .nav-links a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;opacity:0.9;cursor:pointer;}
+  .nav-links a{color:var(--bts-tan);text-decoration:none;font-size:14px;font-weight:600;opacity:0.85;cursor:pointer;}
   .nav-links a:hover{opacity:1;}
   .btn-nav{
     background:var(--gold);
@@ -64,23 +77,46 @@
     white-space:nowrap;
   }
   .btn-nav:hover{background:var(--gold-light);}
+  .nav-dropdown{position:relative;}
+  .nav-dropdown > a{display:inline-flex;align-items:center;gap:5px;}
+  .nav-dropdown > a::after{content:"";width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin-top:-2px;opacity:0.8;}
+  .nav-dropdown-menu{
+    position:absolute;top:100%;left:0;margin-top:10px;
+    background:#171009;border:1px solid rgba(244,231,220,0.14);border-radius:12px;
+    padding:8px;min-width:230px;box-shadow:0 16px 34px rgba(0,0,0,0.45);
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:opacity .16s ease, transform .16s ease, visibility .16s;
+    z-index:60;
+  }
+  .nav-dropdown:hover .nav-dropdown-menu,
+  .nav-dropdown:focus-within .nav-dropdown-menu{
+    opacity:1;visibility:visible;transform:translateY(0);
+  }
+  .nav-dropdown-menu a{display:block;padding:10px 12px;border-radius:8px;font-size:14px;font-weight:600;color:var(--bts-tan);opacity:0.88;white-space:nowrap;}
+  .nav-dropdown-menu a:hover{background:rgba(244,231,220,0.08);opacity:1;}
 
-  /* ---- Hero (headline + three vertical video tiles) ---- */
+  /* ---- Hero (full-bleed impact photo with left-fade overlay) ---- */
   .hero{
     position:relative;
+    min-height:clamp(460px,84vh,760px);
     display:flex;
-    flex-direction:column;
     align-items:center;
-    justify-content:center;
-    min-height:100vh;
-    padding:40px;
+    padding:0 40px;
     overflow:hidden;
-    background:#0a0704;
   }
-  .hero-content{position:relative;z-index:2;color:#fff;max-width:720px;text-align:center;padding:0;}
-  @media (max-width:640px){
-    .hero{min-height:80vh;padding:24px;}
+  .hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden;}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 74%;display:block;transform:scale(1.04);transform-origin:center 55%;}
+  .hero-overlay{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    background:
+      radial-gradient(65% 70% at 2% 0%, rgba(18,12,8,0.62) 0%, rgba(18,12,8,0) 68%),
+      radial-gradient(65% 70% at 98% 0%, rgba(18,12,8,0.64) 0%, rgba(18,12,8,0) 65%),
+      linear-gradient(180deg, rgba(18,12,8,0.5) 0%, rgba(18,12,8,0.32) 16%, rgba(18,12,8,0.12) 32%, rgba(18,12,8,0) 46%, rgba(18,12,8,0) 62%, rgba(26,18,12,0.32) 100%),
+      linear-gradient(100deg, rgba(26,18,12,0.72) 0%, rgba(26,18,12,0.58) 32%, rgba(26,18,12,0.3) 62%, rgba(26,18,12,0.08) 100%);
   }
+  .hero-content{position:relative;z-index:2;color:#fff;max-width:640px;padding:64px 0;}
   .hero-role{
     font-size:15px;
     font-weight:700;
@@ -102,7 +138,6 @@
     display:flex;
     flex-wrap:wrap;
     align-items:center;
-    justify-content:center;
     gap:8px 12px;
     font-size:13px;
     font-weight:700;
@@ -131,56 +166,6 @@
   }
   .btn-primary:hover{background:var(--bts-tan-dark);transform:translateY(-1px);}
 
-  /* ---- Hero video trio (PLACEHOLDER stock clips - swap for real vertical videos) ----
-     Full-bleed: three videos fill the entire hero, text sits on top of them. ---- */
-  .hero-video-row{
-    position:absolute;
-    inset:0;
-    z-index:0;
-    display:flex;
-    gap:0;
-    margin:0;
-    padding:0;
-  }
-  .hero-video-tile{
-    position:relative;
-    flex:1 1 33.333%;
-    height:100%;
-    overflow:hidden;
-    background:#000;
-  }
-  .hero-video-tile video{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-  }
-  .hero-video-tile .placeholder-tag{
-    position:absolute;
-    bottom:14px;
-    left:14px;
-    background:rgba(0,0,0,0.6);
-    color:#fff;
-    font-size:9.5px;
-    font-weight:700;
-    padding:4px 9px;
-    border-radius:999px;
-    text-transform:uppercase;
-    letter-spacing:.05em;
-    z-index:1;
-  }
-  .hero-scrim{
-    position:absolute;
-    inset:0;
-    z-index:1;
-    background:
-      linear-gradient(180deg, rgba(10,7,4,0.55) 0%, rgba(10,7,4,0.35) 38%, rgba(10,7,4,0.65) 100%);
-  }
-  @media (max-width:640px){
-    .hero-video-row{flex-direction:row;}
-    .hero-video-tile{flex:1 1 33.333%;}
-  }
-
   /* ---- Section shared ---- */
   section{padding:64px 32px;}
   .section-inner{max-width:1320px;margin:0 auto;}
@@ -190,19 +175,15 @@
     font-style:italic;
     font-size:clamp(38px,5.4vw,66px);
     font-weight:700;
-    color:var(--bts-green);
+    color:var(--bts-tan);
     margin:0 0 14px;
   }
-  .section-lead p{font-size:16px;line-height:1.6;color:var(--muted);margin:0;}
-  .section-lead a{color:var(--bts-green);font-weight:700;text-decoration:underline;cursor:pointer;}
+  .section-lead p{font-size:16px;line-height:1.6;color:rgba(244,231,220,0.72);margin:0;}
+  .section-lead a{color:var(--gold-light);font-weight:700;text-decoration:underline;cursor:pointer;}
 
   /* ---- Intro / About section (transparent cutout, text overlaps photo, header-tan bg) ---- */
   .intro-section{
-    background:
-      radial-gradient(60% 80% at 8% 15%, rgba(244,231,220,0.14) 0%, rgba(244,231,220,0) 60%),
-      radial-gradient(55% 75% at 95% 85%, rgba(244,231,220,0.10) 0%, rgba(244,231,220,0) 60%),
-      linear-gradient(135deg, rgba(244,231,220,0.05) 0%, rgba(244,231,220,0) 35%, rgba(244,231,220,0) 65%, rgba(244,231,220,0.05) 100%),
-      #0d0a07;
+    background:var(--dark-gradient);
     padding:0;
   }
   .intro-inner{
@@ -277,15 +258,74 @@
     .intro-cta{font-size:15px;padding:14px 30px;}
   }
 
-  /* ---- Purpose / Schedule section (compact, popup CTA) ---- */
-  .purpose-section{
-    background:linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 100%);
-    color:#fff;
+  /* ---- My Services section (full-bleed interactive row) ---- */
+  .services-section{
+    background:var(--dark-gradient);
     text-align:center;
+    padding:28px 0 40px;
   }
-  .purpose-section .section-lead{margin:0 auto 26px;}
-  .purpose-section .section-lead h2{color:#fff;}
-  .purpose-section .section-lead p{color:rgba(255,255,255,0.92);}
+  .services-section .section-lead{margin:0 auto 18px;padding:0 32px;}
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0;
+    text-align:left;
+    width:100%;
+    margin:0;
+  }
+  .service-card{
+    position:relative;
+    overflow:hidden;
+    border-radius:0;
+    height:420px;
+    isolation:isolate;
+    display:block;
+    text-decoration:none;
+  }
+  .services-grid .service-card:nth-child(1){transition-delay:.05s}
+  .services-grid .service-card:nth-child(2){transition-delay:.12s}
+  .services-grid .service-card:nth-child(3){transition-delay:.19s}
+  .services-grid .service-card:nth-child(4){transition-delay:.26s}
+  .service-media{position:absolute;inset:0;}
+  .service-img{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;
+    display:block;
+    transition:opacity .6s ease, transform .8s ease;
+  }
+  .service-img-default{opacity:1;transform:scale(1);}
+  .service-img-hover{opacity:0;transform:scale(1.06);}
+  .service-card:hover .service-img-default{opacity:0;}
+  .service-card:hover .service-img-hover{opacity:1;transform:scale(1);}
+  .service-card:hover .service-overlay{background:linear-gradient(180deg, rgba(13,10,7,0) 0%, rgba(13,10,7,0.3) 42%, rgba(13,10,7,0.94) 100%);}
+  .service-overlay{
+    position:absolute;inset:0;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:22px;
+    background:linear-gradient(180deg, rgba(13,10,7,0) 0%, rgba(13,10,7,0.2) 42%, rgba(13,10,7,0.9) 100%);
+    transition:background .3s ease;
+  }
+  .service-overlay h3{
+    font-family:var(--display-font);
+    font-style:italic;
+    font-size:clamp(18px,2vw,23px);
+    font-weight:800;
+    color:var(--bts-tan);
+    line-height:1.15;
+    margin:0;
+  }
+  @media (max-width:900px){
+    .services-grid{grid-template-columns:1fr 1fr;}
+    .service-card{height:320px;}
+  }
+  @media (max-width:520px){
+    .services-grid{grid-template-columns:1fr;}
+    .service-card{height:340px;}
+  }
 
   /* ---- Horizontal scroll rows (media wall + content) ---- */
   .scroll-row{
@@ -307,8 +347,8 @@
   .btn-secondary{
     display:inline-block;
     background:transparent;
-    color:var(--gold);
-    border:2px solid var(--gold);
+    color:var(--gold-light);
+    border:2px solid var(--gold-light);
     text-decoration:none;
     font-weight:700;
     font-size:14px;
@@ -316,10 +356,10 @@
     border-radius:999px;
     transition:background .15s,color .15s;
   }
-  .btn-secondary:hover{background:var(--gold);color:#fff;}
+  .btn-secondary:hover{background:var(--gold-light);color:#1c1712;}
 
   /* ---- Media wall / press cards ---- */
-  .press-section{background:var(--page-bg);}
+  .press-section{background:var(--dark-gradient);}
   .card{
     background:var(--card-bg);
     border-radius:var(--radius);
@@ -371,7 +411,7 @@
   .card:hover .cta svg{transform:translateX(3px);}
 
   /* ---- Content section ---- */
-  .content-section{background:var(--bts-tan);}
+  .content-section{background:var(--dark-gradient);}
   .content-card{
     background:var(--card-bg);
     border-radius:var(--radius);
@@ -408,28 +448,32 @@
     background:rgba(59,42,29,0.1);padding:4px 10px;border-radius:999px;
     text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;
   }
+  .content-section .scroll-row .content-card:nth-child(1){transition-delay:.05s}
+  .content-section .scroll-row .content-card:nth-child(2){transition-delay:.12s}
+  .content-section .scroll-row .content-card:nth-child(3){transition-delay:.19s}
 
   /* ---- Footer ---- */
-  .site-footer{background:var(--bts-tan);color:rgba(28,23,18,0.85);padding:48px 32px 28px;}
+  .site-footer{background:var(--dark-gradient);color:rgba(244,231,220,0.85);padding:48px 32px 28px;}
   .footer-inner{
     max-width:1320px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:flex-start;
-    justify-content:space-between;gap:32px;border-bottom:1px solid var(--bts-tan-dark);padding-bottom:28px;
+    justify-content:space-between;gap:32px;border-bottom:1px solid rgba(244,231,220,0.14);padding-bottom:28px;
   }
   .footer-follow h3{
-    font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);
+    font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold-light);
     margin:0 0 12px;font-weight:700;
   }
   .footer-links{display:flex;gap:20px;flex-wrap:wrap;}
-  .footer-links a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;opacity:0.85;}
-  .footer-links a:hover{opacity:1;color:var(--gold);}
-  .footer-copy{max-width:1320px;margin:20px auto 0;font-size:12.5px;color:var(--muted);}
+  .footer-links a{color:var(--bts-tan);text-decoration:none;font-size:14px;font-weight:600;opacity:0.8;}
+  .footer-links a:hover{opacity:1;color:var(--gold-light);}
+  .footer-copy{max-width:1320px;margin:20px auto 0;font-size:12.5px;color:rgba(244,231,220,0.45);}
 
   @media (max-width:640px){
     .site-nav{padding:10px 18px;}
     .nav-links{gap:12px;}
     .nav-links a:not(.btn-nav){display:none;}
-    .hero{padding:48px 20px 0;}
-    .hero-content{padding:0 0 32px;max-width:100%;}
+    .hero{min-height:clamp(420px,72vh,600px);padding:0 20px;}
+    .hero-content{padding:48px 0;max-width:100%;}
+    .hero-overlay{background:linear-gradient(180deg, rgba(26,18,12,0.55) 0%, rgba(26,18,12,0.88) 55%, rgba(26,18,12,0.92) 100%);}
     section{padding:44px 20px;}
     .footer-inner{flex-direction:column;align-items:flex-start;}
   }
@@ -439,37 +483,29 @@
 
 <nav class="site-nav">
   <a class="nav-logo" href="https://www.biggerthansportsco.org/" target="_blank" rel="noopener noreferrer">
-    <img src="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&sz=w200" alt="Bigger Than Sports">
+    <img src="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&amp;sz=w200" alt="Bigger Than Sports">
   </a>
   <div class="nav-links">
     <a href="#press">News &amp; Stories</a>
     <a href="#content">Content</a>
+    <div class="nav-dropdown">
+      <a href="index.html#services">Services</a>
+      <div class="nav-dropdown-menu">
+        <a href="business-consulting.html">Business Consulting</a>
+        <a href="public-speaking.html">Public Speaking &amp; Keynotes</a>
+        <a href="team-workshops.html">Team &amp; Corporate Workshops</a>
+        <a href="executive-coaching.html">Executive Coaching</a>
+      </div>
+    </div>
     <a class="btn-nav" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
   </div>
 </nav>
 
 <section class="hero" id="top">
-  <div class="hero-video-row">
-    <div class="hero-video-tile">
-      <video autoplay muted loop playsinline preload="metadata">
-        <source src="https://assets.mixkit.co/videos/28293/28293-360.mp4" type="video/mp4">
-      </video>
-      <span class="placeholder-tag">Placeholder</span>
-    </div>
-    <div class="hero-video-tile">
-      <video autoplay muted loop playsinline preload="metadata">
-        <source src="https://assets.mixkit.co/videos/592/592-360.mp4" type="video/mp4">
-      </video>
-      <span class="placeholder-tag">Placeholder</span>
-    </div>
-    <div class="hero-video-tile">
-      <video autoplay muted loop playsinline preload="metadata">
-        <source src="https://assets.mixkit.co/videos/40741/40741-360.mp4" type="video/mp4">
-      </video>
-      <span class="placeholder-tag">Placeholder</span>
-    </div>
+  <div class="hero-bg">
+    <img src="hero-photo.jpg" alt="Ian Waite hosting the Bigger Than Sports panel with a full auditorium of student athletes">
   </div>
-  <div class="hero-scrim"></div>
+  <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1>Ian Waite</h1>
     <p class="hero-role">A Steward of Love&trade; LLC Consultant</p>
@@ -483,27 +519,61 @@
     <div class="intro-photo">
       <img src="ian-bio-cutout.png" alt="Ian Waite holding a microphone">
     </div>
-    <div class="intro-text">
+    <div class="intro-text reveal">
       <h2>Hey there, I'm Ian</h2>
       <p>I founded an <span class="hl">ESPY award winning nonprofit</span>, was featured by major outlets like <span class="hl">NBC, ESPN, and The New York Times</span>, and consulted for foundations that have given away <span class="hl">millions</span>, and I'm still barely old enough to legally buy a beer! How did I get there this young? By keeping my purpose simple, serving selflessly, giving generously, loving unconditionally, and leading everyone who God places in my path to be <span class="hl">transformed</span>. That's the framework I bring to every organization and leader I partner with, and it's exactly what I want to bring to you.</p>
-      <a class="intro-cta" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Let's Set Up a Call</a>
+      <a class="intro-cta" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Let's See How We Can Work Together</a>
     </div>
   </div>
 </section>
 
-<section class="purpose-section" id="schedule">
-  <div class="section-inner">
-    <div class="section-lead">
-      <h2>Let's Talk</h2>
-      <p>One call is where impact starts. Let's see if we're the right fit.</p>
+<section class="services-section" id="services">
+    <div class="section-lead reveal" style="margin-left:auto;margin-right:auto;">
+      <h2>My Services</h2>
     </div>
-    <a class="btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
-  </div>
+    <div class="services-grid">
+      <a class="service-card reveal" href="business-consulting.html">
+        <div class="service-media">
+          <img class="service-img service-img-default" src="business-consulting-1.jpg" alt="Business Consulting">
+          <img class="service-img service-img-hover" src="business-consulting-2.jpg" alt="">
+        </div>
+        <div class="service-overlay">
+          <h3>Business Consulting</h3>
+        </div>
+      </a>
+      <a class="service-card reveal" href="public-speaking.html">
+        <div class="service-media">
+          <img class="service-img service-img-default" src="public-speaking-1.jpg" alt="Public Speaking & Keynotes">
+          <img class="service-img service-img-hover" src="public-speaking-2.jpg" alt="">
+        </div>
+        <div class="service-overlay">
+          <h3>Public Speaking &amp; Keynotes</h3>
+        </div>
+      </a>
+      <a class="service-card reveal" href="team-workshops.html">
+        <div class="service-media">
+          <img class="service-img service-img-default" src="team-workshops-1.jpg" alt="Team & Corporate Workshops">
+          <img class="service-img service-img-hover" src="team-workshops-2.jpg" alt="">
+        </div>
+        <div class="service-overlay">
+          <h3>Team &amp; Corporate Workshops</h3>
+        </div>
+      </a>
+      <a class="service-card reveal" href="executive-coaching.html">
+        <div class="service-media">
+          <img class="service-img service-img-default" src="executive-coaching-1.jpg" alt="Executive Coaching">
+          <img class="service-img service-img-hover" src="executive-coaching-2.jpg" alt="">
+        </div>
+        <div class="service-overlay">
+          <h3>Executive Coaching</h3>
+        </div>
+      </a>
+    </div>
 </section>
 
 <section class="press-section" id="press">
   <div class="section-inner">
-    <div class="section-lead">
+    <div class="section-lead reveal">
       <h2>News &amp; Stories</h2>
       <p>The journey so far, told through articles and awards, a story that's reached further than expected and is only just getting started.</p>
     </div>
@@ -516,12 +586,12 @@
 
 <section class="content-section" id="content">
   <div class="section-inner">
-    <div class="section-lead">
+    <div class="section-lead reveal">
       <h2>Content</h2>
       <p>This is where the story gets deeper, podcasts, blog posts, and short form content, a creative outlet growing with hopes to inspire and transform.</p>
     </div>
     <div class="scroll-row">
-      <a class="content-card" href="https://www.youtube.com/watch?v=tKWMCHaft_4" target="_blank" rel="noopener noreferrer">
+      <a class="content-card reveal" href="https://www.youtube.com/watch?v=tKWMCHaft_4" target="_blank" rel="noopener noreferrer">
         <div class="content-thumb">
           <img src="https://img.youtube.com/vi/tKWMCHaft_4/hqdefault.jpg" alt="Modern Creator Podcast episode with Ian Waite">
           <span class="content-badge">Podcast</span>
@@ -532,13 +602,13 @@
           <span class="content-cta">Listen / Watch &rarr;</span>
         </div>
       </a>
-      <div class="content-card content-placeholder">
+      <div class="content-card content-placeholder reveal">
         <div class="content-body">
           <span class="content-badge-inline">Coming Soon</span>
           <p class="content-title">Blog: Why I Started Bigger Than Sports</p>
         </div>
       </div>
-      <div class="content-card content-placeholder">
+      <div class="content-card content-placeholder reveal">
         <div class="content-body">
           <span class="content-badge-inline">Coming Soon</span>
           <p class="content-title">More content is on the way. Check back soon.</p>
@@ -552,7 +622,7 @@
 </section>
 
 <footer class="site-footer">
-  <div class="footer-inner">
+  <div class="footer-inner reveal">
     <a class="btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
     <div class="footer-follow">
       <h3>Follow Me</h3>
@@ -586,6 +656,32 @@
     });
   }, {threshold:0.35});
   observer.observe(photo);
+})();
+</script>
+
+<script>
+/* Generic scroll-reveal for everything marked .reveal */
+(function(){
+  function reveal(root){
+    const els = (root||document).querySelectorAll('.reveal:not(.in-view)');
+    if(!('IntersectionObserver' in window)){
+      els.forEach(el=>el.classList.add('in-view'));
+      return;
+    }
+    if(!window.__revealObserver){
+      window.__revealObserver = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            entry.target.classList.add('in-view');
+            window.__revealObserver.unobserve(entry.target);
+          }
+        });
+      }, {threshold:0.12});
+    }
+    els.forEach(el=>window.__revealObserver.observe(el));
+  }
+  window.__reveal = reveal;
+  document.addEventListener('DOMContentLoaded', ()=>reveal());
 })();
 </script>
 
@@ -714,9 +810,10 @@ const CTA_LABEL = {article:"Read Article",video:"Watch Video",award:"View Docume
 function render(){
   const grid = document.getElementById("grid");
   grid.innerHTML = "";
-  items.forEach(it=>{
+  items.forEach((it, idx)=>{
     const a = document.createElement("a");
-    a.className = "card";
+    a.className = "card reveal";
+    a.style.transitionDelay = Math.min(idx*0.06, 0.3) + "s";
     a.href = it.url;
     a.target = "_blank";
     a.rel = "noopener noreferrer";
@@ -771,6 +868,7 @@ function render(){
     a.appendChild(body);
     grid.appendChild(a);
   });
+  window.__reveal(grid);
 }
 
 render();

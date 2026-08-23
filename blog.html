@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600..900;1,9..144,600..900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <style>
   :root{
     --bts-green:#3b2a1d;
@@ -20,23 +21,61 @@
     --muted:#6b6259;
     --card-bg:#ffffff;
     --page-bg:#f8f1e6;
+    --dark-bg:#0d0a07;
     --radius:14px;
     --shadow:0 2px 10px rgba(59,42,29,0.10);
     --shadow-hover:0 10px 26px rgba(59,42,29,0.20);
     --display-font:"Fraunces","Georgia",serif;
+    --dark-gradient:
+      radial-gradient(60% 80% at 8% 15%, rgba(244,231,220,0.14) 0%, rgba(244,231,220,0) 60%),
+      radial-gradient(55% 75% at 95% 85%, rgba(244,231,220,0.10) 0%, rgba(244,231,220,0) 60%),
+      linear-gradient(135deg, rgba(244,231,220,0.05) 0%, rgba(244,231,220,0) 35%, rgba(244,231,220,0) 65%, rgba(244,231,220,0.05) 100%),
+      #0d0a07;
   }
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{
     margin:0;
     font-family:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background:var(--page-bg);
+    background:var(--dark-bg);
     color:var(--ink);
   }
   a{color:inherit;}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,.8,.24,1), transform .7s cubic-bezier(.16,.8,.24,1);}
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+
+  .site-nav{
+    position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    gap:16px;padding:12px 32px;background:var(--dark-bg);border-bottom:1px solid rgba(244,231,220,0.14);
+  }
+  .nav-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;}
+  .nav-logo img{height:36px;width:auto;display:block;}
+  .nav-links{display:flex;align-items:center;gap:22px;}
+  .nav-links a{color:var(--bts-tan);text-decoration:none;font-size:14px;font-weight:600;opacity:0.85;cursor:pointer;}
+  .nav-links a:hover{opacity:1;}
+  .nav-links a.current{opacity:1;color:var(--gold-light);}
+  .btn-nav{background:var(--gold);color:#1c1c1c !important;padding:9px 18px;border-radius:999px;font-weight:700 !important;opacity:1 !important;white-space:nowrap;}
+  .btn-nav:hover{background:var(--gold-light);}
+  .nav-dropdown{position:relative;}
+  .nav-dropdown > a{display:inline-flex;align-items:center;gap:5px;}
+  .nav-dropdown > a::after{content:"";width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin-top:-2px;opacity:0.8;}
+  .nav-dropdown-menu{
+    position:absolute;top:100%;left:0;margin-top:10px;background:#171009;border:1px solid rgba(244,231,220,0.14);
+    border-radius:12px;padding:8px;min-width:230px;box-shadow:0 16px 34px rgba(0,0,0,0.45);
+    opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .16s ease, transform .16s ease, visibility .16s;z-index:60;
+  }
+  .nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown:focus-within .nav-dropdown-menu{opacity:1;visibility:visible;transform:translateY(0);}
+  .nav-dropdown-menu a{display:block;padding:10px 12px;border-radius:8px;font-size:14px;font-weight:600;color:var(--bts-tan);opacity:0.88;white-space:nowrap;}
+  .nav-dropdown-menu a:hover{background:rgba(244,231,220,0.08);opacity:1;}
+
   .page-header{
-    background:linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 100%);
+    background:var(--dark-gradient);
     color:#fff;
-    padding:28px 32px;
+    padding:40px 32px;
   }
   .page-header-inner{max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:28px;}
   .home-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none;}
@@ -46,11 +85,12 @@
     font-style:italic;
     font-size:clamp(30px,4vw,46px);
     font-weight:800;
+    color:var(--bts-tan);
     margin:0 0 8px;
   }
-  .page-header .page-intro{margin:0;color:rgba(255,255,255,0.85);font-size:15px;max-width:640px;}
+  .page-header .page-intro{margin:0;color:rgba(244,231,220,0.72);font-size:15px;max-width:640px;}
 
-  main{padding:32px;max-width:1320px;margin:0 auto;}
+  main{padding:32px;max-width:1320px;margin:0 auto;background:var(--dark-bg);}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;}
   .content-card{
     background:var(--card-bg);
@@ -91,8 +131,8 @@
   .btn-secondary{
     display:inline-block;
     background:transparent;
-    color:var(--gold);
-    border:2px solid var(--gold);
+    color:var(--gold-light);
+    border:2px solid var(--gold-light);
     text-decoration:none;
     font-weight:700;
     font-size:14px;
@@ -100,7 +140,7 @@
     border-radius:999px;
     transition:background .15s,color .15s;
   }
-  .btn-secondary:hover{background:var(--gold);color:#fff;}
+  .btn-secondary:hover{background:var(--gold-light);color:#1c1712;}
   .view-more-row{margin-top:26px;text-align:center;}
 
   /* ---- Horizontal scroll row (News & Stories / Content previews) ---- */
@@ -120,15 +160,16 @@
     scroll-snap-align:start;
   }
 
-  .press-preview-section{margin-top:48px;padding-top:40px;border-top:1px solid rgba(59,42,29,0.12);}
+  .press-preview-section{margin-top:48px;padding-top:40px;border-top:1px solid rgba(244,231,220,0.14);}
   .press-preview-section h2{
     font-family:var(--display-font);
     font-style:italic;
     font-size:clamp(30px,3.8vw,44px);
     font-weight:800;
+    color:var(--bts-tan);
     margin:0 0 8px;
   }
-  .press-preview-section .section-sub{color:var(--muted);font-size:15px;margin:0 0 22px;max-width:640px;}
+  .press-preview-section .section-sub{color:rgba(244,231,220,0.72);font-size:15px;margin:0 0 22px;max-width:640px;}
   .card{
     background:var(--card-bg);
     border-radius:var(--radius);
@@ -174,19 +215,19 @@
   .card:hover .cta svg{transform:translateX(3px);}
 
   /* ---- Footer ---- */
-  .site-footer{background:var(--bts-tan);color:rgba(28,23,18,0.85);padding:40px 32px 24px;margin-top:8px;border-top:1px solid var(--bts-tan-dark);}
+  .site-footer{background:var(--dark-gradient);color:rgba(244,231,220,0.85);padding:40px 32px 24px;margin-top:8px;}
   .footer-inner{
     max-width:1320px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;
-    justify-content:space-between;gap:20px;
+    justify-content:space-between;gap:20px;border-bottom:1px solid rgba(244,231,220,0.14);padding-bottom:24px;
   }
   .footer-follow h3{
-    font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);
+    font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold-light);
     margin:0 0 12px;font-weight:700;
   }
   .footer-links{display:flex;gap:20px;flex-wrap:wrap;}
-  .footer-links a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;opacity:0.85;}
-  .footer-links a:hover{opacity:1;color:var(--gold);}
-  .footer-copy{max-width:1320px;margin:20px auto 0;font-size:12.5px;color:var(--muted);}
+  .footer-links a{color:var(--bts-tan);text-decoration:none;font-size:14px;font-weight:600;opacity:0.8;}
+  .footer-links a:hover{opacity:1;color:var(--gold-light);}
+  .footer-copy{max-width:1320px;margin:20px auto 0;font-size:12.5px;color:rgba(244,231,220,0.45);}
 
   @media (max-width:640px){
     .page-header{padding:22px 20px;}
@@ -199,8 +240,28 @@
 </head>
 <body>
 
+<nav class="site-nav">
+  <a class="nav-logo" href="index.html">
+    <img src="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&amp;sz=w200" alt="Bigger Than Sports">
+  </a>
+  <div class="nav-links">
+    <a href="index.html#press">News &amp; Stories</a>
+    <a href="index.html#content">Content</a>
+    <div class="nav-dropdown">
+      <a href="index.html#services">Services</a>
+      <div class="nav-dropdown-menu">
+        <a href="business-consulting.html">Business Consulting</a>
+        <a href="public-speaking.html">Public Speaking &amp; Keynotes</a>
+        <a href="team-workshops.html">Team &amp; Corporate Workshops</a>
+        <a href="executive-coaching.html">Executive Coaching</a>
+      </div>
+    </div>
+    <a class="btn-nav" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
+  </div>
+</nav>
+
 <header class="page-header">
-  <div class="page-header-inner">
+  <div class="page-header-inner reveal">
     <a class="home-logo" href="index.html">
       <img src="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&amp;sz=w200" alt="Bigger Than Sports home">
     </a>
@@ -213,37 +274,37 @@
 
 <main>
   <div class="grid">
-    <div class="content-card content-placeholder">
+    <div class="content-card content-placeholder reveal">
       <div class="content-body">
         <span class="content-badge-inline">Coming Soon</span>
         <p class="content-title">What Gen Z Actually Wants From Leadership</p>
       </div>
     </div>
-    <div class="content-card content-placeholder">
+    <div class="content-card content-placeholder reveal">
       <div class="content-body">
         <span class="content-badge-inline">Coming Soon</span>
         <p class="content-title">Lessons From the ESPY Stage</p>
       </div>
     </div>
-    <div class="content-card content-placeholder">
+    <div class="content-card content-placeholder reveal">
       <div class="content-body">
         <span class="content-badge-inline">Coming Soon</span>
         <p class="content-title">Building Bigger Than Sports: From Idea to Nonprofit</p>
       </div>
     </div>
-    <div class="content-card content-placeholder">
+    <div class="content-card content-placeholder reveal">
       <div class="content-body">
         <span class="content-badge-inline">Coming Soon</span>
         <p class="content-title">What 500+ Conversations With Student-Athletes Taught Me</p>
       </div>
     </div>
-    <div class="content-card content-placeholder">
+    <div class="content-card content-placeholder reveal">
       <div class="content-body">
         <span class="content-badge-inline">Coming Soon</span>
         <p class="content-title">Why Mentorship Matters More Than Motivation</p>
       </div>
     </div>
-    <div class="content-card content-placeholder">
+    <div class="content-card content-placeholder reveal">
       <div class="content-body">
         <span class="content-badge-inline">Coming Soon</span>
         <p class="content-title">More blog posts are on the way. Check back soon.</p>
@@ -252,8 +313,8 @@
   </div>
 
   <div class="press-preview-section">
-    <h2>News &amp; Stories</h2>
-    <p class="section-sub">The journey so far, told through articles and awards, a story that's reached further than expected and is only just getting started.</p>
+    <h2 class="reveal">News &amp; Stories</h2>
+    <p class="section-sub reveal">The journey so far, told through articles and awards, a story that's reached further than expected and is only just getting started.</p>
     <div class="scroll-row" id="press-grid"></div>
     <div class="view-more-row">
       <a class="btn-secondary" href="media-wall.html">View More</a>
@@ -261,10 +322,10 @@
   </div>
 
   <div class="press-preview-section">
-    <h2>Content</h2>
-    <p class="section-sub">This is where the story gets deeper, podcasts and short form content, a creative outlet growing with hopes to inspire and transform.</p>
+    <h2 class="reveal">Content</h2>
+    <p class="section-sub reveal">This is where the story gets deeper, podcasts and short form content, a creative outlet growing with hopes to inspire and transform.</p>
     <div class="scroll-row">
-      <a class="content-card" href="https://www.youtube.com/watch?v=tKWMCHaft_4" target="_blank" rel="noopener noreferrer">
+      <a class="content-card reveal" href="https://www.youtube.com/watch?v=tKWMCHaft_4" target="_blank" rel="noopener noreferrer">
         <div class="content-thumb">
           <img src="https://img.youtube.com/vi/tKWMCHaft_4/hqdefault.jpg" alt="Modern Creator Podcast episode with Ian Waite">
           <span class="content-badge">Podcast</span>
@@ -275,7 +336,7 @@
           <span class="content-cta">Listen / Watch &rarr;</span>
         </div>
       </a>
-      <a class="content-card" href="https://drive.google.com/file/d/1lXiB63dZe3rHlmAEhDZbDyALci9MFYum/view" target="_blank" rel="noopener noreferrer">
+      <a class="content-card reveal" href="https://drive.google.com/file/d/1lXiB63dZe3rHlmAEhDZbDyALci9MFYum/view" target="_blank" rel="noopener noreferrer">
         <div class="content-thumb">
           <img src="https://drive.google.com/thumbnail?id=1lXiB63dZe3rHlmAEhDZbDyALci9MFYum&amp;sz=w800" alt="Ian Waite ESPN interview" onerror="this.style.display='none'">
           <span class="content-badge">Video</span>
@@ -286,7 +347,7 @@
           <span class="content-cta">Watch Video &rarr;</span>
         </div>
       </a>
-      <a class="content-card" href="https://drive.google.com/file/d/1KralTYovJDLU3DX2f8dT1qluAMzk1MuF/view" target="_blank" rel="noopener noreferrer">
+      <a class="content-card reveal" href="https://drive.google.com/file/d/1KralTYovJDLU3DX2f8dT1qluAMzk1MuF/view" target="_blank" rel="noopener noreferrer">
         <div class="content-thumb">
           <img src="https://drive.google.com/thumbnail?id=1KralTYovJDLU3DX2f8dT1qluAMzk1MuF&amp;sz=w800" alt="Find Your Path: Avoid Burnout and Love Your Work" onerror="this.style.display='none'">
           <span class="content-badge">Podcast Clip</span>
@@ -297,7 +358,7 @@
           <span class="content-cta">Watch Clip &rarr;</span>
         </div>
       </a>
-      <a class="content-card" href="https://drive.google.com/file/d/1SuOXi2TfPdqIUYN5cxQ1ZSo_Trin_NS4/view" target="_blank" rel="noopener noreferrer">
+      <a class="content-card reveal" href="https://drive.google.com/file/d/1SuOXi2TfPdqIUYN5cxQ1ZSo_Trin_NS4/view" target="_blank" rel="noopener noreferrer">
         <div class="content-thumb">
           <img src="https://drive.google.com/thumbnail?id=1SuOXi2TfPdqIUYN5cxQ1ZSo_Trin_NS4&amp;sz=w800" alt="The Critical Need for Guidance: Lower-Income Schools Struggling" onerror="this.style.display='none'">
           <span class="content-badge">Podcast Clip</span>
@@ -308,7 +369,7 @@
           <span class="content-cta">Watch Clip &rarr;</span>
         </div>
       </a>
-      <div class="content-card content-placeholder">
+      <div class="content-card content-placeholder reveal">
         <div class="content-body">
           <span class="content-badge-inline">Coming Soon</span>
           <p class="content-title">More content is on the way. Check back soon.</p>
@@ -322,7 +383,7 @@
 </main>
 
 <footer class="site-footer">
-  <div class="footer-inner">
+  <div class="footer-inner reveal">
     <a class="btn-secondary" href="index.html">Back to Home</a>
     <div class="footer-follow">
       <h3>Follow Me</h3>
@@ -335,6 +396,33 @@
   </div>
   <div class="footer-copy">&copy; 2026 Ian Waite, A Steward of Love&trade; LLC Consultant. All rights reserved.</div>
 </footer>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+<script>
+(function(){
+  function reveal(root){
+    const els = (root||document).querySelectorAll('.reveal:not(.in-view)');
+    if(!('IntersectionObserver' in window)){
+      els.forEach(el=>el.classList.add('in-view'));
+      return;
+    }
+    if(!window.__revealObserver){
+      window.__revealObserver = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            entry.target.classList.add('in-view');
+            window.__revealObserver.unobserve(entry.target);
+          }
+        });
+      }, {threshold:0.12});
+    }
+    els.forEach(el=>window.__revealObserver.observe(el));
+  }
+  window.__reveal = reveal;
+  document.addEventListener('DOMContentLoaded', ()=>reveal());
+})();
+</script>
 
 <script>
 const ARTICLE_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
@@ -407,9 +495,10 @@ const CTA_LABEL = {article:"Read Article",video:"Watch Video",award:"View Docume
 function renderPress(){
   const grid = document.getElementById("press-grid");
   grid.innerHTML = "";
-  pressItems.forEach(it=>{
+  pressItems.forEach((it, idx)=>{
     const a = document.createElement("a");
-    a.className = "card";
+    a.className = "card reveal";
+    a.style.transitionDelay = Math.min(idx*0.06, 0.3) + "s";
     a.href = it.url;
     a.target = "_blank";
     a.rel = "noopener noreferrer";
@@ -463,6 +552,7 @@ function renderPress(){
 
     grid.appendChild(a);
   });
+  window.__reveal(grid);
 }
 
 renderPress();
