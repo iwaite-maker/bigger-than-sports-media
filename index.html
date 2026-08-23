@@ -95,6 +95,66 @@
   .nav-dropdown-menu a{display:block;padding:10px 12px;border-radius:8px;font-size:14px;font-weight:600;color:var(--bts-tan);opacity:0.88;white-space:nowrap;}
   .nav-dropdown-menu a:hover{background:rgba(244,231,220,0.08);opacity:1;}
 
+  /* ---- Name intro (black screen, name pops in and cycles continuously, scroll cue) ---- */
+  .name-intro{
+    position:relative;
+    min-height:100vh;
+    background:#0a0704;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .name-intro-word{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) translateY(20px) scale(0.92);
+    font-family:var(--display-font);
+    font-weight:900;
+    text-transform:uppercase;
+    font-size:clamp(64px,15vw,220px);
+    letter-spacing:-0.02em;
+    color:var(--gold-light);
+    opacity:0;
+    white-space:nowrap;
+    animation:nameCycle 6s ease-in-out infinite;
+  }
+  .name-intro-word:nth-child(2){animation-delay:3s;}
+  @keyframes nameCycle{
+    0%{opacity:0; transform:translate(-50%,-50%) translateY(20px) scale(0.92);}
+    8%{opacity:1; transform:translate(-50%,-50%) translateY(0) scale(1);}
+    42%{opacity:1; transform:translate(-50%,-50%) translateY(0) scale(1);}
+    50%{opacity:0; transform:translate(-50%,-50%) translateY(-14px) scale(0.96);}
+    100%{opacity:0;}
+  }
+  .name-intro-scroll{
+    position:absolute;
+    bottom:36px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    color:var(--bts-tan);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+  }
+  .name-intro-scroll svg{animation:scrollBounce 1.6s ease-in-out infinite;}
+  @keyframes scrollBounce{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(6px);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .name-intro-word{animation:none; opacity:0;}
+    .name-intro-word:first-child{opacity:1; transform:translate(-50%,-50%);}
+    .name-intro-scroll svg{animation:none;}
+  }
+
   /* ---- Hero (full-bleed PLACEHOLDER video trio, swap for real vertical clips) ---- */
   .hero{
     position:relative;
@@ -117,44 +177,7 @@
     position:absolute;
     inset:0;
     z-index:1;
-    background:
-      linear-gradient(90deg, rgba(10,7,4,0.72) 0%, rgba(10,7,4,0.45) 35%, rgba(10,7,4,0.15) 60%, rgba(10,7,4,0.35) 100%),
-      linear-gradient(180deg, rgba(10,7,4,0.35) 0%, rgba(10,7,4,0.05) 30%, rgba(10,7,4,0.05) 70%, rgba(10,7,4,0.45) 100%);
-  }
-  .hero-content{position:relative;z-index:2;color:#fff;max-width:640px;padding:64px 0;}
-  .hero-role{
-    font-size:15px;
-    font-weight:700;
-    font-style:italic;
-    letter-spacing:.06em;
-    text-transform:uppercase;
-    color:var(--bts-tan);
-    margin:0 0 20px;
-  }
-  .hero h1{
-    font-family:var(--display-font);
-    font-weight:700;
-    font-size:clamp(52px,8vw,104px);
-    line-height:0.96;
-    letter-spacing:-0.01em;
-    margin:0 0 14px;
-  }
-  .hero-services{
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    gap:8px 12px;
-    font-size:13px;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:.05em;
-    color:var(--gold-light);
-    margin:0 0 30px;
-  }
-  .hero-services .dot{
-    color:rgba(255,255,255,0.4);
-    font-weight:400;
-    text-transform:none;
+    background:linear-gradient(180deg, rgba(10,7,4,0.35) 0%, rgba(10,7,4,0) 20%, rgba(10,7,4,0) 80%, rgba(10,7,4,0.45) 100%);
   }
   .btn-primary{
     display:inline-block;
@@ -506,7 +529,17 @@
   </div>
 </nav>
 
-<section class="hero" id="top">
+<section class="name-intro" id="top">
+  <span class="name-intro-word">Ian</span>
+  <span class="name-intro-word">Waite</span>
+  <div class="name-intro-scroll">
+    <span>Scroll</span>
+    <svg width="14" height="20" viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M7 1V19M7 19L1 13M7 19L13 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</section>
+<section class="hero">
   <div class="hero-video-row">
     <div class="hero-video-tile">
       <video autoplay muted loop playsinline preload="metadata">
@@ -528,12 +561,6 @@
     </div>
   </div>
   <div class="hero-scrim"></div>
-  <div class="hero-content">
-    <h1>Ian Waite</h1>
-    <p class="hero-role">A Steward of Love&trade; LLC Consultant</p>
-    <p class="hero-services">Business Consulting<span class="dot">&middot;</span>Public Speaking &amp; Keynotes<span class="dot">&middot;</span>Team / Corporate Workshops<span class="dot">&middot;</span>Executive Coaching</p>
-    <a class="btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
-  </div>
 </section>
 
 <section class="intro-section">
