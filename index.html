@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&amp;sz=w256">
+<link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&sz=w256">
 <title>Ian Waite - Consultant, Entrepreneur</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,28 +65,19 @@
   }
   .btn-nav:hover{background:var(--gold-light);}
 
-  /* ---- Hero (full-bleed impact photo with left-fade overlay) ---- */
+  /* ---- Hero (headline + three vertical video tiles) ---- */
   .hero{
     position:relative;
-    min-height:clamp(460px,84vh,760px);
     display:flex;
+    flex-direction:column;
     align-items:center;
-    padding:0 40px;
+    padding:64px 40px 0;
     overflow:hidden;
-  }
-  .hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden;}
-  .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 74%;display:block;transform:scale(1.04);transform-origin:center 55%;}
-  .hero-overlay{
-    position:absolute;
-    inset:0;
-    z-index:1;
     background:
-      radial-gradient(65% 70% at 2% 0%, rgba(18,12,8,0.62) 0%, rgba(18,12,8,0) 68%),
-      radial-gradient(65% 70% at 98% 0%, rgba(18,12,8,0.64) 0%, rgba(18,12,8,0) 65%),
-      linear-gradient(180deg, rgba(18,12,8,0.5) 0%, rgba(18,12,8,0.32) 16%, rgba(18,12,8,0.12) 32%, rgba(18,12,8,0) 46%, rgba(18,12,8,0) 62%, rgba(26,18,12,0.32) 100%),
-      linear-gradient(100deg, rgba(26,18,12,0.72) 0%, rgba(26,18,12,0.58) 32%, rgba(26,18,12,0.3) 62%, rgba(26,18,12,0.08) 100%);
+      radial-gradient(70% 90% at 20% -10%, rgba(92,67,49,0.55) 0%, rgba(92,67,49,0) 60%),
+      linear-gradient(160deg, #241a12 0%, #150f0a 100%);
   }
-  .hero-content{position:relative;z-index:2;color:#fff;max-width:640px;padding:64px 0;}
+  .hero-content{position:relative;z-index:2;color:#fff;max-width:720px;text-align:center;padding:0 0 40px;}
   .hero-role{
     font-size:15px;
     font-weight:700;
@@ -108,6 +99,7 @@
     display:flex;
     flex-wrap:wrap;
     align-items:center;
+    justify-content:center;
     gap:8px 12px;
     font-size:13px;
     font-weight:700;
@@ -135,6 +127,60 @@
     border:none;
   }
   .btn-primary:hover{background:var(--bts-tan-dark);transform:translateY(-1px);}
+
+  /* ---- Hero video trio (PLACEHOLDER stock clips - swap for real vertical videos) ---- */
+  .hero-video-row{
+    position:relative;
+    z-index:2;
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    align-items:flex-end;
+    width:100%;
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 0 56px;
+  }
+  .hero-video-tile{
+    position:relative;
+    flex:1 1 0;
+    max-width:300px;
+    aspect-ratio:9/16;
+    border-radius:18px;
+    overflow:hidden;
+    background:#000;
+    box-shadow:0 16px 36px rgba(0,0,0,0.4);
+  }
+  .hero-video-tile video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .hero-video-tile .placeholder-tag{
+    position:absolute;
+    bottom:10px;
+    left:10px;
+    background:rgba(0,0,0,0.6);
+    color:#fff;
+    font-size:9.5px;
+    font-weight:700;
+    padding:4px 9px;
+    border-radius:999px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+  @media (max-width:640px){
+    .hero-video-row{
+      overflow-x:auto;
+      justify-content:flex-start;
+      padding:0 20px 40px;
+      gap:14px;
+      -webkit-overflow-scrolling:touch;
+      scroll-snap-type:x proximity;
+    }
+    .hero-video-tile{flex:0 0 60%;max-width:60%;scroll-snap-align:start;}
+  }
 
   /* ---- Section shared ---- */
   section{padding:64px 32px;}
@@ -383,9 +429,8 @@
     .site-nav{padding:10px 18px;}
     .nav-links{gap:12px;}
     .nav-links a:not(.btn-nav){display:none;}
-    .hero{min-height:clamp(420px,72vh,600px);padding:0 20px;}
-    .hero-content{padding:48px 0;max-width:100%;}
-    .hero-overlay{background:linear-gradient(180deg, rgba(26,18,12,0.55) 0%, rgba(26,18,12,0.88) 55%, rgba(26,18,12,0.92) 100%);}
+    .hero{padding:48px 20px 0;}
+    .hero-content{padding:0 0 32px;max-width:100%;}
     section{padding:44px 20px;}
     .footer-inner{flex-direction:column;align-items:flex-start;}
   }
@@ -395,7 +440,7 @@
 
 <nav class="site-nav">
   <a class="nav-logo" href="https://www.biggerthansportsco.org/" target="_blank" rel="noopener noreferrer">
-    <img src="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&amp;sz=w200" alt="Bigger Than Sports">
+    <img src="https://drive.google.com/thumbnail?id=155UWKESGuNkH2QhMuTYgT47p38gHZFEF&sz=w200" alt="Bigger Than Sports">
   </a>
   <div class="nav-links">
     <a href="#press">News &amp; Stories</a>
@@ -405,15 +450,31 @@
 </nav>
 
 <section class="hero" id="top">
-  <div class="hero-bg">
-    <img src="hero-photo.jpg" alt="Ian Waite hosting the Bigger Than Sports panel with a full auditorium of student athletes">
-  </div>
-  <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1>Ian Waite</h1>
     <p class="hero-role">A Steward of Love&trade; LLC Consultant</p>
     <p class="hero-services">Business Consulting<span class="dot">&middot;</span>Public Speaking &amp; Keynotes<span class="dot">&middot;</span>Team / Corporate Workshops<span class="dot">&middot;</span>Executive Coaching</p>
     <a class="btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
+  </div>
+  <div class="hero-video-row">
+    <div class="hero-video-tile">
+      <video autoplay muted loop playsinline preload="metadata">
+        <source src="https://assets.mixkit.co/videos/28293/28293-360.mp4" type="video/mp4">
+      </video>
+      <span class="placeholder-tag">Placeholder</span>
+    </div>
+    <div class="hero-video-tile">
+      <video autoplay muted loop playsinline preload="metadata">
+        <source src="https://assets.mixkit.co/videos/592/592-360.mp4" type="video/mp4">
+      </video>
+      <span class="placeholder-tag">Placeholder</span>
+    </div>
+    <div class="hero-video-tile">
+      <video autoplay muted loop playsinline preload="metadata">
+        <source src="https://assets.mixkit.co/videos/40741/40741-360.mp4" type="video/mp4">
+      </video>
+      <span class="placeholder-tag">Placeholder</span>
+    </div>
   </div>
 </section>
 
