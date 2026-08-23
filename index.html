@@ -71,13 +71,16 @@
     display:flex;
     flex-direction:column;
     align-items:center;
-    padding:64px 40px 0;
+    justify-content:center;
+    min-height:100vh;
+    padding:40px;
     overflow:hidden;
-    background:
-      radial-gradient(70% 90% at 20% -10%, rgba(92,67,49,0.55) 0%, rgba(92,67,49,0) 60%),
-      linear-gradient(160deg, #241a12 0%, #150f0a 100%);
+    background:#0a0704;
   }
-  .hero-content{position:relative;z-index:2;color:#fff;max-width:720px;text-align:center;padding:0 0 40px;}
+  .hero-content{position:relative;z-index:2;color:#fff;max-width:720px;text-align:center;padding:0;}
+  @media (max-width:640px){
+    .hero{min-height:80vh;padding:24px;}
+  }
   .hero-role{
     font-size:15px;
     font-weight:700;
@@ -128,28 +131,23 @@
   }
   .btn-primary:hover{background:var(--bts-tan-dark);transform:translateY(-1px);}
 
-  /* ---- Hero video trio (PLACEHOLDER stock clips - swap for real vertical videos) ---- */
+  /* ---- Hero video trio (PLACEHOLDER stock clips - swap for real vertical videos) ----
+     Full-bleed: three videos fill the entire hero, text sits on top of them. ---- */
   .hero-video-row{
-    position:relative;
-    z-index:2;
+    position:absolute;
+    inset:0;
+    z-index:0;
     display:flex;
-    gap:20px;
-    justify-content:center;
-    align-items:flex-end;
-    width:100%;
-    max-width:1040px;
-    margin:0 auto;
-    padding:0 0 56px;
+    gap:0;
+    margin:0;
+    padding:0;
   }
   .hero-video-tile{
     position:relative;
-    flex:1 1 0;
-    max-width:300px;
-    aspect-ratio:9/16;
-    border-radius:18px;
+    flex:1 1 33.333%;
+    height:100%;
     overflow:hidden;
     background:#000;
-    box-shadow:0 16px 36px rgba(0,0,0,0.4);
   }
   .hero-video-tile video{
     width:100%;
@@ -159,8 +157,8 @@
   }
   .hero-video-tile .placeholder-tag{
     position:absolute;
-    bottom:10px;
-    left:10px;
+    bottom:14px;
+    left:14px;
     background:rgba(0,0,0,0.6);
     color:#fff;
     font-size:9.5px;
@@ -169,17 +167,18 @@
     border-radius:999px;
     text-transform:uppercase;
     letter-spacing:.05em;
+    z-index:1;
+  }
+  .hero-scrim{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    background:
+      linear-gradient(180deg, rgba(10,7,4,0.55) 0%, rgba(10,7,4,0.35) 38%, rgba(10,7,4,0.65) 100%);
   }
   @media (max-width:640px){
-    .hero-video-row{
-      overflow-x:auto;
-      justify-content:flex-start;
-      padding:0 20px 40px;
-      gap:14px;
-      -webkit-overflow-scrolling:touch;
-      scroll-snap-type:x proximity;
-    }
-    .hero-video-tile{flex:0 0 60%;max-width:60%;scroll-snap-align:start;}
+    .hero-video-row{flex-direction:row;}
+    .hero-video-tile{flex:1 1 33.333%;}
   }
 
   /* ---- Section shared ---- */
@@ -450,12 +449,6 @@
 </nav>
 
 <section class="hero" id="top">
-  <div class="hero-content">
-    <h1>Ian Waite</h1>
-    <p class="hero-role">A Steward of Love&trade; LLC Consultant</p>
-    <p class="hero-services">Business Consulting<span class="dot">&middot;</span>Public Speaking &amp; Keynotes<span class="dot">&middot;</span>Team / Corporate Workshops<span class="dot">&middot;</span>Executive Coaching</p>
-    <a class="btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
-  </div>
   <div class="hero-video-row">
     <div class="hero-video-tile">
       <video autoplay muted loop playsinline preload="metadata">
@@ -475,6 +468,13 @@
       </video>
       <span class="placeholder-tag">Placeholder</span>
     </div>
+  </div>
+  <div class="hero-scrim"></div>
+  <div class="hero-content">
+    <h1>Ian Waite</h1>
+    <p class="hero-role">A Steward of Love&trade; LLC Consultant</p>
+    <p class="hero-services">Business Consulting<span class="dot">&middot;</span>Public Speaking &amp; Keynotes<span class="dot">&middot;</span>Team / Corporate Workshops<span class="dot">&middot;</span>Executive Coaching</p>
+    <a class="btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
   </div>
 </section>
 
