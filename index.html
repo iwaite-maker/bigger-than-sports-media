@@ -15,8 +15,8 @@
     --bts-green-light:#5c4331;
     --bts-tan:#ffffff;
     --bts-tan-dark:#ffffff;
-    --gold:#C9972E;
-    --gold-light:#E8C468;
+    --gold:#ffffff;
+    --gold-light:#ffffff;
     --bts-tan-accent:#f4e7dc;
     --ink:#1c1712;
     --muted:#6b6259;
@@ -640,7 +640,7 @@
     <div class="services-grid">
       <a class="service-card service-card-video reveal" href="business-consulting.html">
         <div class="service-media">
-          <img class="service-img service-img-default" src="business-consulting-service.jpg" alt="Business Consulting" style="object-position:center center;">
+          <img class="service-img service-img-default" src="business-consulting-service.jpg" alt="Business Consulting" style="object-position:38% center;">
           <video class="service-video-hover" muted playsinline loop preload="metadata">
             <source src="videos/ian-clip-5.mp4" type="video/mp4">
           </video>
@@ -651,7 +651,7 @@
       </a>
       <a class="service-card service-card-video reveal" href="public-speaking.html">
         <div class="service-media">
-          <img class="service-img service-img-default" src="public-speaking-service.jpg" alt="Public Speaking & Keynotes">
+          <img class="service-img service-img-default" src="public-speaking-service.jpg" alt="Public Speaking & Keynotes" style="object-position:center 82%;">
           <video class="service-video-hover" muted playsinline loop preload="metadata">
             <source src="videos/ian-clip-1.mp4" type="video/mp4">
           </video>
@@ -671,10 +671,12 @@
           <h3>Team &amp; Corporate Workshops</h3>
         </div>
       </a>
-      <a class="service-card reveal" href="executive-coaching.html">
+      <a class="service-card service-card-video reveal" href="executive-coaching.html">
         <div class="service-media">
           <img class="service-img service-img-default" src="executive-coaching-service.jpg" alt="Executive Coaching">
-          <img class="service-img service-img-hover" src="executive-coaching-2.jpg" alt="">
+          <video class="service-video-hover" muted playsinline loop preload="metadata">
+            <source src="videos/ian-clip-exec-coaching.mp4" type="video/mp4">
+          </video>
         </div>
         <div class="service-overlay">
           <h3>Executive Coaching</h3>
@@ -714,16 +716,32 @@
           <span class="content-cta">Listen / Watch &rarr;</span>
         </div>
       </a>
+      <a class="content-card reveal" href="https://www.youtube.com/watch?v=BieUS5FCSCY" target="_blank" rel="noopener noreferrer">
+        <div class="content-thumb">
+          <img src="content-espn-westpalm.jpg" alt="Ian Waite at ESPN West Palm">
+          <span class="content-badge">Video</span>
+        </div>
+        <div class="content-body">
+          <span class="content-source">ESPN West Palm &middot; Jul 3, 2025</span>
+          <p class="content-title">Ian Waite's Live ESPN Interview</p>
+          <span class="content-cta">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="content-card reveal" href="https://drive.google.com/file/d/19vMTHUvUIiqpqBJD-V357y3D_Y3AaxPj/view" target="_blank" rel="noopener noreferrer">
+        <div class="content-thumb">
+          <img src="https://drive.google.com/thumbnail?id=19vMTHUvUIiqpqBJD-V357y3D_Y3AaxPj&sz=w800" alt="2025 Bigger Than Sports Annual Report">
+          <span class="content-badge">Report</span>
+        </div>
+        <div class="content-body">
+          <span class="content-source">Bigger Than Sports &middot; Jan-Dec 2025</span>
+          <p class="content-title">2025 Bigger Than Sports Annual Report</p>
+          <span class="content-cta">Read Report &rarr;</span>
+        </div>
+      </a>
       <div class="content-card content-placeholder reveal">
         <div class="content-body">
           <span class="content-badge-inline">Coming Soon</span>
           <p class="content-title">Blog: Why I Started Bigger Than Sports</p>
-        </div>
-      </div>
-      <div class="content-card content-placeholder reveal">
-        <div class="content-body">
-          <span class="content-badge-inline">Coming Soon</span>
-          <p class="content-title">More content is on the way. Check back soon.</p>
         </div>
       </div>
     </div>
@@ -894,14 +912,6 @@ const items = [
     fit:"contain"
   },
   {
-    type:"report",
-    source:"Bigger Than Sports",
-    date:"Jan-Dec 2025",
-    headline:"2025 Bigger Than Sports Annual Report",
-    url:"https://drive.google.com/file/d/19vMTHUvUIiqpqBJD-V357y3D_Y3AaxPj/view",
-    img:"https://drive.google.com/thumbnail?id=19vMTHUvUIiqpqBJD-V357y3D_Y3AaxPj&sz=w800"
-  },
-  {
     type:"photo",
     source:"BTS Media Package",
     date:"Program",
@@ -1040,9 +1050,9 @@ render();
   var finaleLayer = document.getElementById('heroFinaleLayer');
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var active = null;
-  var HOLD_FIRST = reduced ? 2400 : 3600;   // first hold: Ian shown a beat, then flips to Waite
   var HOLD_LATER = reduced ? 4200 : 7000;   // every hold after that is much slower
-  var VIDEO_REVEAL_DELAY = reduced ? 1500 : 3000;  // how long the hero stays black-with-"Ian" before the video fades in
+  var VIDEO_REVEAL_DELAY = reduced ? 1500 : 3500;  // how long the hero stays black-with-"Ian" before the video fades in
+  var HOLD_FIRST = VIDEO_REVEAL_DELAY - 300;   // first hold: Ian shown a beat, then flips to Waite in lockstep with the video reveal below
 
   function activate(word){
     wordIan.classList.remove('is-active');
