@@ -1038,7 +1038,7 @@ render();
   var active = null;
   var HOLD_FIRST = reduced ? 2400 : 3600;   // first hold: Ian shown a beat, then flips to Waite
   var HOLD_LATER = reduced ? 4200 : 7000;   // every hold after that is much slower
-  var VIDEO_REVEAL_DELAY = reduced ? 500 : 1000;  // how long the hero stays black-with-"Ian" before the video fades in
+  var VIDEO_REVEAL_DELAY = reduced ? 1000 : 2000;  // how long the hero stays black-with-"Ian" before the video fades in
 
   function activate(word){
     wordIan.classList.remove('is-active');
