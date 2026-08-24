@@ -603,7 +603,7 @@
 
 <section class="hero" id="top">
   <div class="hero-finale-layer" id="heroFinaleLayer">
-    <video autoplay muted loop playsinline preload="metadata">
+    <video muted loop playsinline preload="metadata">
       <source src="videos/ian-hero-finale.mp4" type="video/mp4">
     </video>
   </div>
@@ -640,7 +640,7 @@
     <div class="services-grid">
       <a class="service-card service-card-video reveal" href="business-consulting.html">
         <div class="service-media">
-          <img class="service-img service-img-default" src="business-consulting-service.jpg" alt="Business Consulting" style="object-position:38% center;">
+          <img class="service-img service-img-default" src="business-consulting-service.jpg" alt="Business Consulting" style="object-position:20% center;">
           <video class="service-video-hover" muted playsinline loop preload="metadata">
             <source src="videos/ian-clip-5.mp4" type="video/mp4">
           </video>
@@ -1051,7 +1051,7 @@ render();
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var active = null;
   var HOLD_LATER = reduced ? 4200 : 7000;   // every hold after that is much slower
-  var VIDEO_REVEAL_DELAY = reduced ? 1500 : 3500;  // how long the hero stays black-with-"Ian" before the video fades in
+  var VIDEO_REVEAL_DELAY = reduced ? 1500 : 4000;  // how long the hero stays black-with-"Ian" before the video fades in
   var HOLD_FIRST = VIDEO_REVEAL_DELAY - 300;   // first hold: Ian shown a beat, then flips to Waite in lockstep with the video reveal below
 
   function activate(word){
@@ -1077,8 +1077,16 @@ render();
   // the hero opens on plain black (see .hero{background:#0a0704}) with only "Ian" visible,
   // then the finale video fades in a beat later rather than being visible from frame 0.
   if(finaleLayer){
+    var finaleVideo = finaleLayer.querySelector('video');
     setTimeout(function(){
       finaleLayer.classList.add('is-visible');
+      if(finaleVideo){
+        try{
+          finaleVideo.currentTime = 0;
+          var p = finaleVideo.play();
+          if(p && p.catch) p.catch(function(){});
+        }catch(err){}
+      }
     }, VIDEO_REVEAL_DELAY);
   }
 })();
