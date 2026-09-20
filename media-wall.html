@@ -97,9 +97,9 @@
     color:var(--gold-light);
   }
   .page-header .page-intro{
-    margin:20px 0 0;color:var(--bts-tan-accent);
-    font-family:'Playfair Display', var(--display-font);font-style:italic;font-weight:600;
-    font-size:clamp(15px,1.7vw,20px);line-height:1.4;max-width:900px;white-space:nowrap;
+    margin:26px 0 0;color:var(--bts-tan-accent);
+    font-family:'Playfair Display', var(--display-font);font-style:italic;font-weight:700;
+    font-size:clamp(22px,3.4vw,42px);line-height:1.3;max-width:900px;
   }
 
   main{padding:32px;max-width:1320px;margin:0 auto;background:var(--dark-bg);}
@@ -116,9 +116,7 @@
     transition:background .15s,color .15s;
   }
   .chip.active{background:var(--gold-light);color:#1c1712;border-color:var(--gold-light);}
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 28px;}
-  @media (max-width:900px){ .grid{grid-template-columns:repeat(2,1fr);} }
-  @media (max-width:600px){ .grid{grid-template-columns:1fr;} }
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:36px 22px;}
   .scroll-row{
     display:flex;
     gap:20px;
@@ -286,17 +284,12 @@
   </a>
   <div class="nav-links">
     <a class="current" href="index.html#press">News &amp; Stories</a>
-    <div class="nav-dropdown">
-      <a href="media-wall.html">Media and Impact Package</a>
-      <div class="nav-dropdown-menu">
-        <a href="content.html">Content and Insights</a>
-      </div>
-    </div>
+    <a href="index.html#content">Content</a>
     <div class="nav-dropdown">
       <a href="index.html#services">Services</a>
       <div class="nav-dropdown-menu">
         <a href="business-consulting.html">Business Consulting</a>
-        <a href="keynotes-workshops.html">Keynotes &amp; Workshops</a>
+        <a href="in-person-workshop.html">In-Person Workshop</a>
         <a href="social-impact-advisory.html">Social Impact Advisory</a>
         <a href="fractional-leadership.html">Fractional Leadership</a>
       </div>
@@ -308,7 +301,7 @@
 <header class="page-header">
   <div class="page-header-inner reveal">
     <h1>Ian Waite Media and Impact Package</h1>
-    <p class="page-intro">A record of the journey so far: the coverage, the recognition, and the work that's still ahead.</p>
+    <p class="page-intro">The journey so far, told through articles and awards, a story that's reached further than expected and is only just getting started.</p>
   </div>
 </header>
 
@@ -403,6 +396,7 @@
     <div class="footer-col">
       <h3>Explore</h3>
       <ul>
+        <li><a href="content.html">Content and Insights</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="https://www.biggerthansportsco.org/" target="_blank" rel="noopener noreferrer">Bigger Than Sports</a></li>
       </ul>
@@ -561,7 +555,7 @@ const items = [
     date:"Jul 11, 2024",
     headline:"“Bigger Than Sports” non-profit hosting 3-on-3 basketball tournament Saturday in Amherst",
     url:"https://www.gazettenet.com/Ian-Waite-hosts-first-Bigger-Than-Sports-3-on-3-basketball-tournament-event-this-weekend-55968953",
-    img:"https://i0.wp.com/gazettenet.com/wp-content/uploads/2024/07/44643813-1.jpg?fit=300%2C300&ssl=1"
+    img:"https://drive.google.com/thumbnail?id=1-qTr6IKdNZ5vjo27BHhPtFwyokTIoGLH&sz=w800"
   },
   {
     type:"article",
@@ -658,10 +652,8 @@ const items = [
     source:"BTS Brand Assets",
     date:"Logo",
     headline:"Bigger Than Sports' Official Logo",
-    url:"bts-logo-white.png",
-    img:"bts-logo-white.png",
-    logo:true,
-    fit:"contain"
+    url:"https://drive.google.com/file/d/1-qTr6IKdNZ5vjo27BHhPtFwyokTIoGLH/view",
+    img:"https://drive.google.com/thumbnail?id=1-qTr6IKdNZ5vjo27BHhPtFwyokTIoGLH&sz=w800"
   },
 
   /* ---- Videos ---- */
@@ -755,7 +747,12 @@ function render(filter){
     const body = document.createElement("div");
     body.className = "card-body";
     body.innerHTML = `
+      <span class="type-badge">${BADGE_LABEL[it.type] || "Item"}</span>
       <p class="headline">${it.headline}</p>
+      <div class="source-row">
+        <span class="source">${it.source}</span>
+        <span class="date">${it.date}</span>
+      </div>
     `;
 
     a.appendChild(thumbWrap);
