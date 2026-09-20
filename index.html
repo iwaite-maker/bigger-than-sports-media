@@ -119,6 +119,34 @@
     border-bottom:1px solid rgba(28,23,18,0.12);
   }
   .nav-panel-links a:hover{opacity:0.6;}
+  .nav-panel-toggle{
+    color:#1c1712;
+    background:none;
+    border:none;
+    text-decoration:none;
+    font-family:var(--display-font);
+    font-weight:700;
+    font-size:clamp(21px,3.2vw,28px);
+    padding:11px 0;
+    border-bottom:1px solid rgba(28,23,18,0.12);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+    cursor:pointer;
+    text-align:left;
+  }
+  .nav-panel-toggle:hover{opacity:0.6;}
+  .nav-panel-toggle .chevron{transition:transform .2s ease;flex-shrink:0;margin-left:10px;}
+  .nav-panel-links.services-open .nav-panel-toggle .chevron{transform:rotate(180deg);}
+  .nav-panel-submenu{display:none;flex-direction:column;padding-left:18px;}
+  .nav-panel-links.services-open .nav-panel-submenu{display:flex;}
+  .nav-panel-submenu a{
+    font-size:16px;
+    padding:9px 0;
+    border-bottom:1px solid rgba(28,23,18,0.08);
+    opacity:.82;
+  }
   .nav-panel-cta{
     margin-top:20px;
     display:inline-block;
@@ -557,12 +585,16 @@
   <div class="nav-panel-links">
     <a href="index.html#top" onclick="document.body.classList.remove('nav-open')">Home</a>
     <a href="index.html#press" onclick="document.body.classList.remove('nav-open')">News &amp; Stories</a>
-    <a href="media-wall.html" onclick="document.body.classList.remove('nav-open')">Media and Impact Package</a>
-    <a href="content.html" onclick="document.body.classList.remove('nav-open')" style="padding-left:20px;font-size:14px;opacity:.8;">Content and Insights</a>
-    <a href="business-consulting.html">Business Consulting</a>
-    <a href="in-person-workshop.html">In-Person Workshop</a>
-    <a href="social-impact-advisory.html">Social Impact Advisory</a>
-    <a href="fractional-leadership.html">Fractional Leadership</a>
+    <button class="nav-panel-toggle" type="button" onclick="this.closest('.nav-panel-links').classList.toggle('services-open')">
+      <span>Services</span>
+      <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+    <div class="nav-panel-submenu">
+      <a href="business-consulting.html" onclick="document.body.classList.remove('nav-open')">Business Consulting</a>
+      <a href="in-person-workshop.html" onclick="document.body.classList.remove('nav-open')">In-Person Workshop</a>
+      <a href="social-impact-advisory.html" onclick="document.body.classList.remove('nav-open')">Social Impact Advisory</a>
+      <a href="fractional-leadership.html" onclick="document.body.classList.remove('nav-open')">Fractional Leadership</a>
+    </div>
     <a class="nav-panel-cta" href="#" onclick="document.body.classList.remove('nav-open');Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Schedule a Call</a>
   </div>
 </div>
@@ -593,7 +625,7 @@
     </div>
     <div class="intro-text reveal">
       <h2>Hi there, I'm Ian Waite.</h2>
-      <p>I founded an <span class="hl">ESPY award winning nonprofit</span>, was featured by major outlets like <span class="hl">NBC, ESPN, and The New York Times</span>, and consulted for foundations that have given away <span class="hl">millions</span>. How did I get there? By keeping my purpose simple, serving selflessly, giving generously, loving unconditionally, and leading everyone who God places in my path to be <span class="hl">transformed</span>. That's the framework I bring to every organization and leader I partner with, and it's exactly what I want to bring to you.</p>
+      <p>I founded an <span class="hl">ESPY award winning nonprofit</span>, was featured by major outlets like <span class="hl">NBC, ESPN, and The New York Times</span>, and consulted for foundations that have given away <span class="hl">millions</span>. How did I get here this young? By keeping my purpose simple, serving selflessly, giving generously, loving unconditionally, and leading everyone who God places in my path to be <span class="hl">transformed</span>. That's the framework I bring to every organization and leader I partner with, and it's exactly what I want to bring to you.</p>
       <a class="intro-cta" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/iwaite-biggerthansportsco/30min'});return false;">Let's See How We Can Work Together</a>
     </div>
   </div>
@@ -685,8 +717,10 @@
     <div class="footer-col">
       <h3>Explore</h3>
       <ul>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="https://www.biggerthansportsco.org/" target="_blank" rel="noopener noreferrer">Bigger Than Sports</a></li>
+        <li><a href="business-consulting.html">Business Consulting</a></li>
+        <li><a href="in-person-workshop.html">In-Person Workshop</a></li>
+        <li><a href="social-impact-advisory.html">Social Impact Advisory</a></li>
+        <li><a href="fractional-leadership.html">Fractional Leadership</a></li>
       </ul>
     </div>
   </div>
