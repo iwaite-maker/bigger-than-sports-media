@@ -604,7 +604,8 @@
   <div class="nav-panel-links">
     <a href="index.html#top" onclick="document.body.classList.remove('nav-open')">Home</a>
     <a href="index.html#press" onclick="document.body.classList.remove('nav-open')">News &amp; Stories</a>
-    <a href="index.html#content" onclick="document.body.classList.remove('nav-open')">Content and Insights</a>
+    <a href="media-wall.html" onclick="document.body.classList.remove('nav-open')">Media and Impact Package</a>
+    <a href="content.html" onclick="document.body.classList.remove('nav-open')" style="padding-left:20px;font-size:14px;opacity:.8;">Content and Insights</a>
     <a href="business-consulting.html">Business Consulting</a>
     <a href="keynotes-workshops.html">Keynotes &amp; Workshops</a>
     <a href="social-impact-advisory.html">Social Impact Advisory</a>
@@ -675,9 +676,7 @@
       <a class="service-card service-card-video reveal" href="social-impact-advisory.html">
         <div class="service-media">
           <img class="service-img service-img-default" src="team-workshops-service.jpg" alt="Social Impact Advisory" style="object-position:80% center;">
-          <video class="service-video-hover" muted playsinline loop preload="metadata">
-            <source src="videos/ian-clip-1.mp4" type="video/mp4">
-          </video>
+          <iframe class="service-video-hover" style="pointer-events:none;" data-src="https://www.youtube.com/embed/tKWMCHaft_4?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=tKWMCHaft_4&amp;controls=0&amp;modestbranding=1&amp;playsinline=1&amp;rel=0" title="Modern Creator Podcast preview" frameborder="0" allow="autoplay; encrypted-media" tabindex="-1"></iframe>
         </div>
         <div class="service-overlay">
           <h3>Social Impact Advisory</h3>
@@ -701,7 +700,7 @@
   <div class="section-inner">
     <div class="section-lead reveal">
       <h2>News &amp; Stories</h2>
-      <p>The journey so far, told through articles and awards, a story that's reached further than expected and is only just getting started.</p>
+      <p>A record of the journey so far: the coverage, the recognition, and the work that's still ahead.</p>
     </div>
     <div class="scroll-row" id="grid"></div>
     <div class="view-more-row">
@@ -795,7 +794,6 @@
     <div class="footer-col">
       <h3>Explore</h3>
       <ul>
-        <li><a href="content.html">Content and Insights</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="https://www.biggerthansportsco.org/" target="_blank" rel="noopener noreferrer">Bigger Than Sports</a></li>
       </ul>
@@ -1150,6 +1148,26 @@ render();
   cards.forEach(function(card){
     var video = card.querySelector('.service-video-hover');
     if(!video) return;
+
+    // A card can carry an <iframe> (e.g. an embedded YouTube preview) instead of a
+    // local <video>. There's no play()/pause() API across an iframe boundary, so we
+    // swap its src in and out instead: setting src (with autoplay+mute+loop params
+    // baked into data-src) starts it fresh from the top, clearing src back to empty
+    // stops playback and releases the embed entirely when the card isn't hovered.
+    if(video.tagName === 'IFRAME'){
+      var iframeSrc = video.getAttribute('data-src');
+      function startEmbed(){
+        if(iframeSrc) video.src = iframeSrc;
+      }
+      function stopEmbed(){
+        video.src = '';
+      }
+      card.addEventListener('mouseenter', startEmbed);
+      card.addEventListener('mouseleave', stopEmbed);
+      card.addEventListener('focus', startEmbed);
+      card.addEventListener('blur', stopEmbed);
+      return;
+    }
 
     function playFromStart(){
       try{
