@@ -441,9 +441,10 @@
 
   /* ---- Media wall / press cards (matches media-wall.html) ---- */
   .press-section{background:var(--dark-gradient);}
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 28px;}
-  @media (max-width:900px){ .grid{grid-template-columns:repeat(2,1fr);} }
-  @media (max-width:600px){ .grid{grid-template-columns:1fr;} }
+  .scroll-row{ display:flex; gap:28px; overflow-x:auto; padding-bottom:12px; scroll-snap-type:x proximity; -webkit-overflow-scrolling:touch; }
+  .scroll-row::-webkit-scrollbar{height:8px;}
+  .scroll-row::-webkit-scrollbar-thumb{background:var(--bts-tan-dark);border-radius:999px;}
+  .scroll-row .card{ flex:0 0 340px; scroll-snap-align:start; }
   .card{
     background:transparent;
     text-decoration:none;
@@ -500,9 +501,6 @@
     font-size:11px;font-weight:700;color:rgba(244,231,220,0.6);text-transform:uppercase;letter-spacing:.08em;
   }
   .coming-soon-card .headline{color:rgba(244,231,220,0.6);}
-
-  /* ---- Content and Insights section (matches News & Stories grid) ---- */
-  .content-section{background:var(--dark-gradient);}
 
   /* ---- Footer ---- */
   .site-footer{background:var(--dark-gradient);color:rgba(244,231,220,0.85);padding:56px 32px 24px;}
@@ -659,22 +657,9 @@
       <h2>News &amp; Stories</h2>
       <p>A record of the journey so far: the coverage, the recognition, and the work that's still ahead.</p>
     </div>
-    <div class="grid" id="grid"></div>
+    <div class="scroll-row" id="grid"></div>
     <div class="view-more-row">
       <a class="btn-secondary" href="media-wall.html">View More</a>
-    </div>
-  </div>
-</section>
-
-<section class="content-section" id="content">
-  <div class="section-inner">
-    <div class="section-lead reveal">
-      <h2>Content and Insights</h2>
-      <p>This is where the story gets deeper, podcasts, blog posts, and short form content, a creative outlet growing with hopes to inspire and transform.</p>
-    </div>
-    <div class="grid" id="contentGrid"></div>
-    <div class="view-more-row">
-      <a class="btn-secondary" href="content.html">View More</a>
     </div>
   </div>
 </section>
@@ -968,105 +953,6 @@ function render(){
 }
 
 render();
-
-/* ---- Content and Insights (matches News & Stories grid pattern) ---- */
-const contentItems = [
-  {
-    source:"Modern Creator Podcast",
-    headline:"Modern Creator Podcast Ep.2 with Ian Waite",
-    url:"#",
-    img:""
-  },
-  {
-    source:"ESPN West Palm",
-    headline:"Ian Waite's Live ESPN Interview",
-    url:"https://www.youtube.com/watch?v=BieUS5FCSCY",
-    img:"https://commons.wikimedia.org/wiki/Special:FilePath/ESPN_wordmark.svg",
-    logo:true,
-    fit:"contain"
-  },
-  {
-    source:"Bigger Than Sports",
-    headline:"2025 Bigger Than Sports Annual Report",
-    url:"#",
-    img:""
-  },
-  {
-    source:"ESPYs",
-    headline:"Billie Jean King Youth Leadership Award at the 2025 ESPYs",
-    url:"https://www.youtube.com/watch?v=ZB6DbS0vB90",
-    img:""
-  }
-];
-
-function renderContent(){
-  const grid = document.getElementById("contentGrid");
-  if(!grid) return;
-  grid.innerHTML = "";
-  contentItems.forEach((it, idx)=>{
-    const a = document.createElement("a");
-    a.className = "card reveal";
-    a.style.transitionDelay = Math.min(idx*0.05, 0.4) + "s";
-    a.href = it.url;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-
-    const thumbWrap = document.createElement("div");
-    thumbWrap.className = "thumb-wrap" + (it.logo ? " logo-card" : "");
-
-    if(it.img){
-      const img = document.createElement("img");
-      img.src = it.img;
-      img.alt = it.headline;
-      img.loading = "lazy";
-      img.style.objectPosition = it.pos || "center";
-      img.style.objectFit = it.fit || "cover";
-      img.onerror = function(){
-        this.style.display = "none";
-        this.nextElementSibling.style.display = "flex";
-      };
-      thumbWrap.appendChild(img);
-    }
-
-    const fallback = document.createElement("div");
-    fallback.className = "thumb-fallback";
-    if(!it.img) fallback.style.display = "flex";
-    fallback.innerHTML = `<div class="initials">${initials(it.source)}</div><div class="src-name">${it.source}</div>`;
-    thumbWrap.appendChild(fallback);
-
-    const readMore = document.createElement("div");
-    readMore.className = "read-more-overlay";
-    readMore.innerHTML = `<span>Read More</span>${ARTICLE_ICON}`;
-    thumbWrap.appendChild(readMore);
-
-    const body = document.createElement("div");
-    body.className = "card-body";
-    body.innerHTML = `
-      <p class="headline">${it.headline}</p>
-    `;
-
-    a.appendChild(thumbWrap);
-    a.appendChild(body);
-    grid.appendChild(a);
-  });
-
-  const comingSoon = document.createElement("div");
-  comingSoon.className = "card reveal coming-soon-card";
-  comingSoon.style.transitionDelay = Math.min(contentItems.length*0.05, 0.4) + "s";
-  const csThumb = document.createElement("div");
-  csThumb.className = "thumb-wrap";
-  csThumb.innerHTML = `<span>Coming Soon</span>`;
-  const csBody = document.createElement("div");
-  csBody.className = "card-body";
-  csBody.innerHTML = `<p class="headline">Blog: Why I Started Bigger Than Sports</p>`;
-  comingSoon.appendChild(csThumb);
-  comingSoon.appendChild(csBody);
-  grid.appendChild(comingSoon);
-
-  window.__reveal(grid);
-}
-
-renderContent();
 </script>
 
 <script>
