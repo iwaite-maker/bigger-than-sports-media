@@ -608,7 +608,7 @@
     </video>
   </div>
   <div class="hero-scrim"></div>
-  <span class="name-intro-word" id="nameWordIan">Ian</span>
+  <span class="name-intro-word is-active" id="nameWordIan">Ian</span>
   <span class="name-intro-word" id="nameWordWaite">Waite</span>
   <div class="name-intro-scroll">
     <span>Scroll</span>
@@ -1078,12 +1078,10 @@ render();
     setTimeout(next, HOLD_LATER);
   }
 
-  // initial paint: brief black-screen beat, then show "Ian", then quickly flip to "Waite" once,
-  // after which every switch is slow and structurally cannot overlap (single JS-owned state).
-  setTimeout(function(){
-    activate(wordIan);
-    setTimeout(next, HOLD_FIRST);
-  }, 300);
+  // "Ian" is already visible from the very first frame (see the is-active class set directly
+  // in the markup), so there is no initial delay here, just the scheduled flip to "Waite".
+  active = wordIan;
+  setTimeout(next, HOLD_FIRST);
 
   // the hero opens on plain black (see .hero{background:#0a0704}) with only "Ian" visible,
   // then the finale video fades in a beat later rather than being visible from frame 0.
