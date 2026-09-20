@@ -1062,7 +1062,7 @@ render();
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var active = null;
   var HOLD_LATER = reduced ? 4200 : 7000;   // every hold after that is much slower
-  var VIDEO_REVEAL_DELAY = reduced ? 1500 : 4000;  // how long the hero stays black-with-"Ian" before the video fades in
+  var VIDEO_REVEAL_DELAY = reduced ? 750 : 2000;  // how long the hero stays black-with-"Ian" before the video fades in
   var HOLD_FIRST = VIDEO_REVEAL_DELAY - 300;   // first hold: Ian shown a beat, then flips to Waite in lockstep with the video reveal below
 
   function activate(word){
