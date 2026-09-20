@@ -76,7 +76,7 @@
   .page-header{
     background:var(--dark-gradient);
     color:#fff;
-    padding:40px 32px;
+    padding:64px 32px;
   }
   .page-header-inner{max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:36px;}
   .home-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none;}
@@ -84,10 +84,11 @@
   .page-header h1{
     font-family:'Playfair Display', var(--display-font);
     font-style:italic;
-    font-size:clamp(28px,3.4vw,44px);
+    font-size:clamp(36px,5.2vw,64px);
     font-weight:800;
     color:var(--bts-tan);
-    margin:0 0 10px;
+    margin:0 0 14px;
+    line-height:1.1;
   }
   .page-header .tagline{
     margin:0;
@@ -95,7 +96,7 @@
     font-weight:600;
     color:var(--gold-light);
   }
-  .page-header .page-intro{margin:14px 0 0;color:rgba(244,231,220,0.72);font-size:15px;max-width:640px;}
+  .page-header .page-intro{margin:14px 0 0;color:rgba(244,231,220,0.82);font-size:clamp(17px,1.6vw,21px);line-height:1.55;max-width:720px;}
 
   main{padding:32px;max-width:1320px;margin:0 auto;background:var(--dark-bg);}
   .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;}
@@ -173,16 +174,21 @@
     font-size:11px;font-weight:700;padding:4px 9px;border-radius:999px;
     text-transform:uppercase;letter-spacing:.04em;backdrop-filter:blur(2px);
   }
-  .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;}
-  .play-overlay svg{width:46px;height:46px;opacity:0.92;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4));}
-  .card-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1;}
-  .source-row{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;}
+  .read-more-overlay{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;
+    background:rgba(244,231,220,0.94);opacity:0;transition:opacity .2s ease;pointer-events:none;
+  }
+  .card:hover .read-more-overlay{opacity:1;}
+  .read-more-overlay span{
+    font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#1c1712;
+  }
+  .read-more-overlay svg{width:18px;height:18px;color:#1c1712;transition:transform .2s ease;}
+  .card:hover .read-more-overlay svg{transform:translateX(4px);}
+  .card-body{padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1;}
+  .source-row{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;}
   .source{font-weight:700;color:var(--bts-green);text-transform:uppercase;letter-spacing:.03em;}
   .date{color:var(--muted);}
-  .headline{font-size:15.5px;font-weight:700;line-height:1.35;margin:0;color:var(--ink);}
-  .cta{margin-top:auto;font-size:13px;font-weight:700;color:var(--bts-green);display:flex;align-items:center;gap:6px;}
-  .cta svg{width:14px;height:14px;transition:transform .15s;}
-  .card:hover .cta svg{transform:translateX(3px);}
+  .headline{font-size:19px;font-weight:700;line-height:1.4;margin:0;color:var(--ink);}
 
   .content-section{margin-top:48px;padding-top:40px;border-top:1px solid rgba(244,231,220,0.14);}
   .content-section h2{
@@ -740,12 +746,10 @@ function render(filter){
     fallback.innerHTML = `<div class="initials">${initials(it.source)}</div><div class="src-name">${it.source}</div>`;
     thumbWrap.appendChild(fallback);
 
-    if(it.type === "video"){
-      const overlay = document.createElement("div");
-      overlay.className = "play-overlay";
-      overlay.innerHTML = PLAY_ICON;
-      thumbWrap.appendChild(overlay);
-    }
+    const readMore = document.createElement("div");
+    readMore.className = "read-more-overlay";
+    readMore.innerHTML = `<span>Read More</span>${ARTICLE_ICON}`;
+    thumbWrap.appendChild(readMore);
 
     const body = document.createElement("div");
     body.className = "card-body";
@@ -755,7 +759,6 @@ function render(filter){
         <span class="date">${it.date}</span>
       </div>
       <p class="headline">${it.headline}</p>
-      <span class="cta">${CTA_LABEL[it.type] || "Open"} ${ARTICLE_ICON}</span>
     `;
 
     a.appendChild(thumbWrap);
