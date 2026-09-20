@@ -180,7 +180,7 @@
     opacity:0;
     white-space:nowrap;
     z-index:2;
-    transition:opacity 0.9s ease;
+    transition:opacity 1.3s ease;
   }
   .name-intro-word.is-active{
     opacity:1;
@@ -210,7 +210,7 @@
     75%,100%{transform:translateY(0) scale(1);}
   }
   @media (prefers-reduced-motion: reduce){
-    .name-intro-word{transition:opacity 0.4s ease;}
+    .name-intro-word{transition:opacity 0.7s ease;}
     .name-intro-scroll svg{animation:scrollPopReduced 2.2s ease-in-out infinite;}
   }
   @keyframes scrollPopReduced{
@@ -1063,7 +1063,8 @@ render();
   var active = null;
   var HOLD_LATER = reduced ? 4200 : 7000;   // every hold after that is much slower
   var VIDEO_REVEAL_DELAY = reduced ? 750 : 2000;  // how long the hero stays black-with-"Ian" before the video fades in
-  var HOLD_FIRST = VIDEO_REVEAL_DELAY - 300;   // first hold: Ian shown a beat, then flips to Waite in lockstep with the video reveal below
+  var HOLD_FIRST = reduced ? 2200 : 4200;   // first hold: give "Ian" real time on screen before it flips to "Waite"
+  var CROSSFADE_GAP = reduced ? 200 : 450;  // brief pause between the old word finishing its fade-out and the new one starting its fade-in, so it reads as a deliberate transition rather than an instant swap
 
   function activate(word){
     wordIan.classList.remove('is-active');
@@ -1073,9 +1074,13 @@ render();
   }
 
   function next(){
-    var other = active === wordIan ? wordWaite : wordIan;
-    activate(other);
-    setTimeout(next, HOLD_LATER);
+    var incoming = active === wordIan ? wordWaite : wordIan;
+    active.classList.remove('is-active'); // fade the current word out fully first
+    active = null;
+    setTimeout(function(){
+      activate(incoming); // then fade the new word in, after a short held gap
+      setTimeout(next, HOLD_LATER);
+    }, CROSSFADE_GAP);
   }
 
   // "Ian" is already visible from the very first frame (see the is-active class set directly
